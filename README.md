@@ -18,7 +18,7 @@ The project is being run in conjunction with the AMSUN Running Club- a registere
 <ul>
     <li><a href="https://twitter.com/amsunuonbi">AMSUN UONBI Official Twitter Page</a></li>
     <li><a href="https://www.amsun-uon.org/">AMSUN UONBI Official Webpage</a></li>
-    <li><a href="https://twitter.com/AMSUNrunning">AMSUN Running Club Official Twitter Page/a></li>
+    <li><a href="https://twitter.com/AMSUNrunning">AMSUN Running Club Official Twitter Page</a></li>
 </ul>
 
 ### Contributors
