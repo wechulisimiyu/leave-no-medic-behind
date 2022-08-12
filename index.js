@@ -16,6 +16,10 @@ app.get('/', (req, res) => {
     res.render('home')
 });
 
+app.get('/buy-tickets', (req, res) => {
+    res.render('buy-tickets')
+});
+
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
     console.log(`Serving at port ${port}`)
