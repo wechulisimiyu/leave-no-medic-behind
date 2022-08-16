@@ -8,17 +8,32 @@ It began in 2017 when the then 5th year MBChB Class had a classmate who was almo
 
 From 2017 to 2021, LNMB has primarily done student-centered funds drive using the harambee model however in 2022 there emerged the idea to organise for a charity run.
 
-The project is being run in conjunction with the AMSUN Running Club- a registered club of runners in the School of Medicine. The project involves raising funds from sponsors and well-wishers plus the sale of T-shirts to participants who will take part in the run 
+The project is being run in conjunction with the AMSUN Running Club- a registered club of runners in the School of Medicine. The project involves raising funds from sponsors and well-wishers plus the sale of T-shirts to participants who will take part in the run.
 
 ### Developments
 - Developments currently in place for the 2023 edition of the run. More information will be provided.
-- For now, this is just the starter code.
+- For now, this is just the starter code. <strong>I will highlight when development will commence</strong>.
+
+## To run it locally
+Install node, using the [Node Version Manager](https://github.com/nvm-sh/nvm "Official Node Version Manager Github page").
+
+Alternatively, you can use nodemon to run the app.
+- To install nodemon, run ```npm install nodemon -g```
+
+```
+git clone git@github.com:wechu07/leave-no-medic-behind.git
+cd leave-no-medic-behind
+npm install
+```
+
+I am using SSH-based authentication. The alternative for token-based authentication is:```https://github.com/wechu07/leave-no-medic-behind.git```
 
 ### Communication
 <ul>
     <li><a href="https://twitter.com/amsunuonbi">AMSUN UONBI Official Twitter Page</a></li>
     <li><a href="https://www.amsun-uon.org/">AMSUN UONBI Official Webpage</a></li>
     <li><a href="https://twitter.com/AMSUNrunning">AMSUN Running Club Official Twitter Page</a></li>
+    <li><a href="https://twitter.com/wechuli_eugene">Primary Contributor's Twitter Handle</a></li>
 </ul>
 
 ### Contributors
