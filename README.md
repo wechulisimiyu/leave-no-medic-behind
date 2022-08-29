@@ -23,6 +23,9 @@ The project is being run in conjunction with the AMSUN Running Club- a registere
 ### Linux
 Install node, using the [Node Version Manager](https://github.com/nvm-sh/nvm "Official Node Version Manager Github page"). 
 
+Alternatively, you can use nodemon (a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected) to run the app.
+- To install nodemon, run ```npm install nodemon -g```
+
 ### Windows
 - Install node and npm.
 - Node can be installed from the [official website](https://nodejs.org/en/). Install it.
@@ -35,8 +38,9 @@ To update npm (i = install, -g = global)
 To find npm on your machine`, run
 ```%AppData%\npm```
 
-Alternatively, you can use nodemon (a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected) to run the app.
-- To install nodemon, run ```npm install nodemon -g```
+On Windows, if still unsuccessful, try this blog by [Jaydeep Patadiya](https://radixweb.com/blog/installing-npm-and-nodejs-on-windows-and-mac)
+
+### From Github to your machine
 
 ```
 git clone git@github.com:wechu07/leave-no-medic-behind.git
