@@ -12,12 +12,30 @@ The project is being run in conjunction with the AMSUN Running Club- a registere
 
 ### Developments
 - Developments currently in place for the 2023 edition of the run. More information will be provided.
-- For now, this is just the starter code. <strong>I will highlight when development will commence</strong>.
+- For now, this is just the starter code. <strong>I will highlight when development will commence</strong>
+
+## The Tech Stack, so far
+- [Node.js](https://nodejs.org) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+- [Express](https://expressjs.com//) - Fast, unopinionated, minimalist web framework for Node.js
+- [Ejs](https://ejs.co/) - Embedded JavaScript templating
 
 ## To run it locally
-Install node, using the [Node Version Manager](https://github.com/nvm-sh/nvm "Official Node Version Manager Github page").
+### Linux
+Install node, using the [Node Version Manager](https://github.com/nvm-sh/nvm "Official Node Version Manager Github page"). 
 
-Alternatively, you can use nodemon to run the app.
+### Windows
+- Install node and npm.
+- Node can be installed from the [official website](https://nodejs.org/en/). Install it.
+- check node version use WIN+R => cmd => node -v
+- check npm version use WIN+R => cmd => npm -v
+
+To update npm (i = install, -g = global)
+```npm i -g npm@latest # npm install -g npm@latest```
+
+To find npm on your machine`, run
+```%AppData%\npm```
+
+Alternatively, you can use nodemon (a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected) to run the app.
 - To install nodemon, run ```npm install nodemon -g```
 
 ```
@@ -26,7 +44,10 @@ cd leave-no-medic-behind
 npm install
 ```
 
-I am using SSH-based authentication. The alternative for token-based authentication is:```https://github.com/wechu07/leave-no-medic-behind.git```
+I am using SSH-based authentication. The alternative for token-based authentication is:
+```
+https://github.com/wechu07/leave-no-medic-behind.git
+```
 
 ### Communication
 <ul>
