@@ -1,5 +1,7 @@
 <% layout('layout/boilerplate')%>
 
+<!-- to-do: reg number vaidation -->
+
 <section class="pricing section-padding" id="section_5">
   <div class="container">
     <div class="row">
@@ -9,7 +11,7 @@
 
       <div>
         <div class="pricing-thumb bg-white shadow-lg">
-          <form action="submit" method="post">
+          <form action="submit" method="post" class="needs-validation" novalidate>
             <div class="form-group mb-3 px-3 pt-3">
               <label>Are you a student?</label>
               <div class="form-check form-check-inline">
@@ -100,6 +102,9 @@
                 required
               />
             </div>
+            <div class="valid-feedback">
+                Looks good!
+              </div>
             <div class="form-group mb-3 px-3">
               <label for="email-address">Email Address:</label>
               <input
@@ -110,6 +115,9 @@
                 required
               />
             </div>
+            <div class="valid-feedback">
+                Looks good!
+              </div>
             <div class="form-group mb-3 px-3">
               <label for="phone-number">Phone Number:</label>
               <input
@@ -120,6 +128,9 @@
                 required
               />
             </div>
+            <div class="valid-feedback">
+                Looks good!
+              </div>
             <div class="form-group mb-3 px-3">
               <button type="submit" class="custom-btn btn">
                 Proceed to Buy (MPESA)
@@ -151,4 +162,22 @@
     document.getElementById("student-pricing").style.display = "none";
     document.getElementById("non-student-pricing").style.display = "block";
   });
+
+  (function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    const validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
 </script>
