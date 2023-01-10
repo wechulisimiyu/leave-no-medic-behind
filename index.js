@@ -16,8 +16,8 @@ app.get('/', (req, res) => {
     res.render('home')
 });
 
-app.get('/buy-tickets', (req, res) => {
-    res.render('buy-tickets')
+app.get('/buy-tshirt', (req, res) => {
+    res.render('buy-tshirt')
 });
 
 const port = process.env.PORT || 4000;
