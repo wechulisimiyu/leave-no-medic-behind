@@ -1,0 +1,154 @@
+<% layout('layout/boilerplate')%>
+
+<section class="pricing section-padding" id="section_5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 text-center mx-auto mb-5">
+        <h2>Get Your <u class="text-info">T-shirt</u></h2>
+      </div>
+
+      <div>
+        <div class="pricing-thumb bg-white shadow-lg">
+          <form action="submit" method="post">
+            <div class="form-group mb-3 px-3 pt-3">
+              <label>Are you a student?</label>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="student"
+                  id="yes"
+                  value="yes"
+                  onchange="showRegNumber()"
+                />
+                <label class="form-check-label" for="yes">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="student"
+                  id="no"
+                  value="no"
+                  onchange="hideRegNumber()"
+                />
+                <label class="form-check-label" for="no">No</label>
+              </div>
+            </div>
+            <div
+              class="form-group mb-3 px-3"
+              id="registration-number"
+              style="display: none"
+            >
+              <label for="registration-number">Enter your Registration Number:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="registration-number"
+                name="registration-number"
+              />
+            </div>
+            <div class="form-group mb-3 px-3">
+              <label for="tshirt-size">T-Shirt Size:</label>
+              <select class="form-control" id="tshirt-size" name="tshirt-size">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+              </select>
+            </div>
+            <div class="form-group mb-3 px-3">
+              <label for="tshirt-type">T-Shirt Type:</label>
+              <select class="form-control" id="tshirt-type" name="tshirt-type">
+                <option value="small">Polo Neck</option>
+                <img src="https://www.flaticon.com/free-icons/man" alt="Man icons created by Freepik - Flaticon">
+                <option value="medium">Round Neck</option>
+                <img src="https://www.flaticon.com/free-icons/tshirt" alt="Tshirt icons created by Good Ware - Flaticon">
+              </select>
+            </div>
+            <div class="form-group mb-3 px-3" id="pricing-options" style="display: none;">
+              <label>Pricing Options</label>
+              <div class="form-group mb-3 px-3" id="student-pricing" style="display: none;">
+                <label for="student">Students:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="student_price"
+                  name="student_price"
+                  value="2000"
+                  readonly
+                />
+              </div>
+              <div class="form-group mb-3 px-3" id="non-student-pricing" style="display: none;">
+                <label for="non-student">Non-Students:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nonstudent_price"
+                  name="nonstudent_price"
+                  value="3000"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="form-group mb-3 px-3">
+              <label for="full-name">Full Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="full-name"
+                name="full-name"
+                required
+              />
+            </div>
+            <div class="form-group mb-3 px-3">
+              <label for="email-address">Email Address:</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email-address"
+                name="email-address"
+                required
+              />
+            </div>
+            <div class="form-group mb-3 px-3">
+              <label for="phone-number">Phone Number:</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phone-number"
+                name="phone-number"
+                required
+              />
+            </div>
+            <div class="form-group mb-3 px-3">
+              <button type="submit" class="custom-btn btn">
+                Proceed to Buy (MPESA)
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function showRegNumber() {
+    document.getElementById("registration-number").style.display = "block";
+    document.getElementById("student_price").value = 2000;
+  }
+  function hideRegNumber() {
+    document.getElementById("registration-number").style.display = "none";
+    document.getElementById("nonstudent_price").value = 3000;
+  }
+  document.getElementById("yes").addEventListener("change", function () {
+    document.getElementById("pricing-options").style.display = "block";
+    document.getElementById("student-pricing").style.display = "block";
+    document.getElementById("non-student-pricing").style.display = "none";
+  });
+  document.getElementById("no").addEventListener("change", function () {
+    document.getElementById("pricing-options").style.display = "block";
+    document.getElementById("student-pricing").style.display = "none";
+    document.getElementById("non-student-pricing").style.display = "block";
+  });
+</script>
