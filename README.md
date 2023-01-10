@@ -11,22 +11,28 @@ From 2017 to 2021, LNMB has primarily done student-centered funds drive using th
 The project is being run in conjunction with the AMSUN Running Club- a registered club of runners in the School of Medicine. The project involves raising funds from sponsors and well-wishers plus the sale of T-shirts to participants who will take part in the run.
 
 ### Developments
+
 - Developments currently in place for the 2023 edition of the run. More information will be provided.
-- For now, this is just the starter code. <strong>I will highlight when development will commence</strong>
+- For now, this is just the starter code. <strong> I will highlight when development will commence</strong>
 
 ## The Tech Stack, so far
+
 - [Node.js](https://nodejs.org) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 - [Express](https://expressjs.com//) - Fast, unopinionated, minimalist web framework for Node.js
 - [Ejs](https://ejs.co/) - Embedded JavaScript templating
 
 ## To run it locally
+
 ### Linux
-Install node, using the [Node Version Manager](https://github.com/nvm-sh/nvm "Official Node Version Manager Github page"). 
+
+Install node, using the [Node Version Manager](https://github.com/nvm-sh/nvm "Official Node Version Manager Github page").
 
 Alternatively, you can use nodemon (a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected) to run the app.
+
 - To install nodemon, run ```npm install nodemon -g```
 
 ### Windows
+
 - Install node and npm.
 - Node can be installed from the [official website](https://nodejs.org/en/). Install it.
 - check node version use WIN+R => cmd => node -v
@@ -49,11 +55,13 @@ npm install
 ```
 
 I am using SSH-based authentication. The alternative for token-based authentication is:
+
 ```
 https://github.com/wechu07/leave-no-medic-behind.git
 ```
 
 ### Communication
+
 <ul>
     <li><a href="https://twitter.com/amsunuonbi">AMSUN UONBI Official Twitter Page</a></li>
     <li><a href="https://www.amsun-uon.org/">AMSUN UONBI Official Webpage</a></li>
@@ -62,6 +70,7 @@ https://github.com/wechu07/leave-no-medic-behind.git
 </ul>
 
 ### Contributors
+
 <ul>
     <li><a href="https://github.com/wechu07">Wechuli Simiyu (Github)</a></li>
 </ul>
