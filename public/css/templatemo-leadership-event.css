@@ -240,7 +240,7 @@ strong {
 .custom-btn,
 .navbar-expand-lg .navbar-nav .nav-link.custom-btn,
 .navbar-nav .nav-link.custom-btn {
-  background: var(--navbar-bg-color);
+  background: var(  --secondary-color);
   border-radius: 100px;
   color: var(--white-color);
   font-size: var(--copyright-text-font-size);
