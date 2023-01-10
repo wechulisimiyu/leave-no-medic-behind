@@ -20,6 +20,7 @@ The project is being run in conjunction with the AMSUN Running Club- a registere
 - [Node.js](https://nodejs.org) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 - [Express](https://expressjs.com//) - Fast, unopinionated, minimalist web framework for Node.js
 - [Ejs](https://ejs.co/) - Embedded JavaScript templating
+- [Sequelize](https://sequelize.org/) - Sequelize is a modern TypeScript and Node.js ORM for Oracle, Postgres, MySQL, MariaDB, SQLite and SQL Server, and more. Featuring solid transaction support, relations, eager and lazy loading, read replication and more.
 
 ## To run it locally
 
