@@ -1,30 +1,37 @@
-const express = require('express');
-const app = express();
-const path = require('path');
-const ejsMate = require('ejs-mate');
-const methodOverride = require('method-override');
+const express = require('express')
+const path = require('path')
+const mongoose = require('mongoose')
+const dotenv = require('dotenv')
+const connectDB = require('./config/db')
+const ejsMate = require('ejs-mate')
+const methodOverride = require('method-override')
+const homeRoute = require('./src/routes/homeRoutes')
 
-app.engine('ejs', ejsMate);
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+mongoose.set('strictQuery', true)
 
-app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride('_method'));
-app.use(express.static(path.join(__dirname, 'public')));
+// loading the config files
+dotenv.config({ path: './config/config.env' })
 
-app.get('/', (req, res) => {
-    res.render('home')
-});
+// connect the db
+connectDB()
 
-app.get('/buy-tshirt', (req, res) => {
-    res.render('buy-tshirt')
-});
+const app = express()
 
-app.get('/vendor', (req, res) => {
-    res.render('vendor')
-});
+app.engine('ejs', ejsMate)
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'src/views'))
 
-const port = process.env.PORT || 4000;
+// Body parser
+// app.use(express.urlencoded({ extended: false }))
+// app.use(express.json())
+
+app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
+app.use(express.static(path.join(__dirname, 'public')))
+
+app.use("/", homeRoute)
+
+const port = process.env.PORT || 4000
 app.listen(port, () => {
     console.log(`Serving at port ${port}`)
 });
