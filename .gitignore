@@ -3,3 +3,4 @@ node_modules
 txt.txt
 index.html
 upload.sh
+config/
