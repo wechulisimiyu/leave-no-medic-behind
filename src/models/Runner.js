@@ -1,25 +1,31 @@
 const mongoose = require("mongoose")
 
-const RunnerSchema = new mongoose.Schema(
+const RunnerSchema = mongoose.Schema(
   {
     studentStatus: {
       type: Boolean,
-      default: true,
-      required: true,
+      required: [true, 'Why no bacon?'],
+      unique: true,
+      default: false,
     },
     regNumber: {
-      type: String,
-      required: true,
+      type: 'String',
+      required: [true, 'Why no bacon?'],
       unique: true,
     },
     name: {
-      type: String,
-      required: true,
+      type: 'String',
+      required: [true, 'Why no bacon?'],
       unique: true,
     },
     email: {
-      type: String,
-      required: true,
+      type: 'String',
+      required: [true, 'Why no bacon?'],
+      unique: true,
+    },
+    phoneNumber: {
+      type: Number,
+      required: [true, 'Why no bacon?'],
       unique: true,
     },
   },
