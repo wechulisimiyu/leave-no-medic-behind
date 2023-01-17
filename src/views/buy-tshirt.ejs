@@ -39,20 +39,20 @@
             </div>
             <div
               class="form-group mb-3 px-3"
-              id="registration-number"
+              id="regNumber"
               style="display: none"
             >
-              <label for="registration-number">Enter your Registration Number:</label>
+              <label for="regNumber">Enter your Registration Number:</label>
               <input
                 type="text"
                 class="form-control"
-                id="registration-number"
-                name="registration-number"
+                id="regNumber"
+                name="regNumber"
               />
             </div>
             <div class="form-group mb-3 px-3">
               <label for="tshirt-size">T-Shirt Size:</label>
-              <select class="form-control" id="tshirt-size" name="tshirt-size">
+              <select class="form-control" id="tshirtSize" name="tshirtSize">
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="large">Large</option>
@@ -60,10 +60,10 @@
             </div>
             <div class="form-group mb-3 px-3">
               <label for="tshirt-type">T-Shirt Type:</label>
-              <select class="form-control" id="tshirt-type" name="tshirt-type">
-                <option value="small">Polo Neck</option>
+              <select class="form-control" id="tshirtType" name="tshirtType">
+                <option value="polo">Polo Neck</option>
                 <img src="https://www.flaticon.com/free-icons/man" alt="Man icons created by Freepik - Flaticon">
-                <option value="medium">Round Neck</option>
+                <option value="round">Round Neck</option>
                 <img src="https://www.flaticon.com/free-icons/tshirt" alt="Tshirt icons created by Good Ware - Flaticon">
               </select>
             </div>
@@ -97,8 +97,8 @@
               <input
                 type="text"
                 class="form-control"
-                id="full-name"
-                name="full-name"
+                id="name"
+                name="name"
                 required
               />
             </div>
@@ -106,12 +106,12 @@
                 Looks good!
               </div>
             <div class="form-group mb-3 px-3">
-              <label for="email-address">Email Address:</label>
+              <label for="email">Email Address:</label>
               <input
                 type="email"
                 class="form-control"
-                id="email-address"
-                name="email-address"
+                id="email"
+                name="email"
                 required
               />
             </div>
@@ -123,8 +123,8 @@
               <input
                 type="tel"
                 class="form-control"
-                id="phone-number"
-                name="phone-number"
+                id="phone"
+                name="phone"
                 required
               />
             </div>
@@ -145,11 +145,11 @@
 
 <script>
   function showRegNumber() {
-    document.getElementById("registration-number").style.display = "block";
+    document.getElementById("regNumber").style.display = "block";
     document.getElementById("student_price").value = 2000;
   }
   function hideRegNumber() {
-    document.getElementById("registration-number").style.display = "none";
+    document.getElementById("regNumber").style.display = "none";
     document.getElementById("nonstudent_price").value = 3000;
   }
   document.getElementById("yes").addEventListener("change", function () {
@@ -178,6 +178,15 @@
         form.classList.add('was-validated');
       }, false);
     });
+    form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const phoneNumber = form.phone.value;
+    if(!phoneNumber || !/^(?:(?:(?:\+254|0)[17])(?:\d{9}))$|^(?:(?:\+254|0)[17])(?:\d{8})$/.test(phoneNumber)) {
+        return alert('Invalid phone number');
+    }
+    // send the data to the server
+});
+
   }, false);
 })();
 </script>
