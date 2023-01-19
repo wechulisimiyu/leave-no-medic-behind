@@ -1,6 +1,6 @@
 node_modules
-.env
 txt.txt
 index.html
 upload.sh
 config/config.env
+steps.txt
