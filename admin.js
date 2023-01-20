@@ -5,7 +5,11 @@ const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')
 const session = require('express-session')
+const { Database, Resource } = require('@adminjs/mongoose')
+// const Login = require('./admin/components/login')
 // const Order = require('./src/models/Order')
+
+AdminJS.registerAdapter({ Database, Resource })
 
 // loading the config files
 dotenv.config({ path: './config/config.env' })
@@ -16,7 +20,7 @@ const PORT = 3000
 
 const DEFAULT_ADMIN = {
   email: 'admin@example.com',
-  password: 'password',
+  password: 'password123',
 }
 
 const authenticate = async (email, password) => {
@@ -32,7 +36,7 @@ const start = async () => {
   const mongooseDb = await mongoose.connect(mongoUrl)
 
   const admin = new AdminJS({
-    resources: []
+    databases: [mongooseDb],
   })
 
   if (process.env.NODE_ENV === 'production') {
@@ -69,8 +73,8 @@ const start = async () => {
       saveUninitialized: true,
       secret: 'sessionsecret',
       cookie: {
-        httpOnly: process.env.NODE_ENV === 'development',
-        secure: process.env.NODE_ENV === 'development',
+        httpOnly: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production',
       },
       name: 'adminjs',
     }

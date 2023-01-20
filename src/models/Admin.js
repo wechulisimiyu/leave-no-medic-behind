@@ -30,7 +30,8 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ['raceadmin', 'salesadmin', 'financeadmin']
-  }
+  },
+  { timestamps: true }
 });
 
 const Admin = mongoose.model('Admin', adminSchema);
