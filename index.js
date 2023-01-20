@@ -1,3 +1,5 @@
+const AdminJS = require('adminjs')
+const AdminJSExpress = require('@adminjs/express')
 const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
@@ -6,7 +8,7 @@ const connectDB = require('./config/db')
 const ejsMate = require('ejs-mate')
 const methodOverride = require('method-override')
 const homeRoute = require('./src/routes/homeRoutes')
-const adminRoute = require('./src/routes/adminRoutes')
+const admin = require('./admin')
 
 mongoose.set('strictQuery', true)
 
@@ -17,6 +19,7 @@ dotenv.config({ path: './config/config.env' })
 connectDB()
 
 const app = express()
+
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
@@ -31,9 +34,9 @@ app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use("/", homeRoute)
-app.use("/admin", adminRoute)
 
 const port = process.env.PORT || 4000
+
 app.listen(port, () => {
     console.log(`Serving at port ${port}`)
 });
