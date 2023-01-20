@@ -1,14 +1,17 @@
 const mongoose = require('mongoose')
 
-const RunnerSchema = new mongoose.Schema({
+const OrderSchema = new mongoose.Schema({
   student: {
     type: Boolean,
     required: true
   },
   regNumber: {
     type: String,
-    required: true,
-    unique: true
+    unique: true,
+    validate: {
+      validator: regNum => /^[hviHVI]\d{2}\/\d{4,6}\/\d{4}$/.test(regNum)
+    },
+    message: props => `${props.value} is not a valid registration number!`
   },
   tshirtType: {
     type: String,
@@ -29,8 +32,9 @@ const RunnerSchema = new mongoose.Schema({
     required: [true, 'email is required'],
     unique: true,
     validate: {
-      validator: v => /^([\w-.]+@([\w-]+.)+[\w-]{2,4})?$/.test(v)
-    }
+      validator: v => /^([\w-.]+@([\w-]+.)+[\w-]{2,4}(\.\w+)*)?$/.test(v)
+    },
+    message: props => `${props.value} is not a valid email!`
   },
   phone: {
     type: String,
@@ -40,11 +44,9 @@ const RunnerSchema = new mongoose.Schema({
     validate: {
       validator: phoneNumber => /^(?:(?:(?:\+254|0)[17])(?:\d{9}))$|^(?:(?:\+254|0)[17])(?:\d{8})$/.test(phoneNumber)
     },
-    message: props => `${props.value} is not a valid number!`
-    
+    message: props => `${props.value} is not a valid number!`  
   }
-
 })
 
-const Runner = mongoose.model('Runner', RunnerSchema)
-module.exports = Runner
+const Order = mongoose.model('Order', OrderSchema)
+module.exports = Order
