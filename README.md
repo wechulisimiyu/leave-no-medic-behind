@@ -12,25 +12,22 @@ The project is being run in conjunction with the AMSUN Running Club- a registere
 
 ### Developments
 
-- Developments currently in place for the 2023 edition of the run. More information will be provided.
-- For now, this is just the starter code. <strong> I will highlight when development will commence</strong>
+- Welcoming any changes, refactoring and issues
 
 ## The Tech Stack, so far
 
 - [Node.js](https://nodejs.org) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 - [Express](https://expressjs.com//) - Fast, unopinionated, minimalist web framework for Node.js
 - [Ejs](https://ejs.co/) - Embedded JavaScript templating
-- [Sequelize](https://sequelize.org/) - Sequelize is a modern TypeScript and Node.js ORM for Oracle, Postgres, MySQL, MariaDB, SQLite and SQL Server, and more. Featuring solid transaction support, relations, eager and lazy loading, read replication and more.
+- [Mongoose](https://mongoosejs.com/) - elegant mongodb object modeling for node.jssupport, relations, eager and lazy loading, read replication and more.
+- [MongoDb](https://www.mongodb.com/) - NoSQL database built for modern application architectures
 
 ## To run it locally
 
 ### Linux
 
 Install node, using the [Node Version Manager](https://github.com/nvm-sh/nvm "Official Node Version Manager Github page").
-
-Alternatively, you can use nodemon (a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected) to run the app.
-
-- To install nodemon, run ```npm install nodemon -g```
+On your terminal, run ```npm install```, and create a `config/config.env` file using the `sample.env` file.
 
 ### Windows
 
@@ -46,6 +43,9 @@ To find npm on your machine`, run
 ```%AppData%\npm```
 
 On Windows, if still unsuccessful, try this blog by [Jaydeep Patadiya](https://radixweb.com/blog/installing-npm-and-nodejs-on-windows-and-mac)
+
+Afterwards, on your terminal, run ```npm install```, and create a `config/config.env` file using the `sample.env` file.
+
 
 ### From Github to your machine
 
@@ -72,6 +72,4 @@ https://github.com/wechu07/leave-no-medic-behind.git
 
 ### Contributors
 
-<ul>
-    <li><a href="https://github.com/wechu07">Wechuli Simiyu (Github)</a></li>
-</ul>
+[Wechuli Simiyu (Github)](https://github.com/wechu07)
