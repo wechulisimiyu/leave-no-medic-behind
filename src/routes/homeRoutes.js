@@ -3,7 +3,9 @@ const Runner = require('../models/Order')
 
 router.post('/buy-tshirt', async (req, res) => {
     if(req.body.student === 'no') {
-        delete req.body.regNumber
+        if(req.body.regNumber) {
+            delete req.body.regNumber
+        }
     }
     console.log(req.body)
     const newRunner = new Runner(req.body)
@@ -16,7 +18,8 @@ router.post('/buy-tshirt', async (req, res) => {
             const duplicateKey = Object.keys(err.keyValue)[0]
             res.status(400).json({message: `${duplicateKey} ${err.keyValue[duplicateKey]} already exists`})
         }else{
-            res.status(500).json({message: "Error saving data"})
+            console.log(err)
+            res.status(500).json({message: "Error saving data: " + err})
         }
     }
 })
