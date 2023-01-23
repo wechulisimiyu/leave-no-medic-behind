@@ -52,11 +52,11 @@ const OrderSchema = new mongoose.Schema({
     },
     message: props => `${props.value} is not a valid number!`
   },
-  pickUpPoint: {
-    type: String,
-    enum: ['kenyatta-national-hospital', 'chiromo-campus'],
-    required: true
-  },
+  // pickUpPoint: {
+  //   type: String,
+  //   enum: ['kenyatta-national-hospital', 'chiromo-campus'],
+  //   required: true
+  // },
 })
 
 OrderSchema.pre('save', function(next) {
