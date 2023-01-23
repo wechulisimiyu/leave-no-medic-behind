@@ -7,20 +7,24 @@ const MongoStore = require('connect-mongo')
 const session = require('express-session')
 const { Database, Resource } = require('@adminjs/mongoose')
 // const Login = require('./admin/components/login')
-// const Order = require('./src/models/Order')
+const Order = require('./src/models/Order')
+const Tshirt = require('./src/models/Tshirt')
+const Admin = require('./src/models/Admin')
 
-AdminJS.registerAdapter({ Database, Resource })
+AdminJS.registerAdapter({ Database, Resource }) 
 
 // loading the config files
-dotenv.config({ path: './config/config.env' })
+dotenv.config({ path: './config/config.env' }) 
 const mongoUrl = process.env.DB_URL
+const email = process.env.DEFAULT_ADMIN_EMAIL || 'admin@example.com'
+const password = process.env.DEFAULT_ADMIN_PASSWORD || 'password123'
 
 const PORT = 3000
 
 
 const DEFAULT_ADMIN = {
-  email: 'admin@example.com',
-  password: 'password123',
+  email,
+  password
 }
 
 const authenticate = async (email, password) => {
@@ -33,17 +37,21 @@ const authenticate = async (email, password) => {
 const start = async () => {
   const app = express()
 
-  const mongooseDb = await mongoose.connect(mongoUrl)
+  // const mongooseDb = await mongoose.connect(mongoUrl)
 
   const admin = new AdminJS({
-    databases: [mongooseDb],
+    resources: [
+      Order,
+      Tshirt,
+      Admin
+    ]
   })
 
-  if (process.env.NODE_ENV === 'production') {
-    await admin.initialize()
-  } else admin.watch()
+  if (process.env.NODE_ENV === 'production') { 
+    await admin.initialize() 
+  } else admin.watch() 
 
-  const sessionStore = MongoStore.create({
+  const sessionStore = MongoStore.create({ 
     mongoUrl,
     client: mongoose.connection.getClient(),
     collectionName: 'sessions',
