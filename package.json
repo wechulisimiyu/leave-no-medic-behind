@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node app",
-    "dev": "cross-env NODE_ENV=development nodemon app"
+    "start": "cross-env NODE_ENV=production node index",
+    "dev": "cross-env NODE_ENV=development nodemon",
+    "seed": "cross-env NODE_ENV=development nodemon seed"
   },
   "keywords": [],
   "author": "",
@@ -27,7 +28,8 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.0",
     "method-override": "^3.0.0",
-    "mongoose": "^6.8.3",
+    "mongoose": "^6.8.4",
+    "mongoose-unique-validator": "^3.1.0",
     "morgan": "^1.10.0",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
