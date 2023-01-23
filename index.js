@@ -7,7 +7,7 @@ const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 const ejsMate = require('ejs-mate')
 const methodOverride = require('method-override')
-const homeRoute = require('./src/routes/homeRoutes')
+const homeRoute = require('./src/routes/home')
 const admin = require('./admin')
 
 mongoose.set('strictQuery', true)
