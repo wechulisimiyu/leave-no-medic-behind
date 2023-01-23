@@ -10,6 +10,7 @@ const { Database, Resource } = require('@adminjs/mongoose')
 const Order = require('./src/models/Order')
 const Tshirt = require('./src/models/Tshirt')
 const Admin = require('./src/models/Admin')
+const Pickup = require('./src/models/Pickup')
 
 AdminJS.registerAdapter({ Database, Resource }) 
 
@@ -43,7 +44,8 @@ const start = async () => {
     resources: [
       Order,
       Tshirt,
-      Admin
+      Admin,
+      Pickup
     ]
   })
 

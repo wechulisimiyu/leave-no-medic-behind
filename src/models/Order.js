@@ -51,7 +51,12 @@ const OrderSchema = new mongoose.Schema({
       validator: phoneNumber => /^(?:(?:(?:\+254|0)[17])(?:\d{9}))$|^(?:(?:\+254|0)[17])(?:\d{8})$/.test(phoneNumber)
     },
     message: props => `${props.value} is not a valid number!`
-  }
+  },
+  pickUpPoint: {
+    type: String,
+    enum: ['kenyatta-national-hospital', 'chiromo-campus'],
+    required: true
+  },
 })
 
 OrderSchema.pre('save', function(next) {
