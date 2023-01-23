@@ -61,7 +61,7 @@
             <div class="form-group mb-3 px-3">
               <label for="tshirt-type">T-Shirt Type:</label>
               <select class="form-control" id="tshirtType" name="tshirtType">
-                <option value="polo">Polo Neck</option>
+                <option value="polo" data-image="https://www.flaticon.com/free-icons/man">Polo Neck</option>
                 <img src="https://www.flaticon.com/free-icons/man" alt="Man icons created by Freepik - Flaticon">
                 <option value="round">Round Neck</option>
                 <img src="https://www.flaticon.com/free-icons/tshirt" alt="Tshirt icons created by Good Ware - Flaticon">
@@ -131,6 +131,18 @@
             <div class="valid-feedback">
                 Looks good!
               </div>
+              <div class="form-group mb-3 px-3">
+                <label for="pick-up-point">Pick-up Point:</label>
+                <select class="form-control" id="pick-up-point" name="pick-up-point" required>
+                  <option value="">Please select a pick-up point</option>
+                  <option value="kenyatta-national-hospital">Kenyatta National Hospital</option>
+                  <option value="chiromo-campus">Chiromo Campus, University of Nairobi</option>
+                  <option value="support">I am not picking any tshirt, just supporting the cause</option>
+                </select>
+              </div>
+              <div class="valid-feedback">
+                  Looks good!
+                </div>
             <div class="form-group mb-3 px-3">
               <button type="submit" class="custom-btn btn">
                 Proceed to Buy (MPESA)

@@ -38,5 +38,5 @@ app.use("/", homeRoute)
 const port = process.env.PORT || 4000
 
 app.listen(port, () => {
-    console.log(`Serving at port ${port}`)
-});
+    console.log(`Serving at http://localhost:${port}`)
+}) 
