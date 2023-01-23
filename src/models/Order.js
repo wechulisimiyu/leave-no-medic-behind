@@ -2,12 +2,18 @@ const mongoose = require('mongoose')
 
 const OrderSchema = new mongoose.Schema({
   student: {
-    type: Boolean,
+    type: String,
+    enum: ['yes', 'no'],
     required: true
   },
   regNumber: {
     type: String,
-    unique: true,
+    unique: function () {
+      return this.student === 'yes';
+    },
+    required: function () {
+      return this.student === 'yes';
+    },
     validate: {
       validator: regNum => /^[hviHVI]\d{2}\/\d{4,6}\/\d{4}$/.test(regNum)
     },
@@ -44,9 +50,17 @@ const OrderSchema = new mongoose.Schema({
     validate: {
       validator: phoneNumber => /^(?:(?:(?:\+254|0)[17])(?:\d{9}))$|^(?:(?:\+254|0)[17])(?:\d{8})$/.test(phoneNumber)
     },
-    message: props => `${props.value} is not a valid number!`  
+    message: props => `${props.value} is not a valid number!`
   }
 })
+
+OrderSchema.pre('save', function(next) {
+  if (this.student === 'no') {
+    delete this.regNumber;
+  }
+  next();
+});
+
 
 const Order = mongoose.model('Order', OrderSchema)
 module.exports = Order
