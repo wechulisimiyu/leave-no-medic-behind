@@ -1,6 +1,6 @@
 # Leave no medic behind
 
-## 2022/2023
+## 2023
 
 The Leave No Medic Behind Initiative Charity Run is a fundraising project by the Association of Medical Students of the University of Nairobi (AMSUN) to meet the financial needs of underprivileged students in the School of Medicine.
 
@@ -46,7 +46,6 @@ On Windows, if still unsuccessful, try this blog by [Jaydeep Patadiya](https://r
 
 Afterwards, on your terminal, run ```npm install```, and create a `config/config.env` file using the `sample.env` file.
 
-
 ### From Github to your machine
 
 ```
@@ -60,6 +59,10 @@ I am using SSH-based authentication. The alternative for token-based authenticat
 ```
 https://github.com/wechu07/leave-no-medic-behind.git
 ```
+
+### Configuration
+
+Included with the code is a sample.env file with fields you will need to configure
 
 ### Communication
 
