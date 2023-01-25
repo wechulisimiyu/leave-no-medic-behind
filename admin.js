@@ -16,7 +16,11 @@ AdminJS.registerAdapter({ Database, Resource })
 
 // loading the config files
 dotenv.config({ path: './config/config.env' }) 
-const mongoUrl = process.env.DB_URL
+const mongoUrl = process.env.DB_URL 
+
+// uncomment and pass this if you want to develop offline using local mongodb
+// localdB = 'mongodb://localhost:27017/lnmb';
+
 const email = process.env.DEFAULT_ADMIN_EMAIL || 'admin@example.com'
 const password = process.env.DEFAULT_ADMIN_PASSWORD || 'password123'
 
@@ -43,10 +47,19 @@ const start = async () => {
   const admin = new AdminJS({
     resources: [
       Order,
-      Tshirt,
       Admin,
-      Pickup
-    ]
+      Pickup,
+      Tshirt
+    ],
+    locale: {
+      language: 'en',
+      translations: {
+        labels: {
+          Order: 'Shirts',
+          Tshirt: 'Stock',
+        },
+      },
+    },
   })
 
   if (process.env.NODE_ENV === 'production') { 
@@ -64,7 +77,7 @@ const start = async () => {
       secret: 'sessionsecret',
       resave: true,
       saveUninitialized: false,
-      cookie: { maxAge: 24 * 60 * 60 * 1000 },
+      cookie: { maxAge: 6 * 60 * 60 * 1000 }, // 6 hrs
       store: sessionStore,
     })
   )
