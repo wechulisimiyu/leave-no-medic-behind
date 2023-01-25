@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Runner = require("./src/models/Order");
+const Tshirt = require("./src/models/Tshirt");
 const dotenv = require("dotenv");
 
 mongoose.set("strictQuery", true);
@@ -38,7 +39,8 @@ const data = [
     tshirtSize: "medium",
     name: "John Doe",
     email: "johndoe@example.com",
-    phone: "+254712345678"
+    phone: "+254712345678",
+    pickUpPoint: "kenyatta-national-hospital",
   },
   {
     student: "yes",
@@ -47,7 +49,8 @@ const data = [
     tshirtSize: "large",
     name: "Jane Doe",
     email: "janedoe@example.com",
-    phone: "+254712345679"
+    phone: "+254712345679",
+    pickUpPoint: "chiromo-campus",
   },
   {
     student: "no",
@@ -55,7 +58,8 @@ const data = [
     tshirtSize: "small",
     name: "Bob Johnson",
     email: "bobjohnson@example.com",
-    phone: "+254712345680"
+    phone: "+254712345680",
+    pickUpPoint: "kenyatta-national-hospital",
   },
   {
     student: "yes",
@@ -64,7 +68,8 @@ const data = [
     tshirtSize: "medium",
     name: "Emily Smith",
     email: "emilysmith@example.com",
-    phone: "+254712345681"
+    phone: "+254712345681",
+    pickUpPoint: "chiromo-campus",
   },
   {
     student: "no",
@@ -72,7 +77,8 @@ const data = [
     tshirtSize: "large",
     name: "Michael Brown",
     email: "michaelbrown@example.com",
-    phone: "+254712345682"
+    phone: "+254712345682",
+    pickUpPoint: "kenyatta-national-hospital",
   },
   {
     student: "yes",
@@ -81,7 +87,8 @@ const data = [
     tshirtSize: "small",
     name: "Jessica Williams",
     email: "jessicawilliams@example.com",
-    phone: "+254712345683"
+    phone: "+254712345683",
+    pickUpPoint: "chiromo-campus",
   },
   {
     student: "no",
@@ -89,9 +96,9 @@ const data = [
     tshirtSize: "medium",
     name: "James Garcia",
     email: "jamesgarcia@example.com",
-    phone: "+254712345684"
-  }
-  ,
+    phone: "+254712345684",
+    pickUpPoint: "kenyatta-national-hospital",
+  },
   {
     student: "yes",
     regNumber: "v02/12345/2018",
@@ -99,7 +106,8 @@ const data = [
     tshirtSize: "large",
     name: "Emily Davis",
     email: "emilydavis@example.com",
-    phone: "+254712345685"
+    phone: "+254712345685",
+    pickUpPoint: "kenyatta-national-hospital",
   },
   {
     student: "yes",
@@ -108,7 +116,8 @@ const data = [
     tshirtSize: "small",
     name: "Michael Miller",
     email: "michaelmiller@example.com",
-    phone: "+254712345686"
+    phone: "+254712345686",
+    pickUpPoint: "chiromo-campus",
   },
   {
     student: "no",
@@ -116,13 +125,55 @@ const data = [
     tshirtSize: "medium",
     name: "Brian Martinez",
     email: "brianmartinez@example.com",
-    phone: "0785348445"
-  }
+    phone: "0785348445",
+    pickUpPoint: "chiromo-campus",
+  },
+];
+
+const tshirts = [
+  {
+    type: "polo",
+    size: "small",
+    stockCount: 20,
+    updatedAt: "2022-01-01 12:00:00",
+  },
+  {
+    type: "polo",
+    size: "medium",
+    stockCount: 15,
+    updatedAt: "2022-01-01 12:00:00",
+  },
+  {
+    type: "polo",
+    size: "large",
+    stockCount: 10,
+    updatedAt: "2022-01-01 12:00:00",
+  },
+  {
+    type: "round",
+    size: "small",
+    stockCount: 25,
+    updatedAt: "2022-01-01 12:00:00",
+  },
+  {
+    type: "round",
+    size: "medium",
+    stockCount: 20,
+    updatedAt: "2022-01-01 12:00:00",
+  },
+  {
+    type: "round",
+    size: "large",
+    stockCount: 15,
+    updatedAt: "2022-01-01 12:00:00",
+  },
 ];
 
 const seedDb = async () => {
   await Runner.deleteMany({});
   await Runner.insertMany(data);
+  await Tshirt.deleteMany({});
+  await Tshirt.insertMany(tshirts);
   console.log("done seeding");
 };
 
