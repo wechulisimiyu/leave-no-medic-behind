@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
+const Order = require('./Order');
 const TShirt = require('./Tshirt')
-const Order = require('./Order')
 
 const PickupSchema = new mongoose.Schema({
     order: {
@@ -8,15 +8,19 @@ const PickupSchema = new mongoose.Schema({
         ref: 'Order',
         required: true
       },
-      pickUpPoint: {
-          type: String, 
-          enum: ['kenyatta-national-hospital', 'chiromo-campus'], 
-          required: true
-      },
-      pickedUp: { 
-          type: Boolean, 
-          default: false 
-      }
+    pickUpPoint: {
+        type: String, 
+        enum: ['kenyatta-national-hospital', 'chiromo-campus'], 
+        required: true
+    },
+    pickedUpDate: {
+        type: Date,
+        default: null
+    },
+    pickedUp: { 
+      type: Boolean, 
+      default: false 
+  },
 });
 
 PickupSchema.pre('save', async function (next) {
@@ -30,6 +34,7 @@ PickupSchema.pre('save', async function (next) {
         }
         tshirt.stockCount--;
         await tshirt.save();
+        this.pickedUpDate = new Date();
     }
     next();
 });

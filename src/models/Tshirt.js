@@ -15,8 +15,20 @@ const TShirtSchema = new mongoose.Schema({
         type: Number,
         required: true,
         default: 0 
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now()
     }
 });
+
+TShirtSchema.methods.updateStockCount = function(count) {
+    this.stockCount = count;
+    this.updatedAt = Date.now();
+    return this.save();
+}
+
+// Tshirt.pre('save', function(next) { this.updatedAt = Date.now(); next() })
 
 const TShirt = mongoose.model('TShirt', TShirtSchema);
 
