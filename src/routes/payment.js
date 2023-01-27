@@ -1,18 +1,11 @@
+const express = require('express')
+const router = express.Router()
+const { initiateSTKPush, stkPushCallback, confirmPayment } = require('../controllers/mpesa')
 
-const express = require('express');
+const { accessToken } = require('../middleware/generateAccessToken')
 
-const router = express.Router();
+router.route('/stkPush').post(accessToken, initiateSTKPush)
+router.route('/stkPushCallback/:Order_ID').post(stkPushCallback)
+router.route('/confirmPayment/:CheckoutRequestID').post(accessToken, confirmPayment)
 
-//controllers
-const mpesa = require('../controllers/mpesa');
-
-//route to get the auth token
-router.get('/get-auth-token', mpesa.getOAuthToken);
-
-//lipa na mpesa online 
-router.post('/lipa-na-mpesa', mpesa.getOAuthToken, mpesa.lipaNaMpesaOnline);
-
-//callback url
-router.post('/lipa-na-mpesa-callback', mpesa.lipaNaMpesaOnlineCallback);
-
-module.exports = router;
+module.exports = router

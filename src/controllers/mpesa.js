@@ -1,116 +1,186 @@
+const request = require("request");
+const dotenv = require("dotenv");
+const { getTimestamp } = require('../utils/timestamp');
+const ngrok = require('ngrok')
 
-const axios = require('axios').default;
-require('dotenv').config();
+// loading the config files
+dotenv.config({ path: "../config/config.env" });
 
-class MpesaController {
+// @desc initiate stk push
+// @method POST
+// @route /stkPush
+// @access
 
-    async getOAuthToken(req,res,next){
-        let consumer_key = process.env.consumer_key;
-        let consumer_secret = process.env.consumer_secret;
+const initiateSTKPush = async (req, res) => {
+  try {
+    const { amount, phone, Order_ID } = req.body
+    const url =
+      "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
+    const auth = "Bearer " + req.safaricom_access_token;
 
-        let url = process.env.oauth_token_url;
+    const timestamp = getTimestamp();
+    //shortcode + passkey + timestamp
+    const password = new Buffer.from(
+      process.env.BUSINESS_SHORT_CODE + process.env.PASS_KEY + timestamp
+    ).toString("base64");
+    // create callback url
+    const callback_url = await ngrok.connect(process.env.PORT);
+    const api = ngrok.getApi();
+    await api.listTunnels();
 
-        //form a buffer of the consumer key and secret
-        let buffer = new Buffer.from(consumer_key+":"+consumer_secret);
-
-        let auth = `Basic ${buffer.toString('base64')}`;
-
-        try{
-
-            let {data} = await axios.get(url,{
-                "headers":{
-                    "Authorization":auth
-                }
-            });
-
-            req.token = data['access_token'];
-
-            return next();
-
-        }catch(err){
-
-            return res.send({
-                success:false,
-                message:err['response']['statusText']
-            });
-
+    console.log("callback ", callback_url);
+    request(
+      {
+        url: url,
+        method: "POST",
+        headers: {
+          Authorization: auth,
+        },
+        json: {
+          BusinessShortCode: process.env.BUSINESS_SHORT_CODE,
+          Password: password,
+          Timestamp: timestamp,
+          TransactionType: "CustomerPayBillOnline",
+          Amount: amount,
+          PartyA: phone,
+          PartyB: process.env.BUSINESS_SHORT_CODE,
+          PhoneNumber: phone,
+          CallBackURL: `${callback_url}/api/stkPushCallback/${Order_ID}`,
+          AccountReference: "Leave No Medic Behind",
+          TransactionDesc: "Paid online",
+        },
+      },
+      function (e, response, body) {
+        if (e) {
+          console.error(e);
+          res.status(503).send({
+            message: "Error with the stk push",
+            error: e,
+          });
+        } else {
+          res.status(200).json(body);
         }
-        
-        
-
-        
-        
-    };
-
-    async lipaNaMpesaOnline(req,res){
-        let token = req.token;
-        let auth = `Bearer ${token}`;
-        
-
-        //getting the timestamp
-        let timestamp = require('../middleware/timestamp').timestamp;
-
-        let url = process.env.lipa_na_mpesa_url;
-        let bs_short_code = process.env.lipa_na_mpesa_shortcode;
-        let passkey = process.env.lipa_na_mpesa_passkey;
-
-        let password = new Buffer.from(`${bs_short_code}${passkey}${timestamp}`).toString('base64');
-        let transcation_type = "CustomerPayBillOnline";
-        let amount = "1"; //you can enter any amount
-        let partyA = "party-sending-funds"; //should follow the format:2547xxxxxxxx
-        let partyB = process.env.lipa_na_mpesa_shortcode;
-        let phoneNumber = "party-sending-funds"; //should follow the format:2547xxxxxxxx
-        let callBackUrl = "your-ngrok-url/mpesa/lipa-na-mpesa-callback";
-        let accountReference = "lipa-na-mpesa-tutorial";
-        let transaction_desc = "Testing lipa na mpesa functionality";
-
-        try {
-
-            let {data} = await axios.post(url,{
-                "BusinessShortCode":bs_short_code,
-                "Password":password,
-                "Timestamp":timestamp,
-                "TransactionType":transcation_type,
-                "Amount":amount,
-                "PartyA":partyA,
-                "PartyB":partyB,
-                "PhoneNumber":phoneNumber,
-                "CallBackURL":callBackUrl,
-                "AccountReference":accountReference,
-                "TransactionDesc":transaction_desc
-            },{
-                "headers":{
-                    "Authorization":auth
-                }
-            }).catch(console.log);
-
-            return res.send({
-                success:true,
-                message:data
-            });
-
-        }catch(err){
-
-            return res.send({
-                success:false,
-                message:err['response']['statusText']
-            });
-
-        };
-    };
-
-    lipaNaMpesaOnlineCallback(req,res){
-
-        //Get the transaction description
-        let message = req.body.Body.stkCallback['ResultDesc'];
-
-        return res.send({
-            success:true,
-            message
-        });
-        
-    };
-
+      }
+    );
+  } catch (e) {
+    console.error("Error while trying to create LipaNaMpesa details", e);
+    res.status(503).send({
+      message:
+        "Something went wrong while trying to create LipaNaMpesa details. Contact admin",
+      error: e,
+    });
+  }
 };
 
-module.exports = new MpesaController()
+// @desc callback route Safaricom will post transaction status
+// @method POST
+// @route /stkPushCallback/:Order_ID
+// @access public
+const stkPushCallback = async (req, res) => {
+  try {
+    //    order id
+    const { Order_ID } = req.params;
+
+    //callback details
+
+    const {
+      MerchantRequestID,
+      CheckoutRequestID,
+      ResultCode,
+      ResultDesc,
+      CallbackMetadata,
+    } = req.body.Body.stkCallback;
+
+    //     get the meta data from the meta
+    const meta = Object.values(await CallbackMetadata.Item);
+    const PhoneNumber = meta
+      .find((o) => o.Name === "PhoneNumber")
+      .Value.toString();
+    const Amount = meta.find((o) => o.Name === "Amount").Value.toString();
+    const MpesaReceiptNumber = meta
+      .find((o) => o.Name === "MpesaReceiptNumber")
+      .Value.toString();
+    const TransactionDate = meta
+      .find((o) => o.Name === "TransactionDate")
+      .Value.toString();
+
+    // do something with the data
+    console.log("-".repeat(20), " OUTPUT IN THE CALLBACK ", "-".repeat(20));
+    console.log(`
+            Order_ID : ${Order_ID},
+            MerchantRequestID : ${MerchantRequestID},
+            CheckoutRequestID: ${CheckoutRequestID},
+            ResultCode: ${ResultCode},
+            ResultDesc: ${ResultDesc},
+            PhoneNumber : ${PhoneNumber},
+            Amount: ${Amount}, 
+            MpesaReceiptNumber: ${MpesaReceiptNumber},
+            TransactionDate : ${TransactionDate}
+        `);
+
+    res.json(true);
+  } catch (e) {
+    console.error(
+      "Error while trying to update LipaNaMpesa details from the callback",
+      e
+    );
+    res.status(503).send({
+      message: "Something went wrong with the callback",
+      error: e.message,
+    });
+  }
+};
+
+// @desc Check from safaricom servers the status of a transaction
+// @method GET
+// @route /confirmPayment/:CheckoutRequestID
+// @access public
+const confirmPayment = async (req, res) => {
+  try {
+    const url = "https://sandbox.safaricom.co.ke/mpesa/stkpushquery/v1/query";
+    const auth = "Bearer " + req.safaricom_access_token;
+
+    const timestamp = getTimestamp();
+    //shortcode + passkey + timestamp
+    const password = new Buffer.from(
+      process.env.BUSINESS_SHORT_CODE + process.env.PASS_KEY + timestamp
+    ).toString("base64");
+
+    request(
+      {
+        url: url,
+        method: "POST",
+        headers: {
+          Authorization: auth,
+        },
+        json: {
+          BusinessShortCode: process.env.BUSINESS_SHORT_CODE,
+          Password: password,
+          Timestamp: timestamp,
+          CheckoutRequestID: req.params.CheckoutRequestID,
+        },
+      },
+      function (error, response, body) {
+        if (error) {
+          console.log(error);
+          res.status(503).send({
+            message:
+              "Something went wrong while trying to create LipaNaMpesa details. Contact admin",
+            error: error,
+          });
+        } else {
+          res.status(200).json(body);
+        }
+      }
+    );
+  } catch (e) {
+    console.error("Error while trying to create LipaNaMpesa details", e);
+    res.status(503).send({
+      message:
+        "Something went wrong while trying to create LipaNaMpesa details. Contact admin",
+      error: e,
+    });
+  }
+};
+
+module.exports = { initiateSTKPush, stkPushCallback, confirmPayment };
