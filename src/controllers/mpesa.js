@@ -1,10 +1,11 @@
-const request = require("request");
+const axios = require("axios");
 const dotenv = require("dotenv");
-const { getTimestamp } = require('../utils/timestamp');
-const ngrok = require('ngrok')
+const { getTimestamp } = require("../utils/timestamp");
+const ngrok = require("ngrok");
+const Mpesa = require("../models/Mpesa");
 
 // loading the config files
-dotenv.config({ path: '../../config/config.env' })
+dotenv.config({ path: "../../config/config.env" });
 
 // @desc initiate stk push
 // @method POST
@@ -13,8 +14,7 @@ dotenv.config({ path: '../../config/config.env' })
 
 const initiateSTKPush = async (req, res) => {
   try {
-    const { amount, phone, Order_ID } = req.body
-    console.log(amount, phone, Order_ID)
+    const { amount, phone, Order_ID } = req.body;
     const url =
       "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
     const auth = "Bearer " + req.safaricom_access_token;
@@ -30,40 +30,36 @@ const initiateSTKPush = async (req, res) => {
     await api.listTunnels();
 
     console.log("callback ", callback_url);
-    request(
-      {
-        url: url,
-        method: "POST",
-        headers: {
-          Authorization: auth,
-        },
-        json: {
-          BusinessShortCode: process.env.BUSINESS_SHORT_CODE,
-          Password: password,
-          Timestamp: timestamp,
-          TransactionType: "CustomerPayBillOnline",
-          Amount: amount,
-          PartyA: phone,
-          PartyB: process.env.BUSINESS_SHORT_CODE,
-          PhoneNumber: phone,
-          CallBackURL: `${callback_url}/api/stkPushCallback/${Order_ID}`,
-          AccountReference: "Leave No Medic Behind",
-          TransactionDesc: "Test",
-        },
+    axios({
+      method: "post",
+      url: url,
+      headers: {
+        Authorization: auth,
       },
-      function (e, response, body) {
-        if (e) {
-          console.error(e);
-          res.status(503).send({
-            message: "Error with the stk push",
-            error: e,
-          });
-        } else {
-          res.status(200).json(body);
-          console.log(body.CallBackURL)
-        }
-      }
-    );
+      data: {
+        BusinessShortCode: process.env.BUSINESS_SHORT_CODE,
+        Password: password,
+        Timestamp: timestamp,
+        TransactionType: "CustomerPayBillOnline",
+        Amount: amount,
+        PartyA: phone,
+        PartyB: process.env.BUSINESS_SHORT_CODE,
+        PhoneNumber: phone,
+        CallBackURL: `${callback_url}/api/stkPushCallback/${Order_ID}.json`,
+        AccountReference: "Leave No Medic Behind",
+        TransactionDesc: "Test",
+      },
+    })
+      .then((response) => {
+        res.status(200).json(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(503).send({
+          message: "Error with the stk push",
+          error: error,
+        });
+      });
   } catch (e) {
     console.error("Error while trying to create LipaNaMpesa details", e);
     res.status(503).send({
@@ -82,6 +78,8 @@ const stkPushCallback = async (req, res) => {
   try {
     //    order id
     const { Order_ID } = req.params;
+
+    console.log(`Order_ID: ${Order_ID}`);
 
     //callback details
 
@@ -119,6 +117,32 @@ const stkPushCallback = async (req, res) => {
             MpesaReceiptNumber: ${MpesaReceiptNumber},
             TransactionDate : ${TransactionDate}
         `);
+    // Create a new Mpesa object with the data received
+    const mpesaData = new Mpesa({
+      Order_ID,
+      MerchantRequestID,
+      CheckoutRequestID,
+      ResultCode,
+      ResultDesc,
+      PhoneNumber,
+      Amount,
+      MpesaReceiptNumber,
+      TransactionDate,
+    });
+
+    // Save the data to the Mpesa collection in the MongoDB
+    mpesaData.save((err, data) => {
+      if (err) {
+        console.error(err);
+        res.status(503).send({
+          message: "Error while trying to save Mpesa data",
+          error: err,
+        });
+      } else {
+        console.log("Mpesa data saved successfully!");
+        res.status(200).json(data);
+      }
+    });
 
     res.json(true);
   } catch (e) {
