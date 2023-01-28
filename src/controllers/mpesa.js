@@ -4,7 +4,7 @@ const { getTimestamp } = require('../utils/timestamp');
 const ngrok = require('ngrok')
 
 // loading the config files
-dotenv.config({ path: "../config/config.env" });
+dotenv.config({ path: '../../config/config.env' })
 
 // @desc initiate stk push
 // @method POST
@@ -14,6 +14,7 @@ dotenv.config({ path: "../config/config.env" });
 const initiateSTKPush = async (req, res) => {
   try {
     const { amount, phone, Order_ID } = req.body
+    console.log(amount, phone, Order_ID)
     const url =
       "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
     const auth = "Bearer " + req.safaricom_access_token;
@@ -47,7 +48,7 @@ const initiateSTKPush = async (req, res) => {
           PhoneNumber: phone,
           CallBackURL: `${callback_url}/api/stkPushCallback/${Order_ID}`,
           AccountReference: "Leave No Medic Behind",
-          TransactionDesc: "Paid online",
+          TransactionDesc: "Test",
         },
       },
       function (e, response, body) {
@@ -59,6 +60,7 @@ const initiateSTKPush = async (req, res) => {
           });
         } else {
           res.status(200).json(body);
+          console.log(body.CallBackURL)
         }
       }
     );

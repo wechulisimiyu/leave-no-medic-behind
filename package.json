@@ -16,6 +16,7 @@
     "@adminjs/design-system": "^3.1.6",
     "@adminjs/express": "^5.1.0",
     "@adminjs/mongoose": "^3.0.1",
+    "@openpesa/pesa-js": "^0.0.11",
     "adminjs": "^6.8.1",
     "axios": "^1.2.4",
     "bcryptjs": "^2.4.3",
