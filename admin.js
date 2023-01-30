@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')
 const session = require('express-session')
 const { Database, Resource } = require('@adminjs/mongoose')
+// const { generateAdminJSConfig } = require('./adminJsConfig')
 // const Login = require('./admin/components/login')
 const Order = require('./src/models/Order')
 const Tshirt = require('./src/models/Tshirt')
@@ -42,6 +43,7 @@ const authenticate = async (email, password) => {
 
 const start = async () => {
   const app = express()
+  // const config = generateAdminJSConfig()
 
   // const mongooseDb = await mongoose.connect(mongoUrl)
 

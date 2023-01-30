@@ -7,7 +7,8 @@
     "start": "cross-env NODE_ENV=production node index",
     "dev": "cross-env NODE_ENV=development nodemon",
     "seed": "cross-env NODE_ENV=development nodemon seed",
-    "ngrok": "ngrok http 5000"
+    "ngrok": "ngrok http 5000",
+    "build": "node build app"
   },
   "keywords": [],
   "author": "",
