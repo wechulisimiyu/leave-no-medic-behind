@@ -45,7 +45,7 @@ const initiateSTKPush = async (req, res) => {
         PartyA: phone,
         PartyB: process.env.BUSINESS_SHORT_CODE,
         PhoneNumber: phone,
-        CallBackURL: `${callback_url}/api/stkPushCallback/${Order_ID}.json`,
+        CallBackURL: `${callback_url}/payment/stkPushCallback/${Order_ID}`,
         AccountReference: "Leave No Medic Behind",
         TransactionDesc: "Test",
       },
@@ -144,7 +144,6 @@ const stkPushCallback = async (req, res) => {
       }
     });
 
-    res.json(true);
   } catch (e) {
     console.error(
       "Error while trying to update LipaNaMpesa details from the callback",
