@@ -61,6 +61,7 @@ const start = async () => {
         labels: {
           Order: 'Shirts',
           Tshirt: 'Stock',
+          Mpesa: 'Payments'
         },
       },
     },
