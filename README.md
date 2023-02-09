@@ -46,15 +46,20 @@ On Windows, if still unsuccessful, try this blog by [Jaydeep Patadiya](https://r
 
 Afterwards, on your terminal, run ```npm install```, and create a `config/config.env` file using the `sample.env` file.
 
+N.B: If you want to make a frontend change without dealing with the backend, the code will run if you comment out the `connectDb()` function in `index.js`
+
 ### From Github to your machine
 
+Fork this repository.
+
 ```
+
 git clone git@github.com:wechu07/leave-no-medic-behind.git
 cd leave-no-medic-behind
 npm install
 ```
 
-I am using SSH-based authentication. The alternative for token-based authentication is:
+- I am using SSH-based authentication. The alternative for token-based authentication is:
 
 ```
 https://github.com/wechu07/leave-no-medic-behind.git
