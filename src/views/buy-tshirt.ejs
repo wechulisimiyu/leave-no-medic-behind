@@ -1,4 +1,4 @@
-<% layout('layout/boilerplate')%>
+<% layout('layout/form-boilerplate')%>
 
 <!-- to-do: reg number vaidation -->
 
@@ -6,7 +6,8 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 text-center mx-auto mb-5">
-        <h2>Get Your <u class="text-info">T-shirt</u></h2>
+        <h2>Get Your <u class="text-info">T-shirt</u>, or donate freely</h2>
+        <p>In order to register for the run, proceed to buy a tshirt. You can also buy a tshirt even if you choose not to participate in the run. Alternatively, you can donate any sum to the fund with or without buying a tshirt, which will go towards the leave no medic behind cause</p>
       </div>
 
       <div>
@@ -158,12 +159,12 @@
 <script>
   function showRegNumber() {
     document.getElementById("regNumber").style.display = "block";
-    document.getElementById("student_price").value = 2000;
+    document.getElementById("student_price").value = 600;
   }
   function hideRegNumber() {
     document.getElementById("regNumber").style.display = "none";
     document.getElementById("regNumber").value = "";
-    document.getElementById("nonstudent_price").value = 3000;
+    document.getElementById("nonstudent_price").value = 1000;
   }
   document.getElementById("yes").addEventListener("change", function () {
     document.getElementById("pricing-options").style.display = "block";
