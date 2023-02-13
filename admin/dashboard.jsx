@@ -86,46 +86,46 @@ const boxes = ({ translateMessage }) => [
 
 const Dashboard = () => {
   const { translateMessage, translateButton } = useTranslation();
-  // return (
-  //   // <Box>
-  //   //   <DashboardHeader />
-  //   //   <Box
-  //   //     mt={["xl", "xl", "-100px"]}
-  //   //     mb="xl"
-  //   //     mx={[0, 0, 0, "auto"]}
-  //   //     px={["default", "lg", "xxl", "0"]}
-  //   //     position="relative"
-  //   //     display="flex"
-  //   //     flexDirection="row"
-  //   //     flexWrap="wrap"
-  //   //     width={[1, 1, 1, 1024]}
-  //   //   >
-  //   //     {boxes({ translateMessage }).map((box, index) => (
-  //   //       // eslint-disable-next-line react/no-array-index-key
-  //   //       <Box key={index} width={[1, 1 / 2, 1 / 3, 1 / 3]} p="default">
-  //   //         <Card
-  //   //           as="a"
-  //   //           href={box.href}
-  //   //           p="default"
-  //   //           height="100%"
-  //   //           flex
-  //   //           alignItems="center"
-  //   //           justifyContent="center"
-  //   //         >
-  //   //           <Illustration variant={box.variant} />
-  //   //           <Box p="lg">
-  //   //             <H5>{box.title}</H5>
-  //   //             <Text opacity={0.7}>{box.subtitle}</Text>
-  //   //           </Box>
-  //   //         </Card>
-  //   //       </Box>
-  //   //     ))}
-  //   //   </Box>
-  //   //   <Box textAlign="center" p="lg">
-  //   //     <Button variant="primary">{translateButton('discoverAdminJs')}</Button>
-  //   //   </Box>
-  //   // </Box>
-  // );
+  return (
+    <Box>
+      <DashboardHeader />
+      <Box
+        mt={["xl", "xl", "-100px"]}
+        mb="xl"
+        mx={[0, 0, 0, "auto"]}
+        px={["default", "lg", "xxl", "0"]}
+        position="relative"
+        display="flex"
+        flexDirection="row"
+        flexWrap="wrap"
+        width={[1, 1, 1, 1024]}
+      >
+        {boxes({ translateMessage }).map((box, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Box key={index} width={[1, 1 / 2, 1 / 3, 1 / 3]} p="default">
+            <Card
+              as="a"
+              href={box.href}
+              p="default"
+              height="100%"
+              flex
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Illustration variant={box.variant} />
+              <Box p="lg">
+                <H5>{box.title}</H5>
+                <Text opacity={0.7}>{box.subtitle}</Text>
+              </Box>
+            </Card>
+          </Box>
+        ))}
+      </Box>
+      <Box textAlign="center" p="lg">
+        <Button variant="primary">{translateButton('discoverAdminJs')}</Button>
+      </Box>
+    </Box>
+  );
 };
 
 module.exports = Dashboard
