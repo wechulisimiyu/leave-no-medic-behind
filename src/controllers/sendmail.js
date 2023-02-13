@@ -4,11 +4,11 @@ const dotenv = require('dotenv')
 // loading the config files
 dotenv.config({ path: './config/config.env' })
 
-const yourEmail = "wechuli07@gmail.com";
+const yourEmail = "mail@mail.com";
 const yourPass = process.env.MAIL_PASS;
-const mailHost = "mail.eduniquetransform.org";
+const mailHost = "smtp.mailtrap.io";
 const mailPort = 465;
-const senderEmail = 'from@example.com'
+const senderEmail = 'dummy@gmail.com'
 
 /**
  * Send mail
@@ -18,18 +18,17 @@ const senderEmail = 'from@example.com'
  * @returns 
  */
 
-const to = 'doshdosh012@gmail.com'
+const to = 'dummy@gmail.com'
 const subject = 'Nice Nodemailer test'
 const htmlContent = '<b>Hey there! </b><br> This is our first message sent with Nodemailer<br />'
 
 const transporter = nodemailer.createTransport({
-  host: mailHost,
-  port: mailPort,
-  secure: true, // use SSL - TLS
+  host: "sandbox.smtp.mailtrap.io",
+  port: 2525,
   auth: {
-    user: 'developers@eduniquetransform.org',
-    pass: 'd8mBUXfDyoxSKz',
-  },
+    user: "00ea599d8f95c3",
+    pass: "39c7c45f182282"
+  }
 })
 
 const mailOptions = {
@@ -38,21 +37,5 @@ const mailOptions = {
   subject: subject,
   html: htmlContent,
 }
-
-
-// const sendMail = (to, subject, htmlContent) => {
-  
-
-  
-
-//   return transporter.sendMail(mailOptions, (error, info) => {
-//     if (error) {
-//       return console.log(error);
-//     }
-//     console.log('Message sent: %s as the message ID, and %s as the response', info.messageId);
-//   }); // promise
-// };
-
-// sendMail()
 
 module.exports = { transporter, mailOptions }
