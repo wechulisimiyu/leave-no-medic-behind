@@ -12,7 +12,7 @@ const MongoStore = require('connect-mongo');
 const methodOverride = require('method-override')
 const homeRoute = require('./src/routes/home')
 const lipaRoute = require('./src/routes/payment')
-const adminRoute = require('./src/routes/user')
+const admin = require('./admin')
 
 mongoose.set('strictQuery', true)
 
@@ -74,7 +74,6 @@ app.use(async (req, res, next) => {
 
 app.use("/", homeRoute)
 app.use("/payment", lipaRoute)
-app.use("/admin", adminRoute)
 
 const port = process.env.PORT || 4000
 
