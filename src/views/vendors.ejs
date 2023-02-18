@@ -1,0 +1,64 @@
+<% layout('layout/boilerplate')%>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-12 text-center mx-auto mb-5 mt-5">
+                    <h2>Sign up to be a <u class="text-info">Vendor</u></h2>
+                </div>
+
+                <div>
+                    <div class="pricing-thumb bg-white shadow-lg">
+                        <form action="/vendors" method="post" class="needs-validation" novalidate>
+                            <div class="form-group mb-3 px-3">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" required />
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
+
+                            <div class="form-group mb-3 px-3" id="regNumber" style="display: none">
+                                <label for="regNumber">Registration Number:</label>
+                                <input type="text" class="form-control" id="regNumber" name="regNumber" />
+                            </div>
+
+                            <div class="form-group mb-3 px-3">
+                                <label for="yearOfStudy">Year of Study:</label>
+                                <select class="form-control" id="yearOfStudy" name="yearOfStudy">
+                                    <option value="">Please select your year of study</option>
+                                    <option value="1">First year</option>
+                                    <option value="2">Second year</option>
+                                    <option value="3">Third year</option>
+                                    <option value="4">Fourth year</option>
+                                    <option value="5">Fifth year</option>
+                                    <option value="6">Sixth year</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3 px-3">
+                                <label for="typeOfBusiness">Type of Business:</label>
+                                <input type="text" class="form-control" id="typeOfBusiness" name="typeOfBusiness" required />
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
+                            
+                            <div class="form-group mb-3 px-3">
+                                <label for="whatItSells">What do you sell?</label>
+                                <input type="text" class="form-control" id="whatItSells" name="whatItSells" required />
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
+                            
+                            <div class="form-group mb-3 px-3">
+                                <label for="helperName">Tell us the name of your helper</label>
+                                <input type="text" class="form-control" id="helperName" name="helperName" required />
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
+                            
+                            <div class="form-group mb-3 px-3">
+                                <label for="schoolIdPic">Upload a photo of your School ID for Owner and Helper or National ID of Helper:</label>
+                                <input type="file" class="form-control" id="schoolIdPic" name="schoolIdPic" required />
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
