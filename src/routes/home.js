@@ -39,7 +39,7 @@ router.get("/vendors", (req, res) => {
 });
 
 // POST route for /vendors
-router.post('/vendors', uploadVendorPic, createVendor);
+router.post('/vendors', createVendor);
 
 router.get("/", (req, res) => {
   res.render("home");

@@ -75,6 +75,7 @@ exports.getUser = async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const user = await User.findById(userId);
+    console.log(user)
     if (!user) return next(new Error("User does not exist"));
     res.status(200).json({
       data: user,
@@ -139,17 +140,14 @@ exports.grantAccess = function (action, resource) {
 
 exports.allowIfLoggedin = async (req, res, next) => {
   try {
-    const user = req.session.user;
-
-    if (!user)
-      return res.status(401).json({
-        error: "You need to be logged in to access this route",
-      });
-
+    const user = req.locals.user = await getUser(req.headers.authorization);
+    console.log(user)
+    if (!user) return res.status(401).json({ error: "You need to be logged in to access this route" });
     req.user = user;
     next();
   } catch (error) {
     next(error);
   }
 };
+
 
