@@ -16,6 +16,8 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "Vendor",
+    format: async (req, file) => 'jpeg',
+    public_id: (req, file) => 'computed-filename-using-request',
   },
 });
 

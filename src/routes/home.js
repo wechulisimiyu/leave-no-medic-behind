@@ -1,6 +1,9 @@
 const router = require("express").Router();
-const Runner = require("../models/Order");
-const { createVendor, uploadVendorPic } = require('../controllers/vendor');
+const Runner = require("../models/Order")
+const Vendor= require("../models/Vendor")
+const upload = require('../utils/multer')
+const multer = require('multer')
+const { cloudinary, storage } = require('../../config/cloudinary')
 
 router.post("/buy-tshirt", async (req, res) => {
   if (req.body.student === "no") {
@@ -38,8 +41,35 @@ router.get("/vendors", (req, res) => {
   res.render("vendors");
 });
 
+const parser = multer({ storage: storage });
+
 // POST route for /vendors
-router.post('/vendors', createVendor);
+router.post('/vendors', parser.single("schoolIdPic"), async (req, res) => {
+  try {
+    // Upload image to cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path);
+    // Create new vendor
+    let vendor = new Vendor({
+      name: req.body.name,
+      regNumber: req.body.regNumber,
+      yearOfStudy: req.body.yearOfStudy,
+      typeOfBusiness: req.body.typeOfBusiness,
+      whatItSells: req.body.whatItSells,
+      helperName: req.body.helperName,
+      schoolIdPic: {
+        public_id: result.public_id,
+        url: result.secure_url
+      }
+    });
+    // Save vendor
+    await vendor.save();
+    res.json(vendor);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Could not create vendor" });
+  }
+});
+
 
 router.get("/", (req, res) => {
   res.render("home");
