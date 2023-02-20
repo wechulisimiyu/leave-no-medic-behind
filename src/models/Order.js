@@ -13,16 +13,6 @@ const OrderSchema = new mongoose.Schema({
   },
   regNumber: {
     type: String,
-    unique: function () {
-      return this.student === "yes";
-    },
-    required: function () {
-      return this.student === "yes";
-    },
-    validate: {
-      validator: (regNum) => /^[hviHVI]\d{2}\/\d{4,6}\/\d{4}$/.test(regNum),
-    },
-    message: (props) => `${props.value} is not a valid registration number!`,
   },
   tshirtType: {
     type: String,
@@ -60,9 +50,9 @@ const OrderSchema = new mongoose.Schema({
     },
     message: (props) => `${props.value} is not a valid number!`,
   },
-  pickUpPoint: {
+  pickUp: {
     type: String,
-    enum: ["kenyatta-national-hospital", "chiromo-campus"],
+    enum: ["kenyatta-national-hospital", "chiromo-campus", "support"],
     required: true,
   },
 });
