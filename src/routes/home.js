@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const Runner = require("../models/Order")
 const Vendor= require("../models/Vendor")
-const upload = require('../utils/multer')
 const multer = require('multer')
 const { cloudinary, storage } = require('../../config/cloudinary')
 
@@ -11,26 +10,20 @@ router.post("/buy-tshirt", async (req, res) => {
       delete req.body.regNumber;
     }
   }
-  console.log(req.body);
-  const newRunner = new Runner(req.body);
+  const newRunner = new Runner(req.body)
   try {
-    const savedRunner = await newRunner.save();
+    const savedRunner = await newRunner.save()
+
+    const { amount, phoneNumber } = req.body
+
     res.status(200);
-    res.redirect("/");
+    res.redirect(`payment/stkPush?amount=${amount}&phone=${phoneNumber}`);
   } catch (err) {
-    if (err.code === 11000) {
-      const duplicateKey = Object.keys(err.keyValue)[0];
-      res
-        .status(400)
-        .json({
-          message: `${duplicateKey} ${err.keyValue[duplicateKey]} already exists`,
-        });
-    } else {
       console.log(err);
       res.status(500).json({ message: "Error saving data: " + err });
     }
   }
-});
+);
 
 router.get("/buy-tshirt", (req, res) => {
   res.render("buy-tshirt");
