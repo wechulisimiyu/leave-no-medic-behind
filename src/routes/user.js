@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/user');
-const { roles } = require('../controllers/roles')
+const userController = require('../controllers/userController');
+const { roles } = require('../controllers/rolesController')
 
 router.get('/register', (req, res) => {
     res.render('admin/register')
