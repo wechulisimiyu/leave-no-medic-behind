@@ -1,14 +1,16 @@
 {
   "name": "leave-no-medic-behind",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node index",
     "dev": "cross-env NODE_ENV=development nodemon",
     "seed": "cross-env NODE_ENV=development nodemon seed",
-    "ngrok": "ngrok http 5000",
-    "build": "node build app"
+    "ngrok": "ngrok http 5000"
   },
   "keywords": [],
   "author": "",
