@@ -10,9 +10,9 @@ const session = require("express-session")
 const ejsMate = require('ejs-mate')
 const MongoStore = require('connect-mongo');
 const methodOverride = require('method-override')
-const homeRoute = require('./src/routes/home')
-const lipaRoute = require('./src/routes/payment')
-const adminRoute = require('./src/routes/user')
+const homeRoute = require('./src/routes/homeRoutes')
+const lipaRoute = require('./src/routes/paymentRoutes')
+const adminRoute = require('./src/routes/userRoutes')
 
 mongoose.set('strictQuery', true)
 
