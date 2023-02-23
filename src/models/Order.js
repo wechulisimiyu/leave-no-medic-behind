@@ -24,6 +24,9 @@ const OrderSchema = new mongoose.Schema({
     enum: ["small", "medium", "large"],
     required: true,
   },
+  price: {
+    type: Number,
+  },
   name: {
     type: String,
     required: [true, "name is required"],

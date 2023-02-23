@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 const { roles } = require("../controllers/rolesController");
+const Orders = require("../models/Order");
 
 router.get("/register", (req, res) => {
   res.render("admin/register", { name: "new admin" });
@@ -14,6 +15,10 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", userController.login);
+
+router.get("/profile", (req, res) => {
+  res.render("admin/profile");
+});
 
 router.get(
   "/user/:userId",
@@ -129,8 +134,15 @@ router.get(
   // userController.grantAccess("readAny", "admin"),
   (req, res) => {
     // const user = req.body.name;
-    console.log(req.body);
-    res.render("admin/admin");
+    // mongoose operations are asynchronous, so you need to wait
+    Orders.countDocuments({}, function (err, count) {
+      // note that data is an array of objects, not a single object!
+      res.render("admin/admin", {
+        orders: count,
+      });
+    });
+    // console.log(req.body);
+    // res.render("admin/admin");
   }
 );
 

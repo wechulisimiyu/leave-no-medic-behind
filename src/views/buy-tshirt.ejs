@@ -77,7 +77,7 @@
                   class="form-control"
                   id="student_price"
                   name="student_price"
-                  value="2000"
+                  value="600"
                   readonly
                 />
               </div>
@@ -88,7 +88,7 @@
                   class="form-control"
                   id="nonstudent_price"
                   name="nonstudent_price"
-                  value="3000"
+                  value="1000"
                   readonly
                 />
               </div>
@@ -159,12 +159,12 @@
 <script>
   function showRegNumber() {
     document.getElementById("regNumber").style.display = "block";
-    document.getElementById("student_price").value = 600;
+    document.getElementById("student_price");
   }
   function hideRegNumber() {
     document.getElementById("regNumber").style.display = "none";
     document.getElementById("regNumber").value = "";
-    document.getElementById("nonstudent_price").value = 1000;
+    document.getElementById("nonstudent_price");
   }
   document.getElementById("yes").addEventListener("change", function () {
     document.getElementById("pricing-options").style.display = "block";
