@@ -7,7 +7,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node index",
+    "start": "node index",
     "dev": "cross-env NODE_ENV=development nodemon",
     "seed": "cross-env NODE_ENV=development nodemon seed",
     "ngrok": "ngrok http 5000"
