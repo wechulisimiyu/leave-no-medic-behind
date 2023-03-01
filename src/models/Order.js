@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
-  // order_id: {
-  //   type: String,
-  //   required: true,
-  //   unique: true,
-  // },
   student: {
     type: String,
     enum: ["yes", "no"],
@@ -58,14 +53,34 @@ const OrderSchema = new mongoose.Schema({
     enum: ["kenyatta-national-hospital", "chiromo-campus", "support"],
     required: true,
   },
+  buying: {
+    type: String,
+    enum: ["buying", "donating"],
+    required: true,
+  },
+  amount: {
+    type: Number,
+    required: function () {
+      return this.buying === "donating";
+    },
+  },
 });
 
-// OrderSchema.pre('save', function(next) {
-//   if (this.student === 'no') {
-//     delete this.regNumber;
-//   }
-//   next();
-// });
+OrderSchema.pre("save", function (next) {
+  if (this.student === "no") {
+    delete this.regNumber;
+  }
+  if (this.buying === "buying") {
+    if (this.tshirtType === "polo") {
+      this.price = 1000;
+    } else {
+      this.price = 800;
+    }
+  } else {
+    this.price = this.amount;
+  }
+  next();
+});
 
 const Order = mongoose.model("Order", OrderSchema);
 module.exports = Order;

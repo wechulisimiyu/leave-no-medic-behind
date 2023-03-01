@@ -1,206 +1,184 @@
 <% layout('layout/form-boilerplate')%>
 
-<!-- to-do: reg number vaidation -->
+  <!-- to-do: reg number vaidation -->
 
-<section class="pricing section-padding" id="section_5">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 col-12 text-center mx-auto mb-5">
-        <h2>Get Your <u class="text-info">T-shirt</u>, or donate freely</h2>
-        <p>In order to register for the run, proceed to buy a tshirt. You can also buy a tshirt even if you choose not to participate in the run. Alternatively, you can donate any sum to the fund with or without buying a tshirt, which will go towards the leave no medic behind cause</p>
-      </div>
+  <section class="pricing section-padding" id="section_5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-12 text-center mx-auto mb-5">
+          <h2>Get Your <u class="text-info">T-shirt</u>, or donate freely</h2>
+          <p>In order to register for the run, proceed to buy a tshirt. You can also buy a tshirt even if you choose not
+            to participate in the run. Alternatively, you can donate any sum to the fund with or without buying a
+            tshirt, which will go towards the leave no medic behind cause</p>
+        </div>
 
-      <div>
-        <div class="pricing-thumb bg-white shadow-lg">
-          <form action="/buy-tshirt" method="post" class="needs-validation" novalidate>
-            <div class="form-group mb-3 px-3 pt-3">
-              <label>Are you a student?</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="student"
-                  id="yes"
-                  value="yes"
-                  onchange="showRegNumber()"
-                />
-                <label class="form-check-label" for="yes">Yes</label>
+        <div>
+          <div class="pricing-thumb bg-white shadow-lg">
+            <form action="/buy-tshirt" method="post" class="needs-validation" novalidate>
+              <div class="form-group mb-3 px-3 pt-3">
+                <label>Are you a student?</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="student" id="yes" value="yes" />
+                  <label class="form-check-label" for="yes">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="student" id="no" value="no" />
+                  <label class="form-check-label" for="no">No</label>
+                </div>
               </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="student"
-                  id="no"
-                  value="no"
-                  onchange="hideRegNumber()"
-                />
-                <label class="form-check-label" for="no">No</label>
+              <div class="form-group mb-3 px-3" id="regNumber" style="display: none;">
+                <label for="regNumber">Enter your Registration Number:</label>
+                <input type="text" class="form-control" id="regNumber" name="regNumber" />
               </div>
-            </div>
-            <div
-              class="form-group mb-3 px-3"
-              id="regNumber"
-              style="display: none"
-            >
-              <label for="regNumber">Enter your Registration Number:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="regNumber"
-                name="regNumber"
-              />
-            </div>
-            <div class="form-group mb-3 px-3">
-              <label for="tshirt-size">T-Shirt Size:</label>
-              <select class="form-control" id="tshirtSize" name="tshirtSize">
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-              </select>
-            </div>
-            <div class="form-group mb-3 px-3">
-              <label for="tshirt-type">T-Shirt Type:</label>
-              <select class="form-control" id="tshirtType" name="tshirtType">
-                <option value="polo" data-image="https://www.flaticon.com/free-icons/man">Polo Neck</option>
-                <img src="https://www.flaticon.com/free-icons/man" alt="Man icons created by Freepik - Flaticon">
-                <option value="round">Round Neck</option>
-                <img src="https://www.flaticon.com/free-icons/tshirt" alt="Tshirt icons created by Good Ware - Flaticon">
-              </select>
-            </div>
-            <div class="form-group mb-3 px-3" id="pricing-options" style="display: none;">
-              <label>Pricing Options</label>
-              <div class="form-group mb-3 px-3" id="student-pricing" style="display: none;">
-                <label for="student">Students:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="student_price"
-                  name="student_price"
-                  value="600"
-                  readonly
-                />
+              <div class="form-group mb-3 px-3 pt-3">
+                <label>Buying T-shirt or Donating?</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="buying" id="buying" value="buying" />
+                  <label class="form-check-label" for="yes">Buying T-shirt</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="buying" id="donating" value="donating" />
+                  <label class="form-check-label" for="yes">Donating</label>
+                </div>
               </div>
-              <div class="form-group mb-3 px-3" id="non-student-pricing" style="display: none;">
-                <label for="non-student">Non-Students:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nonstudent_price"
-                  name="nonstudent_price"
-                  value="1000"
-                  readonly
-                />
+              <div class="shirts">
+                <div class="form-group mb-3 px-3">
+                  <label for="tshirt-type">T-Shirt Type:</label>
+                  <select class="form-control" id="tshirtType" name="tshirtType">
+                    <option value="polo" data-image="https://www.flaticon.com/free-icons/man">Polo Neck</option>
+                    <img src="https://www.flaticon.com/free-icons/man" alt="Man icons created by Freepik - Flaticon">
+                    <option value="round">Round Neck</option>
+                    <img src="https://www.flaticon.com/free-icons/tshirt"
+                      alt="Tshirt icons created by Good Ware - Flaticon">
+                  </select>
+                </div>
+                <div class="form-group mb-3 px-3">
+                  <label for="tshirt-size">T-Shirt Size:</label>
+                  <select class="form-control" id="tshirtSize" name="tshirtSize">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                    <option value="large">Extra Large</option>
+                  </select>
+                </div>
+                <div class="form-group mb-3 px-3">
+                  <label for="quantity">Number of Shirts:</label>
+                  <input type="number" id="quantity" name="quantity" min="1" max="1000000000" value="1" step="1">
+                </div>
               </div>
-            </div>
-            <div class="form-group mb-3 px-3">
-              <label for="full-name">Full Name:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                required
-              />
-            </div>
-            <div class="valid-feedback">
+              <div class="form-group mb-3 px-3" style="display: none;" id="full-name">
+                <label for="full-name">Full Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required />
+              </div>
+              <div class="valid-feedback">
                 Looks good!
               </div>
-            <div class="form-group mb-3 px-3">
-              <label for="email">Email Address:</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                required
-              />
-            </div>
-            <div class="valid-feedback">
+              <div class="form-group mb-3 px-3" style="display: none;" id="email-address">
+                <label for="email">Email Address:</label>
+                <input type="email" class="form-control" id="email" name="email" required />
+              </div>
+              <div class="valid-feedback">
                 Looks good!
               </div>
-            <div class="form-group mb-3 px-3">
-              <label for="phone-number">Phone Number:</label>
-              <input
-                type="tel"
-                class="form-control"
-                id="phone"
-                name="phone"
-                required
-              />
-            </div>
-            <div class="valid-feedback">
+              <div class="form-group mb-3 px-3" style="display: none;" id="phone-number">
+                <label for="phone-number">Phone Number:</label>
+                <input type="tel" class="form-control" id="phone" name="phone" required />
+              </div>
+              <div class="valid-feedback">
                 Looks good!
               </div>
-              <div class="form-group mb-3 px-3">
+              <div class="form-group mb-3 px-3" style="display: none;" id="amount-div">
+                <label for="phone-number">Amount:</label>
+                <input type="text" class="form-control" id="amount" name="amount" required />
+              </div>
+              <div class="form-group mb-3 px-3 pick-up-point">
                 <label for="pickUp">Pick-up Point:</label>
                 <select class="form-control" id="pickUp" name="pickUp" required>
                   <option value="">Please select a pick-up point</option>
                   <option value="kenyatta-national-hospital">Kenyatta National Hospital</option>
                   <option value="chiromo-campus">Chiromo Campus, University of Nairobi</option>
-                  <option value="support">I am not picking any tshirt, just supporting the cause</option>
                 </select>
               </div>
               <div class="valid-feedback">
-                  Looks good!
-                </div>
-            <div class="form-group mb-3 px-3">
-              <button type="submit" class="custom-btn btn">
-                Proceed to Buy (MPESA)
-              </button>
-            </div>
-          </form>
+                Looks good!
+              </div>
+              <div class="form-group mb-3 px-3">
+                <button type="submit" class="custom-btn btn">
+                  Proceed to Buy (MPESA)
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<script>
-  function showRegNumber() {
-    document.getElementById("regNumber").style.display = "block";
-    document.getElementById("student_price");
-  }
-  function hideRegNumber() {
-    document.getElementById("regNumber").style.display = "none";
-    document.getElementById("regNumber").value = "";
-    document.getElementById("nonstudent_price");
-  }
-  document.getElementById("yes").addEventListener("change", function () {
-    document.getElementById("pricing-options").style.display = "block";
-    document.getElementById("student-pricing").style.display = "block";
-    document.getElementById("non-student-pricing").style.display = "none";
-  });
-  document.getElementById("no").addEventListener("change", function () {
-    document.getElementById("pricing-options").style.display = "block";
-    document.getElementById("student-pricing").style.display = "none";
-    document.getElementById("non-student-pricing").style.display = "block";
-  });
+  <script>
+    const isStudent = document.getElementById('yes');
+    const isNonStudent = document.getElementById('no');
+    const registrationNumber = document.getElementById('regNumber');
+    const buying = document.getElementById('buying');
+    const donating = document.getElementById('donating');
+    const fullNameDiv = document.getElementById('full-name');
+    const emailAddressDiv = document.getElementById('email-address');
+    const phoneNumberDiv = document.getElementById('phone-number');
+    const amountDiv = document.getElementById('amount-div');
+    const shirtInfo = document.querySelector('.shirts');
+    const pickUp = document.querySelector('.pick-up-point');
 
-  (function() {
-  'use strict';
-  window.addEventListener('load', function() {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    const validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
+
+
+
+    isStudent.addEventListener('change', () => {
+      registrationNumber.style.display = "block";
     });
-    form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const phoneNumber = form.phone.value;
-    if(!phoneNumber || !/^(?:(?:(?:\+254|0)[17])(?:\d{9}))$|^(?:(?:\+254|0)[17])(?:\d{8})$/.test(phoneNumber)) {
-        return alert('Invalid phone number');
-    }
-    // send the data to the server
-});
+    isNonStudent.addEventListener('change', () => {
+      registrationNumber.style.display = "none";
+    });
 
-  }, false);
-})();
-</script>
+    buying.addEventListener('change', () => {
+      fullNameDiv.style.display = "none";
+      emailAddressDiv.style.display = "none";
+      phoneNumberDiv.style.display = "none";
+      amountDiv.style.display = "none";
+      shirtInfo.style.display = "block";
+      pickUp.style.display = "block";
+    });
+    donating.addEventListener('change', () => {
+      fullNameDiv.style.display = "block";
+      emailAddressDiv.style.display = "block";
+      phoneNumberDiv.style.display = "block";
+      amountDiv.style.display = "block";
+      shirtInfo.style.display = "none";
+      pickUp.style.display = "none";
+    });
+
+
+    (function () {
+      'use strict';
+      window.addEventListener('load', function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        const validation = Array.prototype.filter.call(forms, function (form) {
+          form.addEventListener('submit', function (event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const phoneNumber = form.phone.value;
+          if (!phoneNumber || !/^(?:(?:(?:\+254|0)[17])(?:\d{9}))$|^(?:(?:\+254|0)[17])(?:\d{8})$/.test(phoneNumber)) {
+            return alert('Invalid phone number');
+          }
+          // send the data to the server
+        });
+
+      }, false);
+    })();
+  </script>
