@@ -10,7 +10,7 @@ const subject = 'A Nodemailer test'
 const htmlContent = '<b>Hey there! </b><br> This is our second message sent with Nodemailer<br />'
 
 const transporter = nodemailer.createTransport({
-  host: "mail.eduniquetransform.org",
+  host: process.env.HOST,
   port: 465,
   auth: {
     user: process.env.SENDER_MAIL,
