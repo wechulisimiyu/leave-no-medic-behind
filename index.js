@@ -13,6 +13,7 @@ const methodOverride = require('method-override')
 const homeRoute = require('./src/routes/homeRoutes')
 const lipaRoute = require('./src/routes/paymentRoutes')
 const adminRoute = require('./src/routes/userRoutes')
+const mailRoute = require('./src/routes/mailRoutes')
 
 mongoose.set('strictQuery', true)
 
@@ -74,6 +75,7 @@ app.use(async (req, res, next) => {
 
 app.use("/", homeRoute)
 app.use("/payment", lipaRoute)
+app.use("/mail", mailRoute)
 app.use("/admin", adminRoute)
 
 const port = process.env.PORT || 4000
