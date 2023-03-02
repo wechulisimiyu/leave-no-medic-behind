@@ -50,8 +50,7 @@ const OrderSchema = new mongoose.Schema({
   },
   pickUp: {
     type: String,
-    enum: ["kenyatta-national-hospital", "chiromo-campus", "support"],
-    required: true,
+    enum: ["none", "kenyatta-national-hospital", "chiromo-campus"]
   },
   buying: {
     type: String,
@@ -74,7 +73,7 @@ OrderSchema.pre("save", function (next) {
     if (this.tshirtType === "polo") {
       this.price = 1000;
     } else {
-      this.price = 800;
+      this.price = 600;
     }
   } else {
     this.price = this.amount;

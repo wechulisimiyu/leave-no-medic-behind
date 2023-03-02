@@ -1,7 +1,5 @@
 <% layout('layout/form-boilerplate')%>
 
-  <!-- to-do: reg number vaidation -->
-
   <section class="pricing section-padding" id="section_5">
     <div class="container">
       <div class="row">
@@ -17,7 +15,7 @@
             <form action="/buy-tshirt" method="post" class="needs-validation" novalidate>
               <div class="form-group mb-3 px-3 pt-3">
                 <label>Are you a student?</label>
-                <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline" id="studentStatus">
                   <input class="form-check-input" type="radio" name="student" id="yes" value="yes" />
                   <label class="form-check-label" for="yes">Yes</label>
                 </div>
@@ -45,11 +43,8 @@
                 <div class="form-group mb-3 px-3">
                   <label for="tshirt-type">T-Shirt Type:</label>
                   <select class="form-control" id="tshirtType" name="tshirtType">
-                    <option value="polo" data-image="https://www.flaticon.com/free-icons/man">Polo Neck</option>
-                    <img src="https://www.flaticon.com/free-icons/man" alt="Man icons created by Freepik - Flaticon">
+                    <option value="polo">Polo Neck</option>
                     <option value="round">Round Neck</option>
-                    <img src="https://www.flaticon.com/free-icons/tshirt"
-                      alt="Tshirt icons created by Good Ware - Flaticon">
                   </select>
                 </div>
                 <div class="form-group mb-3 px-3">
@@ -64,6 +59,9 @@
                 <div class="form-group mb-3 px-3">
                   <label for="quantity">Number of Shirts:</label>
                   <input type="number" id="quantity" name="quantity" min="1" max="1000000000" value="1" step="1">
+                </div>
+                <div class="form-group mb-3 px-3">
+                  <p>Your total amount so far is <span id="totalAmount">0</span></p>
                 </div>
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="full-name">
@@ -88,13 +86,13 @@
                 Looks good!
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="amount-div">
-                <label for="phone-number">Amount:</label>
-                <input type="text" class="form-control" id="amount" name="amount" required />
+                <label for="phone-number">Donate any amount:</label>
+                <input type="text" class="form-control" id="amount" name="amount" />
               </div>
               <div class="form-group mb-3 px-3 pick-up-point">
                 <label for="pickUp">Pick-up Point:</label>
                 <select class="form-control" id="pickUp" name="pickUp" required>
-                  <option value="">Please select a pick-up point</option>
+                  <option value="none">Please select a pick-up point</option>
                   <option value="kenyatta-national-hospital">Kenyatta National Hospital</option>
                   <option value="chiromo-campus">Chiromo Campus, University of Nairobi</option>
                 </select>
@@ -115,46 +113,6 @@
   </section>
 
   <script>
-    const isStudent = document.getElementById('yes');
-    const isNonStudent = document.getElementById('no');
-    const registrationNumber = document.getElementById('regNumber');
-    const buying = document.getElementById('buying');
-    const donating = document.getElementById('donating');
-    const fullNameDiv = document.getElementById('full-name');
-    const emailAddressDiv = document.getElementById('email-address');
-    const phoneNumberDiv = document.getElementById('phone-number');
-    const amountDiv = document.getElementById('amount-div');
-    const shirtInfo = document.querySelector('.shirts');
-    const pickUp = document.querySelector('.pick-up-point');
-
-
-
-
-    isStudent.addEventListener('change', () => {
-      registrationNumber.style.display = "block";
-    });
-    isNonStudent.addEventListener('change', () => {
-      registrationNumber.style.display = "none";
-    });
-
-    buying.addEventListener('change', () => {
-      fullNameDiv.style.display = "none";
-      emailAddressDiv.style.display = "none";
-      phoneNumberDiv.style.display = "none";
-      amountDiv.style.display = "none";
-      shirtInfo.style.display = "block";
-      pickUp.style.display = "block";
-    });
-    donating.addEventListener('change', () => {
-      fullNameDiv.style.display = "block";
-      emailAddressDiv.style.display = "block";
-      phoneNumberDiv.style.display = "block";
-      amountDiv.style.display = "block";
-      shirtInfo.style.display = "none";
-      pickUp.style.display = "none";
-    });
-
-
     (function () {
       'use strict';
       window.addEventListener('load', function () {
