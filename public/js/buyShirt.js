@@ -22,6 +22,7 @@ studentStatus.addEventListener("change", calculateTotalAmount);
 isStudent.addEventListener("change", () => {
   registrationNumber.style.display = "block";
 });
+
 isNonStudent.addEventListener("change", () => {
   registrationNumber.style.display = "none";
 });
@@ -64,17 +65,28 @@ donating.addEventListener("change", function () {
 function calculateTotalAmount() {
   const tshirtTypeValue = tshirtType.value;
   const tshirtQuantityValue = tshirtNumber.value;
-  const studentStatusValue = studentStatus.value;
+  const studentStatusYes = document.querySelector(
+    'input[name="student"][value="yes"]'
+  ).checked;
+  const studentStatusNo = document.querySelector(
+    'input[name="student"][value="no"]'
+  ).checked;
   let tshirtPrice = 0;
 
   // determine the tshirt price based on the type and student status
   if (tshirtTypeValue === "round") {
-    tshirtPrice = studentStatusValue === "yes" ? 600 : 1000;
+    tshirtPrice = studentStatusYes ? 600 : 1000;
   } else if (tshirtTypeValue === "polo") {
-    tshirtPrice = studentStatusValue === "yes" ? 1000 : 2000;
+    tshirtPrice = studentStatusYes ? 1000 : 2000;
   }
 
   // calculate the total amount and update the element
   const totalAmount = tshirtPrice * tshirtQuantityValue;
   document.getElementById("totalAmount").textContent = totalAmount;
+}
+
+const amountInput = document.getElementById("amount");
+// const totalAmount = document.getElementById("totalAmount").textContent;
+if (!amountInput.value) {
+  amountInput.value = totalAmount;
 }
