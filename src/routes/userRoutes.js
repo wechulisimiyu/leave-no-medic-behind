@@ -135,14 +135,13 @@ router.get(
   (req, res) => {
     // const user = req.body.name;
     // mongoose operations are asynchronous, so you need to wait
-    Orders.countDocuments({}, function (err, count) {
-      // note that data is an array of objects, not a single object!
-      res.render("admin/admin", {
-        orders: count,
-      });
-    });
+    // Orders.countDocuments({}, function (err, count) {
+    //   res.render("admin/admin", {
+    //     orders: count,
+    //   });
+    // });
     // console.log(req.body);
-    // res.render("admin/admin");
+    res.render("admin/admin");
   }
 );
 

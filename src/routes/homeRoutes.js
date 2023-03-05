@@ -35,7 +35,12 @@ router.get("/buy-tshirt", (req, res) => {
 
 // GET route for /vendors
 router.get("/vendors", (req, res) => {
-  res.render("vendors");
+  res.render("vendors")
+});
+
+// GET route for /about us
+router.get("/about", (req, res) => {
+  res.render("about")
 });
 
 const parser = multer({ storage: storage });
