@@ -65,6 +65,9 @@ npm install
 https://github.com/wechu07/leave-no-medic-behind.git
 ```
 
+### Running the project
+- Type `npm run dev` to start the server from your terminal
+
 ### Configuration
 
 Included with the code is a sample.env file with fields you will need to configure

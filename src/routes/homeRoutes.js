@@ -43,6 +43,11 @@ router.get("/about", (req, res) => {
   res.render("about")
 });
 
+// GET route for /about us
+router.get("/faq", (req, res) => {
+  res.render("faq")
+});
+
 const parser = multer({ storage: storage });
 
 // POST route for /vendors

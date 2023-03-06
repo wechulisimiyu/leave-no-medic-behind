@@ -12,4 +12,4 @@ const roles = {
   }
 };
 
-exports.roles = roles;
+module.exports = roles
