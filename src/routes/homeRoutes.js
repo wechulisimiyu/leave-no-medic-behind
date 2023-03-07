@@ -1,33 +1,9 @@
-const router = require("express").Router();
-const Runner = require("../models/Order")
-const Vendor= require("../models/Vendor")
+const router = require("express").Router()
 const multer = require('multer')
-const { cloudinary, storage } = require('../../config/cloudinary')
+const { storage } = require('../../config/cloudinary')
+const { buyTshirt, createVendor } = require('../controllers/homeControllers')
 
-router.post("/buy-tshirt", async (req, res) => {
-  if (req.body.student === "no") {
-    if (req.body.regNumber) {
-      delete req.body.regNumber
-    }
-  }
-  const data = req.body
-  console.log(data)
-  const newRunner = new Runner(req.body)
-  const amount = req.body.amount
-  const phone = req.body.phone
-  console.log(`Data: amount is ${amount}, and number is ${phone}`)
-  try {
-    const savedRunner = await newRunner.save()
-
-    res.status(200);
-    res.redirect("/buy-tshirt")
-    // res.redirect(`payment/stkPush?amount=${amount}&phone=${phoneNumber}`);
-  } catch (err) {
-      console.log(err);
-      res.status(500).json({ message: "Error saving data: " + err });
-    }
-  }
-);
+router.post("/buy-tshirt", buyTshirt);
 
 router.get("/buy-tshirt", (req, res) => {
   res.render("buy-tshirt");
@@ -51,32 +27,12 @@ router.get("/faq", (req, res) => {
 const parser = multer({ storage: storage });
 
 // POST route for /vendors
-router.post('/vendors', parser.single("schoolIdPic"), async (req, res) => {
-  try {
-    // Upload image to cloudinary
-    const result = await cloudinary.uploader.upload(req.file.path);
-    // Create new vendor
-    let vendor = new Vendor({
-      name: req.body.name,
-      regNumber: req.body.regNumber,
-      yearOfStudy: req.body.yearOfStudy,
-      typeOfBusiness: req.body.typeOfBusiness,
-      whatItSells: req.body.whatItSells,
-      helperName: req.body.helperName,
-      schoolIdPic: {
-        public_id: result.public_id,
-        url: result.secure_url
-      }
-    });
-    // Save vendor
-    await vendor.save();
-    res.json(vendor);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: "Could not create vendor" });
-  }
-});
+router.post('/vendors', parser.single("schoolIdPic"), createVendor);
 
+// GET route for checkout
+router.get("/checkout", (req, res) => {
+  res.render("checkout");
+});
 
 router.get("/", (req, res) => {
   res.render("home", {name: 'Person'});
