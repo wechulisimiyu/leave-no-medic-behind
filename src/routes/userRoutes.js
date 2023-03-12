@@ -1,148 +1,72 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("../controllers/userController");
-const { roles } = require("../controllers/rolesController");
-const Orders = require("../models/Order");
+const { login, register, logout, renderRegister, renderLogin } = require("../controllers/adminControllers");
+const Orders = require("../models/Order")
+const connectEnsureLogin = require('connect-ensure-login');
+const passport = require('passport');
 
-router.get("/register", (req, res) => {
-  res.render("admin/register", { name: "new admin" });
-});
+const isLoggedIn = connectEnsureLogin.ensureLoggedIn()
 
-router.post("/register", userController.register);
+router.get("/register", renderRegister);
 
-router.get("/login", (req, res) => {
-  res.render("admin/login");
-});
+router.post("/register", register);
 
-router.post("/login", userController.login);
+router.get("/login", renderLogin);
 
-router.get("/profile", (req, res) => {
+router.post("/login", login);
+
+router.get("/profile", isLoggedIn, (req, res) => {
   res.render("admin/profile");
-});
-
-router.get(
-  "/user/:userId",
-  userController.allowIfLoggedin,
-  userController.getUser
-);
-
-router.get(
-  "/users",
-  userController.allowIfLoggedin,
-  userController.grantAccess("readAny", "profile"),
-  userController.getUsers
-);
-
-router.put(
-  "/user/:userId",
-  userController.allowIfLoggedin,
-  userController.grantAccess("updateAny", "profile"),
-  userController.updateUser
-);
-
-router.delete(
-  "/user/:userId",
-  userController.allowIfLoggedin,
-  userController.grantAccess("deleteAny", "profile"),
-  userController.deleteUser
-);
+})
 
 // Route for the orders page
-router.get(
-  "/orders",
-  // userController.allowIfLoggedin,
-  // userController.grantAccess("readAny", "orders"),
-  (req, res) => {
-    res.render("admin/orders");
-  }
-);
+router.get("/orders", isLoggedIn, (req, res) => {
+  res.render("admin/orders");
+});
 
 // Route for the payments page
-router.get(
-  "/payments",
-  // userController.allowIfLoggedin,
-  // userController.grantAccess("readAny", "payments"),
-  (req, res) => {
-    res.render("admin/payments");
-  }
-);
+router.get("/payments", isLoggedIn, (req, res) => {
+  res.render("admin/payments");
+});
 
 // Route for the pickups page
-router.get(
-  "/pickups",
-  // userController.allowIfLoggedin,
-  // userController.grantAccess("readAny", "pickups"),
-  (req, res) => {
-    res.render("admin/pickups");
-  }
-);
+router.get("/pickups", isLoggedIn, (req, res) => {
+  res.render("admin/pickups");
+});
 
 // Route for the vendors page
-router.get(
-  "/vendors",
-  // userController.allowIfLoggedin,
-  // userController.grantAccess("readAny", "vendors"),
-  (req, res) => {
-    res.render("admin/vendors");
-  }
-);
+router.get("/vendors", isLoggedIn, (req, res) => {
+  res.render("admin/vendors");
+});
 
 // Route for the stock page
-router.get(
-  "/stock",
-  // userController.allowIfLoggedin,
-  // userController.grantAccess("readAny", "stock"),
-  (req, res) => {
-    res.render("admin/stock");
-  }
-);
+router.get("/stock", isLoggedIn, (req, res) => {
+  res.render("admin/stock");
+});
 
 // Route for the profile page
-router.get(
-  "/admin/profile/:userId",
-  userController.allowIfLoggedin,
-  userController.grantAccess("readOwn", "profile"),
-  (req, res) => {
-    res.render("admin/profile", { user: req.user });
-  }
-);
+router.get("/admin/profile/:userId", isLoggedIn, (req, res) => {
+  res.render("admin/profile", { user: req.user });
+});
 
 // Route for editing the profile
-router.put(
-  "/profile/:userId",
-  userController.allowIfLoggedin,
-  userController.grantAccess("updateOwn", "profile"),
-  (req, res) => {
-    res.send("You can edit your profile");
-  }
-);
+router.put("/profile/:userId", isLoggedIn, (req, res) => {
+  res.send("You can edit your profile");
+});
 
 // Route for deleting the profile
-router.delete(
-  "/profile/:userId",
-  userController.allowIfLoggedin,
-  userController.grantAccess("deleteOwn", "profile"),
-  (req, res) => {
-    res.send("You can delete your profile");
-  }
-);
+router.delete("/profile/:userId", isLoggedIn, (req, res) => {
+  res.send("You can delete your profile");
+});
+
+router.get('/logout', isLoggedIn, (req, res) => {
+  req.logout();
+  res.redirect('/admin/login')
+})
 
 // Route for the admin page
-router.get(
-  "/",
-  // userController.allowIfLoggedin,
-  // userController.grantAccess("readAny", "admin"),
-  (req, res) => {
-    // const user = req.body.name;
-    // mongoose operations are asynchronous, so you need to wait
-    // Orders.countDocuments({}, function (err, count) {
-    //   res.render("admin/admin", {
-    //     orders: count,
-    //   });
-    // });
-    // console.log(req.body);
-    res.render("admin/admin");
-  }
-);
+router.get("/", isLoggedIn, (req, res) => {
+  res.render("admin/admin");
+});
 
 module.exports = router;
