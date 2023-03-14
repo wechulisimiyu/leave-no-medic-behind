@@ -1,23 +1,34 @@
 const express = require("express");
 const router = express.Router();
-const { login, register, logout, renderRegister, renderLogin } = require("../controllers/adminControllers");
-const Orders = require("../models/Order")
-const connectEnsureLogin = require('connect-ensure-login');
-const passport = require('passport');
+const {
+  login,
+  register,
+  logout,
+  renderRegister,
+  renderLogin,
+} = require("../controllers/adminControllers");
+const Orders = require("../models/Order");
+const connectEnsureLogin = require("connect-ensure-login");
+const passport = require("passport");
 
-const isLoggedIn = connectEnsureLogin.ensureLoggedIn()
+const isLoggedIn = connectEnsureLogin.ensureLoggedIn("admin/login");
 
-router.get("/register", renderRegister);
+router.route("/register").get(renderRegister).post(register);
 
-router.post("/register", register);
-
-router.get("/login", renderLogin);
-
-router.post("/login", login);
+router
+  .route("/login")
+  .get(renderLogin)
+  .post(
+    passport.authenticate("local", {
+      failureFlash: true,
+      failureRedirect: "/admin/login",
+    }),
+    login
+  );
 
 router.get("/profile", isLoggedIn, (req, res) => {
   res.render("admin/profile");
-})
+});
 
 // Route for the orders page
 router.get("/orders", isLoggedIn, (req, res) => {
@@ -59,10 +70,10 @@ router.delete("/profile/:userId", isLoggedIn, (req, res) => {
   res.send("You can delete your profile");
 });
 
-router.get('/logout', isLoggedIn, (req, res) => {
+router.get("/logout", isLoggedIn, (req, res) => {
   req.logout();
-  res.redirect('/admin/login')
-})
+  res.redirect("admin/login");
+});
 
 // Route for the admin page
 router.get("/", isLoggedIn, (req, res) => {

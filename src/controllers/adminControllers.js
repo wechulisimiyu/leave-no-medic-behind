@@ -2,7 +2,7 @@ const passport = require("passport");
 const Admin = require("../models/User");
 
 const renderRegister = (req, res) => {
-  res.render("/admin/register");
+  res.render("admin/register");
 };
 
 const registerAdmin = async (req, res, next) => {
@@ -29,11 +29,11 @@ const registerAdmin = async (req, res, next) => {
 };
 
 const renderLogin = (req, res) => {
-  res.render("/admin/login");
+  res.render("admin/login");
 };
 
 const loginAdmin = (req, res) => {
-  // req.flash('success', 'welcome back!');
+  req.flash('success', 'welcome back!');
   const redirectUrl = req.session.returnTo || '/admin';
   delete req.session.returnTo;
   res.redirect(redirectUrl);
