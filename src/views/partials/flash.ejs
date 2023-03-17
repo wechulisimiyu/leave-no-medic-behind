@@ -14,10 +14,16 @@
                     </button>
             </div>
             <% }%>
-            <% if(register && register.length) { %>
-                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                    <%= register %>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <% } %>
-            
+                <% if(register && register.length) { %>
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <%= register %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% } %>
+                        <% if(maintenance && maintenance.length) { %>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <%= maintenance %>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+                            <% } %>
