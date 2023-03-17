@@ -93,6 +93,6 @@ const port = process.env.PORT || 4001;
 
 app.listen(port, () => {
   console.log(
-    `Serving at http://localhost:${port}, and the admin serving at http://localhost:${port}/admin`
+    `Listening on 0.0.0.0:${port}`
   );
 });
