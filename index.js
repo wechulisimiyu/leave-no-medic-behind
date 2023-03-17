@@ -81,6 +81,7 @@ app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.register = req.flash("register")
+  res.locals.maintenance = req.flash("maintenance")
   next();
 });
 
@@ -88,7 +89,7 @@ app.use("/", homeRoute);
 app.use("/mail", mailRoute);
 app.use("/admin", adminRoute);
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4001;
 
 app.listen(port, () => {
   console.log(
