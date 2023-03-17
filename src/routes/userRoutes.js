@@ -77,7 +77,13 @@ router.get("/logout", isLoggedIn, (req, res) => {
 
 // Route for the admin page
 router.get("/", isLoggedIn, (req, res) => {
-  res.render("admin/admin");
+  Orders.countDocuments({}, (err, count) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("admin/admin", { orderCount: count });
+    }
+  });
 });
 
 module.exports = router;
