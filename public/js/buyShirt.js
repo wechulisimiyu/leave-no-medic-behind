@@ -4,6 +4,8 @@ const studentStatus = document.getElementById("studentStatus");
 const registrationNumber = document.getElementById("regNumber");
 const buying = document.getElementById("buying");
 const donating = document.getElementById("donating");
+const attend = document.getElementById("attend")
+const university = document.getElementById("university")
 const fullNameDiv = document.getElementById("full-name");
 const emailAddressDiv = document.getElementById("email-address");
 const phoneNumberDiv = document.getElementById("phone-number");
@@ -21,10 +23,12 @@ studentStatus.addEventListener("change", calculateTotalAmount);
 
 isStudent.addEventListener("change", () => {
   registrationNumber.style.display = "block";
+  university.style.display = "block";
 });
 
 isNonStudent.addEventListener("change", () => {
   registrationNumber.style.display = "none";
+  university.style.display = "none";
 });
 
 buying.addEventListener("change", () => {
@@ -34,6 +38,7 @@ buying.addEventListener("change", () => {
   amountDiv.style.display = "none";
   shirtInfo.style.display = "block";
   pickUp.style.display = "block";
+  attend.style.display= "block";
 });
 
 donating.addEventListener("change", () => {
@@ -43,6 +48,7 @@ donating.addEventListener("change", () => {
   amountDiv.style.display = "block";
   shirtInfo.style.display = "none";
   pickUp.style.display = "none";
+  attend.style.display= "none";
 });
 
 donating.addEventListener("change", function () {
@@ -88,5 +94,5 @@ function calculateTotalAmount() {
 const amountInput = document.getElementById("amount");
 // const totalAmount = document.getElementById("totalAmount").textContent;
 if (!amountInput.value) {
-  amountInput.value = totalAmount;
+  amountInput.value = 0;
 }

@@ -5,8 +5,8 @@ const { buyTshirt, createVendor } = require('../controllers/homeControllers')
 
 router.post("/buy-tshirt", buyTshirt);
 
-router.get("/buy-tshirt", (req, res) => {
-  req.flash('register', 'Registration will be open on Saturday 25th March. Please bear with us');
+router.get("/buy-tshirt", async (req, res) => {
+  await req.flash('register', 'Registration will be open on Saturday 25th March. Please bear with us');
   res.render("buy-tshirt");
 });
 

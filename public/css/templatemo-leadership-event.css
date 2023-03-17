@@ -396,7 +396,7 @@ strong {
   HIGHLIGHT              
 -----------------------------------------*/
 .highlight {
-  background: var(--navbar-bg-color);
+  background: var(--section-bg-color);
   padding-bottom: 16px;
 }
 
