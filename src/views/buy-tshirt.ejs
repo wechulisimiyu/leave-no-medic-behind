@@ -2,7 +2,7 @@
 
   <section class="pricing section-padding" id="section_5">
     <div class="container">
-      <div class="row">
+      <div class="row d-flex justify-content-center">
         <div class="alert alert-info alert-dismissible fade show" role="alert">
           Registration will be open on Saturday 25th March. Please bear with us.
               <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -15,7 +15,33 @@
             tshirt, which will go towards the leave no medic behind cause.</p>
         </div>
 
-        <div>
+        <div class="col-md-6 col-lg-8 mb-5 mb-lg-0">
+          <div class="pricing-thumb bg-white shadow-lg">                                
+              <div class="pricing-title-wrap d-flex align-items-center">
+
+                  <h4 class="pricing-title text-white mb-0">Tshirt Pricing Options</h4>
+              </div>
+
+              <div class="row g-0">
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <h5 class="card-title">Student</h5>
+                    <p class="card-text">Round Neck: 700</p>
+                    <p class="card-text">Polo: 1000</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <h5 class="card-title">Non Student</h5>
+                    <p class="card-text">Round Neck: 1000</p>
+                    <p class="card-text">Polo: 2000</p>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+
+        <div class="mt-5">
           <div class="pricing-thumb bg-white shadow-lg">
             <form action="/buy-tshirt" method="post" id="buyShirtForm" class="needs-validation" novalidate>
               <div class="form-group mb-3 px-3 pt-3" id="studentStatus">
@@ -35,6 +61,18 @@
                   <option value="uon">University of Nairobi</option>
                   <option value="partner">KU, Egerton, JKUAT, MKU</option>
                   <option value="other">Other Universities</option>
+                </select>
+              </div>
+              <div class="form-group mb-3 px-3 pick-up-point" id="level" style="display: none;">
+                <label for="level">Level of study</label>
+                <select class="form-control" name="level" required>
+                  <option value="1">I</option>
+                  <option value="2">II</option>
+                  <option value="3">III</option>
+                  <option value="4">IV - Not in session</option>
+                  <option value="4-s">IV - In session</option>
+                  <option value="5">V</option>
+                  <option value="6">VI</option>
                 </select>
               </div>
               <div class="form-group mb-3 px-3" id="regNumber" style="display: none;">
@@ -86,28 +124,49 @@
                 </div>
                 <div class="form-group mb-3 px-3">
                   <p>Your total amount so far is <span id="totalAmount" name="totalAmount">0</span></p>
+                  <input type="hidden" name="totalAmount" id="totalAmountInput" value="0">
                 </div>
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="full-name">
                 <label for="full-name">Full Name:</label>
                 <input type="text" class="form-control" id="name" name="name" required />
-              </div>
-              <div class="valid-feedback">
-                Looks good!
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="email-address">
                 <label for="email">Email Address:</label>
                 <input type="email" class="form-control" id="email" name="email" required />
-              </div>
-              <div class="valid-feedback">
-                Looks good!
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="phone-number">
                 <label for="phone-number">Phone Number:</label>
                 <input type="tel" class="form-control" id="phone" name="phone" required />
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+                <div class="invalid-feedback">
+                  Please provide a valid phone number.
+                </div>
               </div>
-              <div class="valid-feedback">
-                Looks good!
+              <div class="form-group mb-3 px-3" style="display: none;" id="kin-div">
+                <label for="kin">Name of Next of Kin (in case of emergency):</label>
+                <input type="text" class="form-control" id="kin" name="kin" required />
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="form-group mb-3 px-3" style="display: none;" id="kin-number-div">
+                <label for="kin-number">Kin's Phone Number</label>
+                <input type="tel" class="form-control" id="kin-number" name="kinNumber" required />
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+                <div class="invalid-feedback">
+                  Please provide a valid phone number.
+                </div>
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="amount-div">
                 <label for="phone-number">Donate any amount:</label>
@@ -120,9 +179,9 @@
                   <option value="kenyatta-national-hospital">Kenyatta National Hospital</option>
                   <option value="chiromo-campus">Chiromo Campus, University of Nairobi</option>
                 </select>
-              </div>
-              <div class="valid-feedback">
-                Looks good!
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
               </div>
               <div class="form-group mb-3 px-3">
                 <button type="submit" class="custom-btn btn">
