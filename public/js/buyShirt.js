@@ -9,12 +9,17 @@ const university = document.getElementById("university")
 const fullNameDiv = document.getElementById("full-name");
 const emailAddressDiv = document.getElementById("email-address");
 const phoneNumberDiv = document.getElementById("phone-number");
+const kinDiv = document.getElementById("kin-div");
+const kinNumberDiv = document.getElementById("kin-number-div");
+const levelDiv = document.getElementById("level");
 const amountDiv = document.getElementById("amount-div");
 const shirtInfo = document.querySelector(".shirts");
 const pickUp = document.querySelector(".pick-up-point");
 const pickUpSelect = document.getElementById("pickUp");
 const tshirtType = document.getElementById("tshirtType");
 const tshirtNumber = document.getElementById("quantity");
+const totalAmountSpan = document.getElementById("totalAmount")
+const totalAmountInput = document.getElementById('totalAmountInput');
 
 //event listeners to trigger the calculation function
 tshirtType.addEventListener("change", calculateTotalAmount);
@@ -24,11 +29,13 @@ studentStatus.addEventListener("change", calculateTotalAmount);
 isStudent.addEventListener("change", () => {
   registrationNumber.style.display = "block";
   university.style.display = "block";
+  levelDiv.style.display = "block";
 });
 
 isNonStudent.addEventListener("change", () => {
   registrationNumber.style.display = "none";
   university.style.display = "none";
+  levelDiv.style.display = "none";
 });
 
 buying.addEventListener("change", () => {
@@ -39,6 +46,8 @@ buying.addEventListener("change", () => {
   shirtInfo.style.display = "block";
   pickUp.style.display = "block";
   attend.style.display= "block";
+  kinDiv.style.display = "block";
+  kinNumberDiv.style.display= "block";
 });
 
 donating.addEventListener("change", () => {
@@ -68,6 +77,7 @@ donating.addEventListener("change", function () {
   }
 });
 
+
 function calculateTotalAmount() {
   const tshirtTypeValue = tshirtType.value;
   const tshirtQuantityValue = tshirtNumber.value;
@@ -88,11 +98,6 @@ function calculateTotalAmount() {
 
   // calculate the total amount and update the element
   const totalAmount = tshirtPrice * tshirtQuantityValue;
-  document.getElementById("totalAmount").textContent = totalAmount;
-}
-
-const amountInput = document.getElementById("amount");
-// const totalAmount = document.getElementById("totalAmount").textContent;
-if (!amountInput.value) {
-  amountInput.value = 0;
+  totalAmountSpan.textContent = totalAmount;
+  totalAmountInput.value = totalAmount;
 }

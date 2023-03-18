@@ -32,8 +32,11 @@ router.post('/vendors', parser.single("schoolIdPic"), createVendor);
 
 // GET route for checkout
 router.get("/checkout", (req, res) => {
-  res.render("checkout");
+  const amount = req.query.amount;
+  const phone = req.query.phone;
+  res.render("checkout", { amount, phone });
 });
+
 
 router.get("/", (req, res) => {
   res.render("home", {name: 'Person'});
