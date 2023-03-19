@@ -89,7 +89,7 @@ app.use("/", homeRoute);
 app.use("/mail", mailRoute);
 app.use("/admin", adminRoute);
 
-const port = process.env.PORT || 4001;
+const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
   console.log(
