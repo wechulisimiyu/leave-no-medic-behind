@@ -1,4 +1,4 @@
-const request = require("request");
+const axios = require("axios");
 const dotenv = require("dotenv");
 
 // loading the config files
@@ -12,7 +12,7 @@ const accessToken = (req, res, next) => {
       `${process.env.SAFARICOM_CONSUMER_KEY}:${process.env.SAFARICOM_CONSUMER_SECRET}`
     ).toString("base64");
 
-    request(
+    axios(
       {
         url: url,
         headers: {
