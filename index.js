@@ -82,6 +82,7 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   res.locals.register = req.flash("register")
   res.locals.maintenance = req.flash("maintenance")
+  res.locals.captured = req.flash("captured")
   next();
 });
 

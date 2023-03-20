@@ -9,10 +9,10 @@
                   aria-label="Close"></button>
       </div>
         <div class="col-lg-10 col-12 text-center mx-auto mb-5">
-          <h2>Get Your <u class="text-info">T-shirt</u>, or donate freely</h2>
+          <h2>Get Your <u class="text-info">T-shirt</u>, or <u class="text-info">Donate</u> directly</h2>
           <p>In order to register for the run, proceed to buy a tshirt. You can also buy a tshirt even if you choose not
             to participate in the run. Alternatively, you can donate any sum to the fund with or without buying a
-            tshirt, which will go towards the leave no medic behind cause.</p>
+            tshirt, which will go towards the Leave No Medic Behind cause.</p>
         </div>
 
         <div class="col-md-6 col-lg-8 mb-5 mb-lg-0">
@@ -44,8 +44,8 @@
         <div class="mt-5">
           <div class="pricing-thumb bg-white shadow-lg">
             <form action="/buy-tshirt" method="post" id="buyShirtForm" class="needs-validation" novalidate>
-              <div class="form-group mb-3 px-3 pt-3" id="studentStatus">
-                <label>Are you a student?</label>
+              <div class="form-group px-3 pt-3" id="studentStatus">
+                <label class="form-label">Are you a student?</label>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="student" id="yes" value="yes" />
                   <label class="form-check-label" for="yes">Yes</label>
@@ -56,7 +56,7 @@
                 </div>
               </div>
               <div class="form-group mb-3 px-3 pick-up-point" id="university" style="display: none;">
-                <label for="university">From which university</label>
+                <label for="university" class="form-label">From which university</label>
                 <select class="form-control" name="university" required>
                   <option value="uon">University of Nairobi</option>
                   <option value="partner">KU, Egerton, JKUAT, MKU</option>
@@ -64,7 +64,7 @@
                 </select>
               </div>
               <div class="form-group mb-3 px-3 pick-up-point" id="level" style="display: none;">
-                <label for="level">Level of study</label>
+                <label for="level" class="form-label">Level of study</label>
                 <select class="form-control" name="level" required>
                   <option value="1">I</option>
                   <option value="2">II</option>
@@ -76,7 +76,7 @@
                 </select>
               </div>
               <div class="form-group mb-3 px-3" id="regNumber" style="display: none;">
-                <label for="regNumber">Enter your Registration Number:</label>
+                <label for="regNumber" class="form-label">Enter your Registration Number:</label>
                 <input type="text" class="form-control" id="regNumber" name="regNumber" />
               </div>
               <div class="form-group mb-3 px-3 pt-3">
@@ -91,7 +91,7 @@
                 </div>
               </div>
               <div class="form-group mb-3 px-3 pt-3" id="attend" style="display: none;">
-                <label>Will you attend the run?</label>
+                <label class="form-label">Will you attend the run on race day?</label>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="attending" id="attending" value="attending" />
                   <label class="form-check-label" for="yes">Yes, I will</label>
@@ -103,14 +103,14 @@
               </div>
               <div class="shirts">
                 <div class="form-group mb-3 px-3">
-                  <label for="tshirt-type">T-Shirt Type:</label>
+                  <label for="tshirt-type" class="form-label">T-Shirt Type:</label>
                   <select class="form-control" id="tshirtType" name="tshirtType">
                     <option value="polo">Polo Neck</option>
                     <option value="round">Round Neck</option>
                   </select>
                 </div>
                 <div class="form-group mb-3 px-3">
-                  <label for="tshirt-size">T-Shirt Size:</label>
+                  <label for="tshirt-size" class="form-label">T-Shirt Size:</label>
                   <select class="form-control" id="tshirtSize" name="tshirtSize">
                     <option value="small">Small</option>
                     <option value="medium">Medium</option>
@@ -119,7 +119,7 @@
                   </select>
                 </div>
                 <div class="form-group mb-3 px-3">
-                  <label for="quantity">Number of Shirts:</label>
+                  <label for="quantity" class="form-label">Number of Shirts:</label>
                   <input type="number" id="quantity" name="quantity" min="1" max="3" value="1" step="1">
                 </div>
                 <div class="form-group mb-3 px-3">
@@ -128,21 +128,21 @@
                 </div>
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="full-name">
-                <label for="full-name">Full Name:</label>
+                <label for="full-name" class="form-label">Full Name:</label>
                 <input type="text" class="form-control" id="name" name="name" required />
                 <div class="valid-feedback">
                   Looks good!
                 </div>
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="email-address">
-                <label for="email">Email Address:</label>
+                <label for="email" class="form-label">Email Address:</label>
                 <input type="email" class="form-control" id="email" name="email" required />
                 <div class="valid-feedback">
                   Looks good!
                 </div>
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="phone-number">
-                <label for="phone-number">Phone Number:</label>
+                <label for="phone-number" class="form-label">Phone Number:</label>
                 <input type="tel" class="form-control" id="phone" name="phone" required />
                 <div class="valid-feedback">
                   Looks good!
@@ -152,14 +152,14 @@
                 </div>
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="kin-div">
-                <label for="kin">Name of Next of Kin (in case of emergency):</label>
+                <label for="kin" class="form-label">Name of Next of Kin (in case of emergency):</label>
                 <input type="text" class="form-control" id="kin" name="kin" required />
                 <div class="valid-feedback">
                   Looks good!
                 </div>
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="kin-number-div">
-                <label for="kin-number">Kin's Phone Number</label>
+                <label for="kin-number" class="form-label">Kin's Phone Number</label>
                 <input type="tel" class="form-control" id="kin-number" name="kinNumber" required />
                 <div class="valid-feedback">
                   Looks good!
@@ -169,11 +169,11 @@
                 </div>
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="amount-div">
-                <label for="phone-number">Donate any amount:</label>
+                <label for="phone-number" class="form-label">Donate any amount:</label>
                 <input type="text" class="form-control" id="amount" name="amount" />
               </div>
               <div class="form-group mb-3 px-3 pick-up-point">
-                <label for="pickUp">Pick-up Point:</label>
+                <label for="pickUp" class="form-label">Pick-up Point:</label>
                 <select class="form-control" id="pickUp" name="pickUp" required>
                   <option value="none">Please select a pick-up point</option>
                   <option value="kenyatta-national-hospital">Kenyatta National Hospital</option>
@@ -181,6 +181,12 @@
                 </select>
                 <div class="valid-feedback">
                   Looks good!
+                </div>
+              </div>
+              <div class="form-group mb-3 px-3" style="display: none;" id="confirmDiv">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="confirm" id="confirm" value="confirm" />
+                  <label class="form-check-label" for="yes">I confirm that I am in good physical health to participate in the Leave No Medic Behind Charity Run. I will follow the laid out trail and directions of the race organisers. I acknowledge that the Charity run may pose possible risk and danger due to the nature of the activity and I release the Charity Run organizers from any responsibility in the event of any accident, illness or injury. I understand my contact information may be used to reach out to me for feedback on the activities related to the Charity run. I confirm that all the details provided above are accurate and true.</label>
                 </div>
               </div>
               <div class="form-group mb-3 px-3">
