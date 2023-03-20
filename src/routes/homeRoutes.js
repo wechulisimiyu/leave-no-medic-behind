@@ -28,7 +28,7 @@ router.get("/faq", (req, res) => {
 const parser = multer({ storage: storage });
 
 // POST route for /vendors
-router.post('/vendors', parser.single("schoolIdPic"), createVendor);
+router.post('/vendors', parser.array('schoolIdPic'), createVendor);
 
 // GET route for checkout
 router.get("/checkout", (req, res) => {
@@ -37,9 +37,20 @@ router.get("/checkout", (req, res) => {
   res.render("checkout", { amount, phone });
 });
 
+// GET route for /about us
+router.get("/404", (req, res) => {
+  const errorMessage = req.body.errorMessage
+  res.render("errors/404", { errorMessage })
+});
+
+// GET route for /about us
+router.get("/500", (req, res) => {
+  const errorMessage = req.body.errorMessage
+  res.render("errors/500", { errorMessage })
+});
 
 router.get("/", (req, res) => {
-  res.render("home", {name: 'Person'});
+  res.render("home", { name: 'Person' });
 });
 
 module.exports = router;

@@ -29,14 +29,17 @@ const buyTshirt = async (req, res) => {
     res.redirect(`/checkout?amount=${amount}&phone=${phone}`);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Error saving data: " + err });
+    res.status(500).redirect('/500', { errorMessage: `Error saving data: ${err}` });
   }
 };
 
 const createVendor = async (req, res) => {
   try {
     // Upload image to cloudinary
-    const result = await cloudinary.uploader.upload(req.file.path);
+    const schoolIdPics = await Promise.all(
+      req.files.map((file) => cloudinary.uploader.upload(file.path))
+    );
+
     // Create new vendor
     let vendor = new Vendor({
       name: req.body.name,
@@ -45,17 +48,18 @@ const createVendor = async (req, res) => {
       typeOfBusiness: req.body.typeOfBusiness,
       whatItSells: req.body.whatItSells,
       helperName: req.body.helperName,
-      schoolIdPic: {
+      schoolIdPic: schoolIdPics.map((result) => ({
         public_id: result.public_id,
         url: result.secure_url,
-      },
+      })),
     });
+
     // Save vendor
     await vendor.save();
-    res.json(vendor);
+    res.status(201).redirect('/vendor')
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: "Could not create vendor" });
+    res.status(500).redirect('/500', { errorMessage: "Could not create vendor" });
   }
 };
 

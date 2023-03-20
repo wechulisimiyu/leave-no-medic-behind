@@ -18,6 +18,7 @@ const pickUp = document.querySelector(".pick-up-point");
 const pickUpSelect = document.getElementById("pickUp");
 const tshirtType = document.getElementById("tshirtType");
 const tshirtNumber = document.getElementById("quantity");
+const confirmDiv = document.getElementById("confirmDiv");
 const totalAmountSpan = document.getElementById("totalAmount")
 const totalAmountInput = document.getElementById('totalAmountInput');
 
@@ -48,6 +49,7 @@ buying.addEventListener("change", () => {
   attend.style.display= "block";
   kinDiv.style.display = "block";
   kinNumberDiv.style.display= "block";
+  confirmDiv.style.display="block";
 });
 
 donating.addEventListener("change", () => {
@@ -57,7 +59,8 @@ donating.addEventListener("change", () => {
   amountDiv.style.display = "block";
   shirtInfo.style.display = "none";
   pickUp.style.display = "none";
-  attend.style.display= "none";
+  attend.style.display = "none";
+  confirmDiv.style.display = "none";
 });
 
 donating.addEventListener("change", function () {
