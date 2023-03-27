@@ -66,13 +66,13 @@
               <div class="form-group mb-3 px-3 pick-up-point" id="level" style="display: none;">
                 <label for="level" class="form-label">Level of study</label>
                 <select class="form-control" name="level" required>
-                  <option value="1">I</option>
-                  <option value="2">II</option>
-                  <option value="3">III</option>
-                  <option value="4">IV - Not in session</option>
-                  <option value="4-s">IV - In session</option>
-                  <option value="5">V</option>
-                  <option value="6">VI</option>
+                  <option value="I">I</option>
+                  <option value="II">II</option>
+                  <option value="III">III</option>
+                  <option value="IV">IV - Not in session</option>
+                  <option value="IVs">IV - In session</option>
+                  <option value="V">V</option>
+                  <option value="VI">VI</option>
                 </select>
               </div>
               <div class="form-group mb-3 px-3" id="regNumber" style="display: none;">
@@ -170,9 +170,9 @@
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="amount-div">
                 <label for="phone-number" class="form-label">Donate any amount:</label>
-                <input type="text" class="form-control" id="amount" name="amount" />
+                <input type="text" class="form-control" id="amount" name="donatedAmount" />
               </div>
-              <div class="form-group mb-3 px-3 pick-up-point">
+              <div class="form-group mb-3 px-3 pick-up-point" style="display: none;" id="pickUpPoint">
                 <label for="pickUp" class="form-label">Pick-up Point:</label>
                 <select class="form-control" id="pickUp" name="pickUp" required>
                   <option value="none">Please select a pick-up point</option>
@@ -190,7 +190,7 @@
                 </div>
               </div>
               <div class="form-group mb-3 px-3">
-                <button type="button" class="custom-btn btn" onclick="event.preventDefault();">
+                <button type="submit" class="custom-btn btn">
                   Proceed to Buy (MPESA)
                 </button>
               </div>

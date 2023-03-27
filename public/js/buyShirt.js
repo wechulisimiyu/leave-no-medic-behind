@@ -16,6 +16,7 @@ const amountDiv = document.getElementById("amount-div");
 const shirtInfo = document.querySelector(".shirts");
 const pickUp = document.querySelector(".pick-up-point");
 const pickUpSelect = document.getElementById("pickUp");
+const pickUpPoint = document.getElementById("pickUpPoint");
 const tshirtType = document.getElementById("tshirtType");
 const tshirtNumber = document.getElementById("quantity");
 const confirmDiv = document.getElementById("confirmDiv");
@@ -45,7 +46,7 @@ buying.addEventListener("change", () => {
   phoneNumberDiv.style.display = "block";
   amountDiv.style.display = "none";
   shirtInfo.style.display = "block";
-  pickUp.style.display = "block";
+  pickUpPoint.style.display = "block";
   attend.style.display= "block";
   kinDiv.style.display = "block";
   kinNumberDiv.style.display= "block";
@@ -58,8 +59,10 @@ donating.addEventListener("change", () => {
   phoneNumberDiv.style.display = "block";
   amountDiv.style.display = "block";
   shirtInfo.style.display = "none";
-  pickUp.style.display = "none";
+  pickUpPoint.style.display = "none";
   attend.style.display = "none";
+  kinDiv.style.display = "none";
+  kinNumberDiv.style.display= "none";
   confirmDiv.style.display = "none";
 });
 
@@ -94,7 +97,7 @@ function calculateTotalAmount() {
 
   // determine the tshirt price based on the type and student status
   if (tshirtTypeValue === "round") {
-    tshirtPrice = studentStatusYes ? 600 : 1000;
+    tshirtPrice = studentStatusYes ? 700 : 1000;
   } else if (tshirtTypeValue === "polo") {
     tshirtPrice = studentStatusYes ? 1000 : 2000;
   }
