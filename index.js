@@ -19,8 +19,8 @@ const mailRoute = require("./src/routes/mailRoutes");
 
 mongoose.set("strictQuery", true);
 
-// loading the config files
-dotenv.config({ path: "./config/config.env" });
+// loading the envariables
+dotenv.config()
 
 // connect the db
 connectDB();
