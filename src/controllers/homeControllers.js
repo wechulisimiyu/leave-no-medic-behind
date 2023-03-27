@@ -3,6 +3,10 @@ const Runner = require("../models/Order");
 const Vendor = require("../models/Vendor");
 const multer = require("multer");
 const { cloudinary } = require("../../config/cloudinary");
+const {
+  transporter,
+  mailOptions,
+} = require("../controllers/sendmailController");
 
 const buyTshirt = async (req, res) => {
   if (req.body.student === "no") {
@@ -10,8 +14,6 @@ const buyTshirt = async (req, res) => {
       delete req.body.regNumber;
     }
   }
-  const data = req.body;
-  console.log(data);
   const newRunner = new Runner(req.body);
   let amount;
   if (req.body.donatedAmount) {
@@ -22,14 +24,21 @@ const buyTshirt = async (req, res) => {
   const phone = req.body.phone;
   console.log(`Data: amount is ${amount}, and number is ${phone}`);
 
+  const email = req.body.email;
+
   try {
     const savedRunner = await newRunner.save();
+
+    mailOptions.to = email;
+
+    // Send the email using Nodemailer
+    await transporter.sendMail(mailOptions);
 
     res.status(200);
     res.redirect(`/checkout?amount=${amount}&phone=${phone}`);
   } catch (err) {
     console.log(err);
-    res.redirect(500, '/500', { errorMessage: `Error saving data` });
+    res.redirect(500, "/500", { errorMessage: `Error saving data` });
   }
 };
 
@@ -56,10 +65,11 @@ const createVendor = async (req, res) => {
 
     // Save vendor
     await vendor.save();
-    res.status(201).redirect('/vendor')
+    res.status(201).redirect("/");
   } catch (err) {
-    console.log(err);
-    res.status(500).redirect('/500', { errorMessage: "Could not create vendor" });
+    console.error(err);
+    req.flash('error', 'Error capturing your details. Try again')
+    res.redirect('/vendors');
   }
 };
 
