@@ -6,8 +6,25 @@ const OrderSchema = new mongoose.Schema({
     enum: ["yes", "no"],
     required: true,
   },
+  university: {
+    type: String,
+    enum: ["uon", "partner", "other"],
+    required: true,
+  },
+  level: {
+    type: String,
+    enum: ["I", "II", "III", "IV", "IVs", "V", "VI"]
+  },
   regNumber: {
     type: String,
+  },
+  buying: {
+    type: String,
+    enum: ["buying", "donating"]
+  },
+  attending: {
+    type: String,
+    enum: ["attending", "notattending"]
   },
   tshirtType: {
     type: String,
@@ -19,7 +36,11 @@ const OrderSchema = new mongoose.Schema({
     enum: ["small", "medium", "large"],
     required: true,
   },
-  price: {
+  quantity: {
+    type: Number,
+    max: 3,
+  },
+  totalAmount: {
     type: Number,
   },
   name: {
@@ -48,6 +69,15 @@ const OrderSchema = new mongoose.Schema({
     },
     message: (props) => `${props.value} is not a valid number!`,
   },
+  kin: {
+    type: String,
+  },
+  kinNumber: {
+    type: String,
+  },
+  donatedAmount: {
+    type: Number,
+  },
   pickUp: {
     type: String,
     enum: ["none", "kenyatta-national-hospital", "chiromo-campus"]
@@ -57,26 +87,16 @@ const OrderSchema = new mongoose.Schema({
     enum: ["buying", "donating"],
     required: true,
   },
-  amount: {
-    type: Number,
-    required: function () {
-      return this.buying === "donating";
-    },
-  },
 });
 
 OrderSchema.pre("save", function (next) {
-  if (this.student === "no") {
-    delete this.regNumber;
-  }
-  if (this.buying === "buying") {
-    if (this.tshirtType === "polo") {
-      this.price = 1000;
-    } else {
-      this.price = 600;
-    }
-  } else {
-    this.price = this.amount;
+  if (this.buying === "donating") {
+    this.set({
+      name: this.name,
+      email: this.email,
+      phone: this.phone,
+      donatedAmount: this.donatedAmount,
+    });
   }
   next();
 });

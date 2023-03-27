@@ -14,10 +14,10 @@ const buyTshirt = async (req, res) => {
   console.log(data);
   const newRunner = new Runner(req.body);
   let amount;
-  if (req.body.totalAmount) {
+  if (req.body.donatedAmount) {
+    amount = req.body.donatedAmount;
+  } else {
     amount = req.body.totalAmount;
-  } else if (req.body.amount) {
-    amount = req.body.amount;
   }
   const phone = req.body.phone;
   console.log(`Data: amount is ${amount}, and number is ${phone}`);
@@ -29,7 +29,7 @@ const buyTshirt = async (req, res) => {
     res.redirect(`/checkout?amount=${amount}&phone=${phone}`);
   } catch (err) {
     console.log(err);
-    res.status(500).redirect('/500', { errorMessage: `Error saving data: ${err}` });
+    res.redirect(500, '/500', { errorMessage: `Error saving data` });
   }
 };
 

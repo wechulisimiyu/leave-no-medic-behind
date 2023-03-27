@@ -4,11 +4,6 @@ const dotenv = require('dotenv')
 // loading the config files
 dotenv.config({ path: './config/config.env' })
 
-const senderEmail = `"Testing" <${process.env.SENDER_MAIL}>`
-const to = process.env.TO_MAIL;
-const subject = 'A Nodemailer test'
-const htmlContent = '<b>Hey there! </b><br> This is our second message sent with Nodemailer<br />'
-
 const transporter = nodemailer.createTransport({
   host: process.env.HOST,
   port: 465,
@@ -19,10 +14,10 @@ const transporter = nodemailer.createTransport({
 })
 
 const mailOptions = {
-  from: senderEmail,
-  to: to,
-  subject: subject,
-  html: htmlContent,
+  from: `"LNMB" <${process.env.SENDER_MAIL}>`,
+  to: process.env.TO_MAIL,
+  subject: 'A Nodemailer test',
+  html: '<b>Hey there! </b><br> This is our first message sent with Nodemailer<br />',
 }
 
 module.exports = { transporter, mailOptions }
