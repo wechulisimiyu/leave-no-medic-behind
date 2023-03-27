@@ -14,7 +14,6 @@ const kinNumberDiv = document.getElementById("kin-number-div");
 const levelDiv = document.getElementById("level");
 const amountDiv = document.getElementById("amount-div");
 const shirtInfo = document.querySelector(".shirts");
-const pickUp = document.querySelector(".pick-up-point");
 const pickUpSelect = document.getElementById("pickUp");
 const pickUpPoint = document.getElementById("pickUpPoint");
 const tshirtType = document.getElementById("tshirtType");
