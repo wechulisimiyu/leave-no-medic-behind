@@ -1,40 +1,44 @@
 const axios = require("axios");
 const dotenv = require("dotenv");
+const querystring = require('node:querystring');
 
-// loading the config files
-dotenv.config({ path: "./config/config.env" });
+// loading the envariables
+dotenv.config()
 
 const accessToken = (req, res, next) => {
   try {
-    const url =
-      "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
-    const auth = new Buffer.from(
-      `${process.env.SAFARICOM_CONSUMER_KEY}:${process.env.SAFARICOM_CONSUMER_SECRET}`
-    ).toString("base64");
-
-    axios(
-      {
-        url: url,
-        headers: {
-          Authorization: "Basic " + auth,
-        },
+    const url = "https://api-omnichannel-uat.azure-api.net/v2.1/oauth/token";
+    const data = querystring.stringify({
+      client_secret: process.env.CLIENT_SECRET,
+      client_id: process.env.CLIENT_ID,
+      grant_type: "client_credentials",
+    });
+    const config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: url,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      (error, response, body) => {
-        if (error) {
-          res.status(401).send({
-            message: "Something went wrong when trying to process your payment",
-            error: error.message,
-          });
-        } else {
-          req.safaricom_access_token = JSON.parse(body).access_token;
-          next();
-        }
-      }
-    );
+      data: data,
+    };
+
+    axios(config)
+      .then((response) => {
+        req.access_token = response.data.access_token;
+        next();
+      })
+      .catch((error) => {
+        console.error("Access token error ", error);
+        res.status(401).send({
+          message: "Something went wrong when trying to retrieve the access token",
+          error: error.message,
+        });
+      });
   } catch (error) {
     console.error("Access token error ", error);
     res.status(401).send({
-      message: "Something went wrong when trying to process your payment",
+      message: "Something went wrong when trying to retrieve the access token",
       error: error.message,
     });
   }
