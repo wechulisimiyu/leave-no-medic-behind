@@ -2,7 +2,7 @@
   "name": "leave-no-medic-behind",
   "version": "1.0.0",
   "engines": {
-    "node": "17.x"
+    "node": "18.x"
   },
   "description": "",
   "main": "index.js",
