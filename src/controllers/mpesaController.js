@@ -4,8 +4,8 @@ const { getTimestamp } = require("../utils/timestamp");
 const ngrok = require("ngrok");
 const Mpesa = require("../models/Mpesa");
 
-// loading the config files
-dotenv.config({ path: "../../config/config.env" });
+// loading the envariables
+dotenv.config()
 
 // @desc initiate stk push
 // @method POST
@@ -17,7 +17,7 @@ const initiateSTKPush = async (req, res) => {
     const { amount, phone, Order_ID } = req.body;
     const url =
       "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
-    const auth = "B earer" + req.safaricom_access_token;
+    const auth = "Bearer" + req.safaricom_access_token;
 
     const timestamp = getTimestamp();
     //shortcode + passkey + timestamp

@@ -26,6 +26,7 @@ const accessToken = (req, res, next) => {
     axios(config)
       .then((response) => {
         req.access_token = response.data.access_token;
+        console.log(req.access_token)
         next();
       })
       .catch((error) => {
