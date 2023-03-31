@@ -75,6 +75,10 @@ router.get("/logout", isLoggedIn, (req, res) => {
   res.redirect("admin/login");
 });
 
+router.get('/forgot', (req, res) => {
+  res.render("admin/forgot");
+})
+
 // Route for the admin page
 router.get("/", isLoggedIn, (req, res) => {
   Orders.countDocuments({}, (err, count) => {
