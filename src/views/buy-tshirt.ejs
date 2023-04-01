@@ -1,45 +1,26 @@
 <% layout('layout/form-boilerplate')%>
 
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+    </symbol>
+  </svg>
+
   <section class="pricing section-padding" id="section_5">
     <div class="container">
       <div class="row d-flex justify-content-center">
         <div class="alert alert-info alert-dismissible fade show" role="alert">
-          Registration will be open on Saturday 25th March. Please bear with us.
-              <button type="button" class="btn-close" data-bs-dismiss="alert"
-                  aria-label="Close"></button>
-      </div>
+          Hey there! Thank you for your intent to support us. If you are buying a t-shirt, pickup will start on <b>19th
+            April</b> 2023. Just make sure you fill in your details correctly.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="col-lg-10 col-12 text-center mx-auto mb-5">
           <h2>Get Your <u class="text-info">T-shirt</u>, or <u class="text-info">Donate</u> directly</h2>
           <p>In order to register for the run, proceed to buy a tshirt. You can also buy a tshirt even if you choose not
             to participate in the run. Alternatively, you can donate any sum to the fund with or without buying a
-            tshirt, which will go towards the Leave No Medic Behind cause.</p>
+            tshirt, which will go towards the <u class="text-info"><b>Leave No Medic Behind</b></u> cause.</p>
         </div>
-
-        <div class="col-md-6 col-lg-8 mb-5 mb-lg-0">
-          <div class="pricing-thumb bg-white shadow-lg">                                
-              <div class="pricing-title-wrap d-flex align-items-center">
-
-                  <h4 class="pricing-title text-white mb-0">Tshirt Pricing Options</h4>
-              </div>
-
-              <div class="row g-0">
-                <div class="col-md-6">
-                  <div class="card-body">
-                    <h5 class="card-title">Student</h5>
-                    <p class="card-text">Round Neck: 700</p>
-                    <p class="card-text">Polo: 1000</p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="card-body">
-                    <h5 class="card-title">Non Student</h5>
-                    <p class="card-text">Round Neck: 1000</p>
-                    <p class="card-text">Polo: 2000</p>
-                  </div>
-                </div>
-              </div>
-          </div>
-      </div>
 
         <div class="mt-5">
           <div class="pricing-thumb bg-white shadow-lg">
@@ -56,28 +37,28 @@
                 </div>
               </div>
               <div class="form-group mb-3 px-3 pick-up-point" id="university" style="display: none;">
-                <label for="university" class="form-label">From which university</label>
                 <select class="form-control" name="university" required>
+                  <option selected>From which university?</option>
                   <option value="uon">University of Nairobi</option>
                   <option value="partner">KU, Egerton, JKUAT, MKU</option>
                   <option value="other">Other Universities</option>
                 </select>
               </div>
               <div class="form-group mb-3 px-3 pick-up-point" id="level" style="display: none;">
-                <label for="level" class="form-label">Level of study</label>
-                <select class="form-control" name="level" required>
-                  <option value="I">I</option>
-                  <option value="II">II</option>
-                  <option value="III">III</option>
-                  <option value="IV">IV - Not in session</option>
-                  <option value="IVs">IV - In session</option>
-                  <option value="V">V</option>
-                  <option value="VI">VI</option>
-                </select>
+                <select class="form-control" id="yearOfStudy" name="yearOfStudy">
+                  <option selected>Please select your year of study</option>
+                  <option value="I">First year</option>
+                  <option value="II">Second year</option>
+                  <option value="III">Third year</option>
+                  <option value="IV">Fourth year not in session</option>
+                  <option value="IVs">Fourth year in session</option>
+                  <option value="V">Fifth year</option>
+                  <option value="VI">Sixth year</option>
+              </select>
               </div>
               <div class="form-group mb-3 px-3" id="regNumber" style="display: none;">
                 <label for="regNumber" class="form-label">Enter your Registration Number:</label>
-                <input type="text" class="form-control" id="regNumber" name="regNumber" />
+                <input type="text" class="form-control" id="regNumber" name="regNumber" placeholder="Registration Number"/>
               </div>
               <div class="form-group mb-3 px-3 pt-3">
                 <label>Buying T-shirt or Donating?</label>
@@ -97,21 +78,22 @@
                   <label class="form-check-label" for="yes">Yes, I will</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="attending" id="notattending" value="notattending" />
+                  <input class="form-check-input" type="radio" name="attending" id="notattending"
+                    value="notattending" />
                   <label class="form-check-label" for="yes">Just buying a Tshirt</label>
                 </div>
               </div>
-              <div class="shirts">
+              <div class="shirts" style="display: none;">
                 <div class="form-group mb-3 px-3">
-                  <label for="tshirt-type" class="form-label">T-Shirt Type:</label>
                   <select class="form-control" id="tshirtType" name="tshirtType">
+                    <option selected>T-Shirt Type:</option>
                     <option value="polo">Polo Neck</option>
                     <option value="round">Round Neck</option>
                   </select>
                 </div>
                 <div class="form-group mb-3 px-3">
-                  <label for="tshirt-size" class="form-label">T-Shirt Size:</label>
                   <select class="form-control" id="tshirtSize" name="tshirtSize">
+                    <option selected>T-Shirt Size:</option>
                     <option value="small">Small</option>
                     <option value="medium">Medium</option>
                     <option value="large">Large</option>
@@ -119,8 +101,7 @@
                   </select>
                 </div>
                 <div class="form-group mb-3 px-3">
-                  <label for="quantity" class="form-label">Number of Shirts:</label>
-                  <input type="number" id="quantity" name="quantity" min="1" max="3" value="1" step="1">
+                  <input class="form-control" type="number" id="quantity" name="quantity" min="1" max="3" value="1" step="1" placeholder="Number of Shirts:">
                 </div>
                 <div class="form-group mb-3 px-3">
                   <p>Your total amount so far is <span id="totalAmount" name="totalAmount">0</span></p>
@@ -186,7 +167,13 @@
               <div class="form-group mb-3 px-3" style="display: none;" id="confirmDiv">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="confirm" id="confirm" value="confirm" />
-                  <label class="form-check-label" for="yes">I confirm that I am in good physical health to participate in the Leave No Medic Behind Charity Run. I will follow the laid out trail and directions of the race organisers. I acknowledge that the Charity run may pose possible risk and danger due to the nature of the activity and I release the Charity Run organizers from any responsibility in the event of any accident, illness or injury. I understand my contact information may be used to reach out to me for feedback on the activities related to the Charity run. I confirm that all the details provided above are accurate and true.</label>
+                  <label class="form-check-label" for="yes">I confirm that I am in good physical health to participate
+                    in the Leave No Medic Behind Charity Run. I will follow the laid out trail and directions of the
+                    race organisers. I acknowledge that the Charity run may pose possible risk and danger due to the
+                    nature of the activity and I release the Charity Run organizers from any responsibility in the event
+                    of any accident, illness or injury. I understand my contact information may be used to reach out to
+                    me for feedback on the activities related to the Charity run. I confirm that all the details
+                    provided above are accurate and true.</label>
                 </div>
               </div>
               <div class="form-group mb-3 px-3">
