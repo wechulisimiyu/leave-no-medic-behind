@@ -19,7 +19,7 @@
           <h2>Get Your <u class="text-info">T-shirt</u>, or <u class="text-info">Donate</u> directly</h2>
           <p>In order to register for the run, proceed to buy a tshirt. You can also buy a tshirt even if you choose not
             to participate in the run. Alternatively, you can donate any sum to the fund with or without buying a
-            tshirt, which will go towards the <u class="text-info">Leave No Medic Behind</u> cause.</p>
+            tshirt, which will go towards the <u class="text-info"><b>Leave No Medic Behind</b></u> cause.</p>
         </div>
 
         <div class="mt-5">
@@ -37,28 +37,28 @@
                 </div>
               </div>
               <div class="form-group mb-3 px-3 pick-up-point" id="university" style="display: none;">
-                <label for="university" class="form-label">From which university</label>
                 <select class="form-control" name="university" required>
+                  <option selected>From which university?</option>
                   <option value="uon">University of Nairobi</option>
                   <option value="partner">KU, Egerton, JKUAT, MKU</option>
                   <option value="other">Other Universities</option>
                 </select>
               </div>
               <div class="form-group mb-3 px-3 pick-up-point" id="level" style="display: none;">
-                <label for="level" class="form-label">Level of study</label>
-                <select class="form-control" name="level" required>
-                  <option value="I">I</option>
-                  <option value="II">II</option>
-                  <option value="III">III</option>
-                  <option value="IV">IV - Not in session</option>
-                  <option value="IVs">IV - In session</option>
-                  <option value="V">V</option>
-                  <option value="VI">VI</option>
-                </select>
+                <select class="form-control" id="yearOfStudy" name="yearOfStudy">
+                  <option selected>Please select your year of study</option>
+                  <option value="I">First year</option>
+                  <option value="II">Second year</option>
+                  <option value="III">Third year</option>
+                  <option value="IV">Fourth year not in session</option>
+                  <option value="IVs">Fourth year in session</option>
+                  <option value="V">Fifth year</option>
+                  <option value="VI">Sixth year</option>
+              </select>
               </div>
               <div class="form-group mb-3 px-3" id="regNumber" style="display: none;">
                 <label for="regNumber" class="form-label">Enter your Registration Number:</label>
-                <input type="text" class="form-control" id="regNumber" name="regNumber" />
+                <input type="text" class="form-control" id="regNumber" name="regNumber" placeholder="Registration Number"/>
               </div>
               <div class="form-group mb-3 px-3 pt-3">
                 <label>Buying T-shirt or Donating?</label>
@@ -83,17 +83,17 @@
                   <label class="form-check-label" for="yes">Just buying a Tshirt</label>
                 </div>
               </div>
-              <div class="shirts">
+              <div class="shirts" style="display: none;">
                 <div class="form-group mb-3 px-3">
-                  <label for="tshirt-type" class="form-label">T-Shirt Type:</label>
                   <select class="form-control" id="tshirtType" name="tshirtType">
+                    <option selected>T-Shirt Type:</option>
                     <option value="polo">Polo Neck</option>
                     <option value="round">Round Neck</option>
                   </select>
                 </div>
                 <div class="form-group mb-3 px-3">
-                  <label for="tshirt-size" class="form-label">T-Shirt Size:</label>
                   <select class="form-control" id="tshirtSize" name="tshirtSize">
+                    <option selected>T-Shirt Size:</option>
                     <option value="small">Small</option>
                     <option value="medium">Medium</option>
                     <option value="large">Large</option>
@@ -101,8 +101,7 @@
                   </select>
                 </div>
                 <div class="form-group mb-3 px-3">
-                  <label for="quantity" class="form-label">Number of Shirts:</label>
-                  <input type="number" id="quantity" name="quantity" min="1" max="3" value="1" step="1">
+                  <input class="form-control" type="number" id="quantity" name="quantity" min="1" max="3" value="1" step="1" placeholder="Number of Shirts:">
                 </div>
                 <div class="form-group mb-3 px-3">
                   <p>Your total amount so far is <span id="totalAmount" name="totalAmount">0</span></p>
