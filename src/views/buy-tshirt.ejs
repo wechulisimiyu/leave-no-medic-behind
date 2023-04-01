@@ -38,7 +38,7 @@
               </div>
               <div class="form-group mb-3 px-3 pick-up-point" id="university" style="display: none;">
                 <select class="form-control" name="university" required>
-                  <option selected>From which university?</option>
+                  <option value="" selected disabled>From which university?</option>
                   <option value="uon">University of Nairobi</option>
                   <option value="partner">KU, Egerton, JKUAT, MKU</option>
                   <option value="other">Other Universities</option>
@@ -46,7 +46,7 @@
               </div>
               <div class="form-group mb-3 px-3 pick-up-point" id="level" style="display: none;">
                 <select class="form-control" id="yearOfStudy" name="yearOfStudy">
-                  <option selected>Please select your year of study</option>
+                  <option value="" selected disabled>Please select your year of study</option>
                   <option value="I">First year</option>
                   <option value="II">Second year</option>
                   <option value="III">Third year</option>
@@ -54,11 +54,12 @@
                   <option value="IVs">Fourth year in session</option>
                   <option value="V">Fifth year</option>
                   <option value="VI">Sixth year</option>
-              </select>
+                </select>
               </div>
               <div class="form-group mb-3 px-3" id="regNumber" style="display: none;">
                 <label for="regNumber" class="form-label">Enter your Registration Number:</label>
-                <input type="text" class="form-control" id="regNumber" name="regNumber" placeholder="Registration Number"/>
+                <input type="text" class="form-control" id="regNumber" name="regNumber"
+                  placeholder="Registration Number" />
               </div>
               <div class="form-group mb-3 px-3 pt-3">
                 <label>Buying T-shirt or Donating?</label>
@@ -86,22 +87,23 @@
               <div class="shirts" style="display: none;">
                 <div class="form-group mb-3 px-3">
                   <select class="form-control" id="tshirtType" name="tshirtType">
-                    <option selected>T-Shirt Type:</option>
+                    <option value="" selected disabled>T-Shirt Type:</option>
                     <option value="polo">Polo Neck</option>
                     <option value="round">Round Neck</option>
                   </select>
                 </div>
                 <div class="form-group mb-3 px-3">
                   <select class="form-control" id="tshirtSize" name="tshirtSize">
-                    <option selected>T-Shirt Size:</option>
+                    <option value="" selected disabled>T-Shirt Size:</option>
                     <option value="small">Small</option>
                     <option value="medium">Medium</option>
                     <option value="large">Large</option>
-                    <option value="large">Extra Large</option>
+                    <option value="extra-large">Extra Large</option>
                   </select>
                 </div>
                 <div class="form-group mb-3 px-3">
-                  <input class="form-control" type="number" id="quantity" name="quantity" min="1" max="3" value="1" step="1" placeholder="Number of Shirts:">
+                  <input class="form-control" type="number" id="quantity" name="quantity" min="1" max="3" value="1"
+                    step="1" placeholder="Number of Shirts:">
                 </div>
                 <div class="form-group mb-3 px-3">
                   <p>Your total amount so far is <span id="totalAmount" name="totalAmount">0</span></p>
@@ -124,7 +126,10 @@
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="phone-number">
                 <label for="phone-number" class="form-label">Phone Number:</label>
-                <input type="tel" class="form-control" id="phone" name="phone" required />
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">254</span>
+                  <input type="tel" class="form-control" id="phone" name="phone" placeholder="700000000" required />
+                </div>
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -141,7 +146,11 @@
               </div>
               <div class="form-group mb-3 px-3" style="display: none;" id="kin-number-div">
                 <label for="kin-number" class="form-label">Kin's Phone Number</label>
-                <input type="tel" class="form-control" id="kin-number" name="kinNumber" required />
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">254</span>
+                  <input type="tel" class="form-control" id="kin-number" name="kinNumber" placeholder="700000000"
+                    required />
+                </div>
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -155,8 +164,8 @@
               </div>
               <div class="form-group mb-3 px-3 pick-up-point" style="display: none;" id="pickUpPoint">
                 <label for="pickUp" class="form-label">Pick-up Point:</label>
-                <select class="form-control" id="pickUp" name="pickUp" required>
-                  <option value="none">Please select a pick-up point</option>
+                <select class="form-control" id="pickUp" name="pickUp">
+                  <option value="" selected disabled>Please select a pick-up point</option>
                   <option value="kenyatta-national-hospital">Kenyatta National Hospital</option>
                   <option value="chiromo-campus">Chiromo Campus, University of Nairobi</option>
                 </select>
@@ -204,14 +213,6 @@
             form.classList.add('was-validated');
           }, false);
         });
-        // form.addEventListener('submit', (e) => {
-        //   e.preventDefault();
-        //   const phoneNumber = form.phone.value;
-        //   if (!phoneNumber || !/^(?:(?:(?:\+254|0)[17])(?:\d{9}))$|^(?:(?:\+254|0)[17])(?:\d{8})$/.test(phoneNumber)) {
-        //     return alert('Invalid phone number');
-        //   }
-        //   // send the data to the server
-        // });
 
       }, false);
     })();

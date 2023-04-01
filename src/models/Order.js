@@ -8,8 +8,7 @@ const OrderSchema = new mongoose.Schema({
   },
   university: {
     type: String,
-    enum: ["uon", "partner", "other"],
-    required: true,
+    enum: ["uon", "partner", "other"]
   },
   level: {
     type: String,
@@ -28,17 +27,14 @@ const OrderSchema = new mongoose.Schema({
   },
   tshirtType: {
     type: String,
-    enum: ["polo", "round"],
-    required: true,
+    enum: ["polo", "round"]
   },
   tshirtSize: {
     type: String,
-    enum: ["small", "medium", "large"],
-    required: true,
+    enum: ["small", "medium", "large"]
   },
   quantity: {
-    type: Number,
-    max: 3,
+    type: Number
   },
   totalAmount: {
     type: Number,
@@ -49,25 +45,11 @@ const OrderSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: [true, "email is required"],
-    unique: true,
-    validate: {
-      validator: (v) => /^([\w-.]+@([\w-]+.)+[\w-]{2,4}(\.\w+)*)?$/.test(v),
-    },
-    message: (props) => `${props.value} is not a valid email!`,
+    required: [true, "email is required"]
   },
   phone: {
     type: String,
     required: true,
-    unique: true,
-    default: null,
-    validate: {
-      validator: (phoneNumber) =>
-        /^(?:(?:(?:\+254|0)[17])(?:\d{9}))$|^(?:(?:\+254|0)[17])(?:\d{8})$/.test(
-          phoneNumber
-        ),
-    },
-    message: (props) => `${props.value} is not a valid number!`,
   },
   kin: {
     type: String,
@@ -80,7 +62,7 @@ const OrderSchema = new mongoose.Schema({
   },
   pickUp: {
     type: String,
-    enum: ["none", "kenyatta-national-hospital", "chiromo-campus"]
+    enum: ["kenyatta-national-hospital", "chiromo-campus"]
   },
   buying: {
     type: String,

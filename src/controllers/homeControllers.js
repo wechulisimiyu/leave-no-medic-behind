@@ -38,7 +38,8 @@ const buyTshirt = async (req, res) => {
     res.redirect(`/checkout?amount=${amount}&phone=${phone}`);
   } catch (err) {
     console.log(err);
-    res.redirect(500, "/500", { errorMessage: `Error saving data` });
+    req.flash('error', 'Something went wrong. Let us try again but if it persists contact us')
+    res.redirect("/buy-tshirt")
   }
 };
 

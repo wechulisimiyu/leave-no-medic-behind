@@ -1,40 +1,40 @@
 <% layout('layout/boilerplate')%>
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col mb-5 mt-5 mb-lg-0">
-                <div class="pricing-thumb bg-white shadow-lg">                                
-                    <div class="pricing-title-wrap d-flex align-items-center">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col mb-5 mt-5 mb-lg-0">
+                    <div class="pricing-thumb bg-white shadow-lg">
+                        <div class="pricing-title-wrap d-flex align-items-center">
 
-                        <h4 class="pricing-title text-white mb-0">Payment Summary</h4>
-                    </div>
+                            <h4 class="pricing-title text-white mb-0">Payment Summary</h4>
+                        </div>
 
-                    <div class="pricing-body">
-                        <p>
-                            <i class="bi bi-phone me-2"></i> Your phone number is: <%= phone %>
-                        </p>
+                        <div class="pricing-body">
+                            <p>
+                                <i class="bi bi-phone me-2"></i> Your phone number is: <%= phone %>
+                            </p>
 
-                        <p>
-                            <i class="bi bi-cash me-2"></i> The amount to pay is: Kes <%= amount %>
+                            <p>
+                                <i class="bi bi-cash me-2"></i> The amount to pay is: Kes <%= amount %>
 
-                        </p>
+                            </p>
 
-                        <div class="border-bottom pb-3 mb-4"></div>
+                            <p>Please confirm your details before paying. You will receive a prompt on your phone.</p>
 
-                        <p>Please confirm your details before paying. You will receive a prompt on your phone.</p>
+                            <div class="border-bottom pb-3 mb-4"></div>
 
-                        <p>
-                            <i class="bi-cup me-2"></i> Paybill Number: 247247
-                        </p>
+                            <p>
+                                <i class="bi-cup me-2"></i> Paybill Number: 247247
+                            </p>
 
-                        <p>
-                            <i class="bi-controller me-2"></i> Account Number: 0170280594893 
-                        </p>
+                            <p>
+                                <i class="bi-controller me-2"></i> Account Number: 0170280594893
+                            </p>
 
-                        <a class="custom-btn btn mt-3" href="#">Make the payment</a>
+                            <a class="custom-btn btn mt-3" href="/checkout">Make the payment</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
