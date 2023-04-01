@@ -9,8 +9,8 @@ const vendorSchema = new mongoose.Schema({
     type: String
   },
   yearOfStudy: {
-    type: Number,
-    required: true
+    type: String,
+    enum: ["I", "II", "III", "IV", "IVs", "V", "VI"]
   },
   typeOfBusiness: {
     type: String,

@@ -37,11 +37,11 @@ const initiateSTKPush = async (req, res) => {
       data: {
         phoneNumber: formattedPhoneNumber,
         reference: reference,
-        amount: 1,
+        amount: amount,
         telco: "SAF",
         countryCode: "KE",
-        callBackUrl: `https://leavenomedicbehind.herokuapp.com/${reference}`,
-        errorCallBackUrl: `https://leavenomedicbehind.herokuapp.com/${reference}`,
+        callBackUrl: `https://www.lnmb-run.org/payment/success`,
+        errorCallBackUrl: `https://www.lnmb-run.org/payment/checkout?amount=${amount}&phone=${phone}`,
       },
     })
       .then((response) => {
