@@ -16,6 +16,7 @@ const User = require("./src/models/User");
 const homeRoute = require("./src/routes/homeRoutes");
 const adminRoute = require("./src/routes/userRoutes");
 const mailRoute = require("./src/routes/mailRoutes");
+const paymentRoute = require("./src/routes/paymentRoutes");
 
 mongoose.set("strictQuery", true);
 
@@ -89,6 +90,7 @@ app.use((req, res, next) => {
 app.use("/", homeRoute);
 app.use("/mail", mailRoute);
 app.use("/admin", adminRoute);
+app.use("/payment", paymentRoute);
 
 const port = process.env.PORT || 4000;
 
