@@ -1,33 +1,6 @@
 const axios = require("axios");
 const router = require("express").Router();
 
-// GET route for checkout
-router.get("/checkout", (req, res) => {
-  const amount = req.query.amount;
-  const phone = req.query.phone;
-  res.render("checkout", { amount, phone });
-});
-
-router.post("/checkout", async (req, res) => {
-  const amount = req.body.amount;
-  const phone = req.body.phone;
-
-  // Make a POST request to the /initiateSTKPush route with the amount and phone number
-  try {
-    const response = await axios.post("/initiateSTKPush", {
-      amount: amount,
-      phone: phone,
-    });
-
-    // Redirect the user to the success page with the reference number
-    res.redirect(`/success?referenceNumber=${response.data.referenceNumber}`);
-  } catch (error) {
-    console.error(error);
-
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
 router.post("/initiateSTKPush", async (req, res) => {
   const { amount, phone } = req.query;
   try {
