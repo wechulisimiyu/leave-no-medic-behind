@@ -29,13 +29,13 @@ const buyTshirt = async (req, res) => {
   try {
     const savedRunner = await newRunner.save();
 
-    mailOptions.to = email;
+    // mailOptions.to = email;
 
     // Send the email using Nodemailer
-    await transporter.sendMail(mailOptions);
+    // await transporter.sendMail(mailOptions);
 
     res.status(200);
-    res.redirect(`/checkout?amount=${amount}&phone=${phone}`);
+    res.redirect(`payment/checkout?amount=${amount}&phone=${phone}`);
   } catch (err) {
     console.log(err);
     req.flash('error', 'Something went wrong. Let us try again but if it persists contact us')
