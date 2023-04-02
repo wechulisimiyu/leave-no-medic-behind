@@ -29,6 +29,33 @@ const parser = multer({ storage: storage });
 // POST route for /vendors
 router.post("/vendors", parser.array("schoolIdPic"), createVendor);
 
+// GET route for checkout
+router.get("/checkout", (req, res) => {
+  const amount = req.query.amount;
+  const phone = req.query.phone;
+  res.render("checkout", { amount, phone });
+});
+
+router.post("/checkout", async (req, res) => {
+  const amount = req.body.amount;
+  const phone = req.body.phone;
+
+  // Make a POST request to the /initiateSTKPush route with the amount and phone number
+  try {
+    const response = await axios.post("payment/initiateSTKPush", {
+      amount: amount,
+      phone: phone,
+    });
+
+    // Redirect the user to the success page with the reference number
+    res.redirect(`payment/success?referenceNumber=${response.data.referenceNumber}`);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/", (req, res) => {
   res.render("home", { name: "Person" });
 });
