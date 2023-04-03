@@ -1,12 +1,27 @@
 const router = require("express").Router();
 const multer = require("multer");
+const axios = require("axios");
+const Order = require("../models/Order");
 const { storage } = require("../../config/cloudinary");
-const { buyTshirt, createVendor } = require("../controllers/homeControllers");
+const {
+  buyTshirt,
+  donation,
+  createVendor,
+} = require("../controllers/homeControllers");
+
+// const { verifyTshirtPurchase } = require("../middleware/verifyTshirtPurchase");
 
 router.post("/buy-tshirt", buyTshirt);
+// router.post("/buy-tshirt", verifyTshirtPurchase, buyTshirt);
 
 router.get("/buy-tshirt", async (req, res) => {
   res.render("buy-tshirt");
+});
+
+router.post("/donate", donation);
+
+router.get("/donate", async (req, res) => {
+  res.render("donate");
 });
 
 // GET route for /vendors
@@ -40,24 +55,46 @@ router.post("/checkout", async (req, res) => {
   const amount = req.body.amount;
   const phone = req.body.phone;
 
+  const data = {
+    amount: amount,
+    phone: phone,
+  };
+
   // Make a POST request to the /initiateSTKPush route with the amount and phone number
   try {
-    const response = await axios.post("payment/initiateSTKPush", {
-      amount: amount,
-      phone: phone,
-    });
+    const response = await axios.post(
+      "https://lnmb-run-stk-push.onrender.com/initiateSTKPush", data
+    );
 
-    // Redirect the user to the success page with the reference number
-    res.redirect(`payment/success?referenceNumber=${response.data.referenceNumber}`);
+    return response.json();
+    console.log(response);
   } catch (error) {
-    console.error(error);
-
-    res.status(500).json({ error: "Internal server error" });
+    console.log(error.message);
+    req.flash('error', error.message);
+    res.status(500).json({ error });
   }
 });
 
+router.get('/payment/callback', async (req, res) => {
+  const phone = req.body.phone;
+
+  try {
+    const order = await Order.findOneAndUpdate({ phone: phone }, { paid: true });
+    console.log(`Order with phone number ${phone} has been updated.`, order);
+    res.redirect('/about');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+router.get('/payment/error-callback', (req, res) => {
+  console.log(req.body)
+  res.redirect('/')
+})
+
 router.get("/", (req, res) => {
-  res.render("home", { name: "Person" });
+  res.render("home");
 });
 
 module.exports = router;

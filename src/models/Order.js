@@ -75,6 +75,14 @@ const OrderSchema = new mongoose.Schema({
     type: String,
     enum: ["kenyatta-national-hospital", "chiromo-campus"]
   },
+  confirm: {
+    type: String,
+    required: true,
+  },
+  paid: {
+    type: Boolean,
+    default: false
+  }
 });
 
 OrderSchema.pre("save", function (next) {
