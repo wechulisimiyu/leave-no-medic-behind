@@ -1,0 +1,115 @@
+<% layout('layout/form-boilerplate')%>
+
+  <section class="pricing section-padding" id="section_5">
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-10 col-12 text-center mx-auto mb-5">
+          <h2><u class="text-info">Donate</u> any amount directly</h2>
+          <p>
+            Thank you for your express intent to donate a sum of money to the
+            cause. You can also directly sponsor, in part, or entirely, the
+            education of a current medic. Reach out to us for communication
+          </p>
+        </div>
+
+        <div class="col-md-6 col-lg-8 mb-5 mb-lg-0">
+          <div class="pricing-thumb bg-white shadow-lg">
+            <div class="pricing-title-wrap d-flex align-items-center">
+              <h4 class="pricing-title text-white mb-0">
+                Before You Donate, View Our Catalogue
+              </h4>
+            </div>
+
+            <div class="row g-0">
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">Tshirts</h5>
+                  <a href="https://drive.google.com/file/d/182Sg33uH05s3u6oujP0agCV5cMI6p_3U/view?usp=share_link"
+                    target="_blank"><button type="submit" class="custom-btn custom-border-btn btn">
+                      View the Tshirts
+                    </button></a>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">Bags</h5>
+                  <a href="https://drive.google.com/file/d/16rL15iX9tz1oyXrki69caifW836J94WA/view?usp=share_link"
+                    target="_blank"><button type="submit" class="custom-btn custom-border-btn btn">
+                      View the Bags
+                    </button></a>
+                </div>
+              </div>
+              <p class="px-3">
+                We hope to offer more items in future based on your feedback
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5">
+          <div class="pricing-thumb bg-white shadow-lg">
+            <form action="/donate" method="post" id="donateForm" class="needs-validation" novalidate>
+              <div class="form-group mb-3 px-3 px-3 pt-3" id="full-name">
+                <label for="full-name" class="form-label">Your Full Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required />
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+              <div class="form-group mb-3 px-3" id="email-address">
+                <label for="email" class="form-label">Email Address:</label>
+                <input type="email" class="form-control" id="email" name="email" required />
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+              <div class="form-group mb-3 px-3" id="phone-number">
+                <label for="phone-number" class="form-label">A Safaricom Phone Number:</label>
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">254</span>
+                  <input type="tel" class="form-control" id="phone" name="phone" placeholder="700000000" required />
+                </div>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">
+                  Please provide a valid phone number.
+                </div>
+              </div>
+              <div class="form-group mb-3 px-3" id="amount-div">
+                <label for="phone-number" class="form-label">Donate any amount:</label>
+                <input type="text" class="form-control" id="amount" name="amount" />
+              </div>
+              <div class="form-group mb-3 px-3">
+                <button type="submit" class="custom-btn btn">
+                  Proceed to Donate (MPESA)
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      "use strict";
+      window.addEventListener(
+        "load",
+        function () {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          const forms = document.getElementsByClassName("needs-validation");
+          // Loop over them and prevent submission
+          const validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener(
+              "submit",
+              function (event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add("was-validated");
+              },
+              false
+            );
+          });
+        },
+        false
+      );
+    })();
+  </script>

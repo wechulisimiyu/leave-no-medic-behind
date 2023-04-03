@@ -50,7 +50,7 @@ router.post("/initiateSTKPush", async (req, res) => {
 });
 
 // GET route for success
-router.get("/success", (req, res) => {
+router.get("/callBack", (req, res) => {
   res.render("success");
 });
 

@@ -8,77 +8,90 @@ const OrderSchema = new mongoose.Schema({
   },
   university: {
     type: String,
-    enum: ["uon", "partner", "other"]
+    enum: ["uon", "partner", "other"],
+    required: true,
+    default: "uon" // default value is "uon"
   },
-  level: {
+  yearOfStudy: {
     type: String,
-    enum: ["I", "II", "III", "IV", "IVs", "V", "VI"]
+    enum: ["I", "II", "III", "IV", "IVs", "V", "VI"],
+    required: true,
+    default: "I" // default value is "I"
   },
   regNumber: {
     type: String,
-  },
-  buying: {
-    type: String,
-    enum: ["buying", "donating"]
-  },
+    default: "H31/12345/2010" // default value is "0000-00000"
+  },  
   attending: {
     type: String,
-    enum: ["attending", "notattending"]
+    enum: ["attending", "notattending"],
+    required: true,
   },
   tshirtType: {
     type: String,
-    enum: ["polo", "round"]
+    enum: ["polo", "round"],
+    required: true,
   },
   tshirtSize: {
     type: String,
-    enum: ["small", "medium", "large"]
+    enum: ["small", "medium", "large"],
+    required: true,
   },
   quantity: {
-    type: Number
+    type: Number,
+    required: true,
   },
   totalAmount: {
     type: Number,
+    required: true,
   },
   name: {
     type: String,
     required: [true, "name is required"],
+    required: true,
   },
   email: {
     type: String,
-    required: [true, "email is required"]
+    required: [true, "email is required"],
+    required: true,
   },
   phone: {
     type: String,
-    required: true,
+    required: true
   },
-  kin: {
+  nameOfKin: {
     type: String,
+    required: true,
   },
   kinNumber: {
     type: String,
+    required: true,
   },
-  donatedAmount: {
-    type: Number,
+  medicalCondition: {
+    type: String,
+    required: true,
   },
   pickUp: {
     type: String,
     enum: ["kenyatta-national-hospital", "chiromo-campus"]
   },
-  buying: {
+  confirm: {
     type: String,
-    enum: ["buying", "donating"],
     required: true,
   },
+  paid: {
+    type: Boolean,
+    default: false
+  }
 });
 
 OrderSchema.pre("save", function (next) {
-  if (this.buying === "donating") {
-    this.set({
-      name: this.name,
-      email: this.email,
-      phone: this.phone,
-      donatedAmount: this.donatedAmount,
-    });
+  // Check if student status is 'no'
+  if (this.student === "no") {
+    // If student status is 'no', remove the required attribute from fields
+    this.university.required = false;
+    this.yearOfStudy.required = false;
+    this.regNumber.required = false;
   }
   next();
 });

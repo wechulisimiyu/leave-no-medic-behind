@@ -8,6 +8,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const ejsMate = require("ejs-mate");
 const MongoStore = require("connect-mongo");
+const morgan = require('morgan')
 const helmet = require("helmet");
 const methodOverride = require("method-override");
 const passport = require("passport");
@@ -27,6 +28,11 @@ dotenv.config()
 connectDB();
 
 const app = express();
+
+// HTTP request logger middleware 
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");

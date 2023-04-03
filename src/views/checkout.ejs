@@ -31,7 +31,16 @@
                                 <i class="bi-controller me-2"></i> Account Number: 0170280594893
                             </p>
 
-                            <a class="custom-btn btn mt-3" href="/checkout">Make the payment</a>
+                            <form action="/checkout" method="POST">
+                                <input type="hidden" name="amount" value="<%= amount %>">
+                                <input type="hidden" name="phone" value="<%= phone %>">
+                                <div class="form-group mb-3 px-3">
+                                    <button type="submit" class="custom-btn btn">
+                                      Make the payment
+                                    </button>
+                                  </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>
