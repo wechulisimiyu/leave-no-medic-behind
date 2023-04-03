@@ -1,26 +1,48 @@
 <% layout('layout/form-boilerplate')%>
 
-  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
-      <path
-        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-    </symbol>
-  </svg>
-
   <section class="pricing section-padding" id="section_5">
     <div class="container">
       <div class="row d-flex justify-content-center">
         <%= error %>
         <div class="alert alert-info alert-dismissible fade show" role="alert">
           Hey there! Thank you for your intent to support us. If you are buying a t-shirt, pickup will start on <b>19th
-            April</b> 2023. Just make sure you fill in your details correctly.
+            April 2023</b>. Just make sure you fill in your details correctly.
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <div class="col-lg-10 col-12 text-center mx-auto mb-5">
-          <h2>Get Your <u class="text-info">T-shirt</u>, or <u class="text-info">Donate</u> directly</h2>
+          <h2>Get Your <u class="text-info">T-shirt</u></h2>
           <p>In order to register for the run, proceed to buy a tshirt. You can also buy a tshirt even if you choose not
-            to participate in the run. Alternatively, you can donate any sum to the fund with or without buying a
-            tshirt, which will go towards the <u class="text-info"><b>Leave No Medic Behind</b></u> cause.</p>
+            to participate in the run. If you wish to donate directly without making a purchase, click on <a href="/donate"><b><u class="class-info">this link</u></b></a></p>
+        </div>
+
+        <div class="col-md-6 col-lg-8 mb-5 mb-lg-0">
+          <div class="pricing-thumb bg-white shadow-lg">
+            <div class="pricing-title-wrap d-flex align-items-center">
+              <h4 class="pricing-title text-white mb-0">Before You Buy A Tshirt, View Our Catalogue</h4>
+            </div>
+
+            <div class="row g-0">
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">Tshirts</h5>
+                  <a href="https://drive.google.com/file/d/17kSQeZ8RaH32zsOYJC9mnDWvpsr5mF-V/view?usp=share_link" target="_blank"><button
+                      type="submit" class="custom-btn btn">
+                      View the Tshirts
+                    </button></a>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">Bags</h5>
+                  <a href="https://drive.google.com/file/d/16rL15iX9tz1oyXrki69caifW836J94WA/view?usp=share_link" target="_blank"><button
+                      type="submit" class="custom-btn btn">
+                      View the Bags
+                    </button></a>
+                </div>
+              </div>
+              <p class="px-3">We hope to offer more items in future based on your feedback</p>
+            </div>
+          </div>
         </div>
 
         <div class="mt-5">
@@ -62,18 +84,7 @@
                 <input type="text" class="form-control" id="regNumber" name="regNumber"
                   placeholder="Registration Number" />
               </div>
-              <div class="form-group mb-3 px-3 pt-3">
-                <label>Buying T-shirt or Donating?</label>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="buying" id="buying" value="buying" />
-                  <label class="form-check-label" for="yes">Buying T-shirt</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="buying" id="donating" value="donating" />
-                  <label class="form-check-label" for="yes">Donating</label>
-                </div>
-              </div>
-              <div class="form-group mb-3 px-3 pt-3" id="attend" style="display: none;">
+              <div class="form-group mb-3 px-3 pt-3" id="attend">
                 <label class="form-label">Will you attend the run on race day?</label>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="attending" id="attending" value="attending" />
@@ -85,7 +96,7 @@
                   <label class="form-check-label" for="yes">Just buying a Tshirt</label>
                 </div>
               </div>
-              <div class="shirts" style="display: none;">
+              <div class="shirts">
                 <div class="form-group mb-3 px-3">
                   <select class="form-control" id="tshirtType" name="tshirtType">
                     <option value="" selected disabled>T-Shirt Type:</option>
@@ -111,21 +122,21 @@
                   <input type="hidden" name="totalAmount" id="totalAmountInput" value="0">
                 </div>
               </div>
-              <div class="form-group mb-3 px-3" style="display: none;" id="full-name">
+              <div class="form-group mb-3 px-3"  id="full-name">
                 <label for="full-name" class="form-label">Full Name:</label>
                 <input type="text" class="form-control" id="name" name="name" required />
                 <div class="valid-feedback">
                   Looks good!
                 </div>
               </div>
-              <div class="form-group mb-3 px-3" style="display: none;" id="email-address">
+              <div class="form-group mb-3 px-3" id="email-address">
                 <label for="email" class="form-label">Email Address:</label>
                 <input type="email" class="form-control" id="email" name="email" required />
                 <div class="valid-feedback">
                   Looks good!
                 </div>
               </div>
-              <div class="form-group mb-3 px-3" style="display: none;" id="phone-number">
+              <div class="form-group mb-3 px-3" id="phone-number">
                 <label for="phone-number" class="form-label">Phone Number:</label>
                 <div class="input-group">
                   <span class="input-group-text" id="basic-addon1">254</span>
@@ -138,14 +149,14 @@
                   Please provide a valid phone number.
                 </div>
               </div>
-              <div class="form-group mb-3 px-3" style="display: none;" id="kin-div">
+              <div class="form-group mb-3 px-3">
                 <label for="kin" class="form-label">Name of Next of Kin (in case of emergency):</label>
-                <input type="text" class="form-control" id="kin" name="kin" required />
+                <input type="text" class="form-control" id="nameOfKin" name="nameOfKin" required />
                 <div class="valid-feedback">
                   Looks good!
                 </div>
               </div>
-              <div class="form-group mb-3 px-3" style="display: none;" id="kin-number-div">
+              <div class="form-group mb-3 px-3">
                 <label for="kin-number" class="form-label">Kin's Phone Number</label>
                 <div class="input-group">
                   <span class="input-group-text" id="basic-addon1">254</span>
@@ -159,11 +170,14 @@
                   Please provide a valid phone number.
                 </div>
               </div>
-              <div class="form-group mb-3 px-3" style="display: none;" id="amount-div">
-                <label for="phone-number" class="form-label">Donate any amount:</label>
-                <input type="text" class="form-control" id="amount" name="donatedAmount" />
+              <div class="form-group mb-3 px-3">
+                <label for="condition" class="form-label">Any medical condition?</label>
+                <input type="text" class="form-control" id="medicalCondition" name="medicalCondition" required />
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
               </div>
-              <div class="form-group mb-3 px-3 pick-up-point" style="display: none;" id="pickUpPoint">
+              <div class="form-group mb-3 px-3 pick-up-point" id="pickUpPoint">
                 <label for="pickUp" class="form-label">Pick-up Point:</label>
                 <select class="form-control" id="pickUp" name="pickUp">
                   <option value="" selected disabled>Please select a pick-up point</option>
@@ -174,7 +188,7 @@
                   Looks good!
                 </div>
               </div>
-              <div class="form-group mb-3 px-3" style="display: none;" id="confirmDiv">
+              <div class="form-group mb-3 px-3" id="confirmDiv">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="confirm" id="confirm" value="confirm" />
                   <label class="form-check-label" for="yes">I confirm that I am in good physical health to participate
