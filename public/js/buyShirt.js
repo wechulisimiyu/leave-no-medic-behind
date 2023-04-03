@@ -2,9 +2,6 @@ const isStudent = document.getElementById("yes");
 const isNonStudent = document.getElementById("no");
 const studentStatus = document.getElementById("studentStatus");
 const registrationNumber = document.getElementById("regNumber");
-const buying = document.getElementById("buying");
-const donating = document.getElementById("donating");
-const attend = document.getElementById("attend")
 const university = document.getElementById("university")
 const fullNameDiv = document.getElementById("full-name");
 const emailAddressDiv = document.getElementById("email-address");
@@ -12,13 +9,8 @@ const phoneNumberDiv = document.getElementById("phone-number");
 const kinDiv = document.getElementById("kin-div");
 const kinNumberDiv = document.getElementById("kin-number-div");
 const levelDiv = document.getElementById("level");
-const amountDiv = document.getElementById("amount-div");
-const shirtInfo = document.querySelector(".shirts");
-const pickUpSelect = document.getElementById("pickUp");
-const pickUpPoint = document.getElementById("pickUpPoint");
 const tshirtType = document.getElementById("tshirtType");
 const tshirtNumber = document.getElementById("quantity");
-const confirmDiv = document.getElementById("confirmDiv");
 const totalAmountSpan = document.getElementById("totalAmount")
 const totalAmountInput = document.getElementById('totalAmountInput');
 
@@ -38,50 +30,6 @@ isNonStudent.addEventListener("change", () => {
   university.style.display = "none";
   levelDiv.style.display = "none";
 });
-
-buying.addEventListener("change", () => {
-  fullNameDiv.style.display = "block";
-  emailAddressDiv.style.display = "block";
-  phoneNumberDiv.style.display = "block";
-  amountDiv.style.display = "none";
-  shirtInfo.style.display = "block";
-  pickUpPoint.style.display = "block";
-  attend.style.display= "block";
-  kinDiv.style.display = "block";
-  kinNumberDiv.style.display= "block";
-  confirmDiv.style.display="block";
-});
-
-donating.addEventListener("change", () => {
-  fullNameDiv.style.display = "block";
-  emailAddressDiv.style.display = "block";
-  phoneNumberDiv.style.display = "block";
-  amountDiv.style.display = "block";
-  shirtInfo.style.display = "none";
-  pickUpPoint.style.display = "none";
-  attend.style.display = "none";
-  kinDiv.style.display = "none";
-  kinNumberDiv.style.display= "none";
-  confirmDiv.style.display = "none";
-});
-
-donating.addEventListener("change", function () {
-  if (this.checked) {
-    amountDiv.required = true;
-  } else {
-    amountDiv.required = false;
-  }
-});
-
-donating.addEventListener("change", function () {
-  if (this.checked) {
-    pickUpSelect.required = false;
-  } else {
-    pickUpSelect.required = true;
-    pickUpSelect.value = "none";
-  }
-});
-
 
 function calculateTotalAmount() {
   const tshirtTypeValue = tshirtType.value;
