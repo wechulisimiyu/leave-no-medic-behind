@@ -71,7 +71,7 @@ router.post("/checkout", async (req, res) => {
   } catch (error) {
     console.log(error.message);
     req.flash('error', error.message);
-    res.status(500).json({ error });
+    res.status(500).redirect('/checkout?amount=${amount}&phone=${phone}')
   }
 });
 
