@@ -26,20 +26,66 @@ const buyTshirt = async (req, res) => {
     return res.redirect("/buy-tshirt");
   }
 
+  const amount = value.totalAmount;
+  const email = value.email;
+  // const phone = formatPhoneNumber(value.phone)
+  const phone = value.phone;
+  const university = value.university;
+  console.log(
+    `Data: amount is ${amount}, email is ${email}, and number is ${phone}`
+  );
+
   const newOrder = new Order(value);
 
-  const amount = value.totalAmount;
-  const phone = formatPhoneNumber(value.phone)
-  console.log(`Data: amount is ${amount}, and number is ${phone}`);
-
-  const email = value.email;
-
   try {
-    const savedOrder = await newOrder.save();
-    console.log(`SavedOrder: ${savedOrder}`);
+    if (university.value === "partner") {
+      mailOptions.to = email;
+      mailOptions.html = `<p>Dear Participants,</p>
+      <p>Thank you for your interest in the upcoming charity run. If you are a student from Mount Kenya University, Kenyatta University, Egerton University or Jomo Kenyatta University of Agriculture and Technology, please note that you will sign up for the run and purchase t-shirts through your school's liaison.</p>
+      <p>We have liaisons from each of these universities who will facilitate your sign-up and t-shirt purchase. You can find their contact information below, and they will be happy to assist you with any questions or concerns you may have.</p>
+      <p>We apologize for any inconvenience this may cause, but we believe that this process will make it easier for you to participate in the event and purchase your t-shirts. Thank you for your understanding, and we look forward to seeing you at the charity run.</p>
+      <ul>
+        <li>Egerton</li>
+        <ul>
+          <li>Hannah Njuguna 0759679960</li>
+        </ul>
+        <li>JKUAT</li>
+        <ul>
+          <li>Davis 0111 727518</li>
+          <li>Brenda 0746 120652</li>
+          <li>Winnie 0112331714</li>
+        </ul>
+        <li>MKU</li>
+        <ul>
+          <li>Lynet 0794019309</li>
+        </ul>
+        <li>KU</li>
+        <ul>
+          <li>Samson +254 736 867475</li>
+        </ul>
+      </ul>
+      <p>Best regards,</p>
+      <p>2023 LNMB Charity Run Organizing Team</p>    
+      `;
+      req.flash(
+        "partnerRedirect",
+        "Hello there! You are seeing this message because you are a partner from Mount Kenya University, Kenyatta University, Egerton University or  Jomo Kenyatta University of Agriculture and Technology. Please check your email for more information."
+      );
 
-    res.status(200);
-    res.redirect(`/checkout?amount=${amount}&phone=${phone}`);
+      // Send the email using Nodemailer
+      await transporter.sendMail(mailOptions);
+      res.redirect("/donate");
+    } else {
+      const savedOrder = await newOrder.save();
+      mailOptions.to = email;
+
+      // Send the email using Nodemailer
+      await transporter.sendMail(mailOptions);
+      console.log(`SavedOrder: ${savedOrder}`);
+
+      res.status(200);
+      res.redirect(`/checkout?amount=${amount}&phone=${phone}&email=${email}`);
+    }
   } catch (err) {
     console.log(err);
     req.flash(
@@ -65,16 +111,34 @@ const donation = async (req, res) => {
   }
 
   const amount = value.amount;
-  const phone = formatPhoneNumber(value.phone)
+  // const phone = formatPhoneNumber(value.phone)
+  const phone = value.phone;
   const email = value.email;
 
-  console.log(`Data: amount is ${amount}, and number is ${phone}`);
+  console.log(
+    `Data: amount = ${amount}, phone number = ${phone}, email = ${email}`
+  );
 
   const newDonation = new Donation(value);
   try {
+    mailOptions.to = email;
+    mailOptions.html = `<p>Dear Donor,</p>
+    <p>Thank you for choosing to donate to our cause. Your contribution will go a long way in helping us raise awareness and funds for medical students in need.</p>
+    <p>We appreciate your generosity and support for our mission to provide financial assistance and resources to our student doctors who are in need of financial aid.</p>
+    <p>You can check our website for more details about our cause and upcoming events.</p>
+    <p>Thank you again for your support, and we look forward to your continued partnership with us!</p>
+    <p>Best regards,</p>
+    <p>2023 LNMB RUN ORGANIZING COMMITTEE</p>
+    `;
+
+    // Send the email using Nodemailer
+    await transporter.sendMail(mailOptions);
+
     const savedDonation = await newDonation.save();
     console.log(`SavedDonation: ${savedDonation}`);
-    res.redirect(`/checkout?amount=${amount}&phone=${phone}`);
+    res.redirect(
+      `/checkout?amount=${amount}&phone=${phone}&email=${email}&university=${university}`
+    );
   } catch (err) {
     console.log(err);
     req.flash(
