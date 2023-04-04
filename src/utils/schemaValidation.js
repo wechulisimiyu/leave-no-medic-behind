@@ -62,10 +62,6 @@ const paymentSchema = Joi.object({
   amount: Joi.number().required().messages({
     "any.required": "Amount is required",
   }),
-  email: Joi.string().email().required().messages({
-    "any.required": "Email is required",
-    "string.email": "Please enter a valid email address",
-  }),
   confirmationMessage: Joi.string().required().messages({
     "any.required": "Confirmation message is required",
   }),

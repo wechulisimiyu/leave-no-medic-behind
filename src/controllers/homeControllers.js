@@ -38,7 +38,7 @@ const buyTshirt = async (req, res) => {
   const newOrder = new Order(value);
 
   try {
-    if (university.value === "partner") {
+    if (university && university.value === "partner") {
       mailOptions.to = email;
       mailOptions.html = `<p>Dear Participants,</p>
       <p>Thank you for your interest in the upcoming charity run. If you are a student from Mount Kenya University, Kenyatta University, Egerton University or Jomo Kenyatta University of Agriculture and Technology, please note that you will sign up for the run and purchase t-shirts through your school's liaison.</p>
@@ -137,7 +137,7 @@ const donation = async (req, res) => {
     const savedDonation = await newDonation.save();
     console.log(`SavedDonation: ${savedDonation}`);
     res.redirect(
-      `/checkout?amount=${amount}&phone=${phone}&email=${email}&university=${university}`
+      `/checkout?amount=${amount}&phone=${phone}&email=${email}`
     );
   } catch (err) {
     console.log(err);
