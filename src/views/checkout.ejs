@@ -1,51 +1,57 @@
 <% layout('layout/boilerplate')%>
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-5 mb-5 mt-5 mb-lg-0">
-                <div class="pricing-thumb bg-white shadow-lg">                                
-                    <div class="pricing-title-wrap d-flex align-items-center">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col mb-5 mt-5 mb-lg-0">
+                    <div class="pricing-thumb bg-white shadow-lg">
+                        <div class="pricing-title-wrap d-flex align-items-center">
 
-                        <h4 class="pricing-title text-white mb-0">Payment Summary</h4>
-                    </div>
+                            <h4 class="pricing-title text-white mb-0">Payment Summary</h4>
+                        </div>
 
-                    <div class="pricing-body">
-                        <p>
-                            <i class="bi bi-phone me-2"></i> Your phone number is: 
-                        </p>
+                        <div class="pricing-body">
+                            <p>
+                                <i class="bi bi-phone me-2"></i> Your phone number is: <%= phone %>
+                            </p>
 
-                        <p>
-                            <i class="bi bi-cash me-2"></i> The amount to pay is: Kes
-                        </p>
+                            <p>
+                                <i class="bi bi-cash me-2"></i> The amount to pay is: Kes <%= amount %>
 
-                        <div class="border-bottom pb-3 mb-4"></div>
+                            </p>
 
-                        <p>Please confirm your details before paying. You will receive a prompt on your phone.</p>
+                            <p>Please confirm your details before paying. Once you pay, please copy and paste your confirmation message from Equity Bank down here.</p>
 
-                        <a class="custom-btn btn mt-3" href="#">Make the payment</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-5 mb-5 mt-5 mb-lg-0">
-                <div class="pricing-thumb bg-white shadow-lg">                                
-                    <div class="pricing-title-wrap d-flex align-items-center">
+                            <div class="border-bottom pb-3 mb-4"></div>
 
-                        <h4 class="pricing-title text-white mb-0">Payment Details</h4>
-                    </div>
+                            <p>
+                                <i class="bi-cup me-2"></i> Paybill Number: <b>247247</b>
+                            </p>
 
-                    <div class="pricing-body">
-                        <p>
-                            <i class="bi-cup me-2"></i> Paybill Number: 
-                        </p>
+                            <p>
+                                <i class="bi-controller me-2"></i> Account Number: <b>0170280594893</b>
+                            </p>
 
-                        <p>
-                            <i class="bi-controller me-2"></i> Account Number: 
-                        </p>
+                            <p>
+                                <i class="bi-controller me-2"></i> Account Name: <b>PROF HASSAN SAIDI</b>
+                            </p>
 
-                        <div class="border-bottom pb-3 mb-4"></div>
+                            <form action="/checkout" method="POST">
+                                <input type="hidden" name="amount" value="<%= amount %>">
+                                <input type="hidden" name="phone" value="<%= phone %>">
+                                <div class="form-group mb-3 px-3">
+                                    <textarea class="form-control" rows="5" id="confirmationMessage" name="confirmationMessage"
+                                        placeholder="The Confirmation Message From Equity Bank"></textarea>
+                                </div>
+                                <div class="form-group mb-3 px-3">
+                                    <button type="submit" class="custom-btn btn">
+                                        Submit the information
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>

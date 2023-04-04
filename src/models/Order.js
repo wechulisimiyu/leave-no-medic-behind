@@ -6,8 +6,26 @@ const OrderSchema = new mongoose.Schema({
     enum: ["yes", "no"],
     required: true,
   },
+  university: {
+    type: String,
+    enum: ["uon", "partner", "other"],
+    required: true,
+    default: "uon" // default value is "uon"
+  },
+  yearOfStudy: {
+    type: String,
+    enum: ["I", "II", "III", "IV", "IVs", "V", "VI"],
+    required: true,
+    default: "I" // default value is "I"
+  },
   regNumber: {
     type: String,
+    default: "H31/12345/2010" // default value is "0000-00000"
+  },  
+  attending: {
+    type: String,
+    enum: ["attending", "notattending"],
+    required: true,
   },
   tshirtType: {
     type: String,
@@ -19,64 +37,61 @@ const OrderSchema = new mongoose.Schema({
     enum: ["small", "medium", "large"],
     required: true,
   },
-  price: {
+  quantity: {
     type: Number,
+    required: true,
+  },
+  totalAmount: {
+    type: Number,
+    required: true,
   },
   name: {
     type: String,
     required: [true, "name is required"],
+    required: true,
   },
   email: {
     type: String,
     required: [true, "email is required"],
-    unique: true,
-    validate: {
-      validator: (v) => /^([\w-.]+@([\w-]+.)+[\w-]{2,4}(\.\w+)*)?$/.test(v),
-    },
-    message: (props) => `${props.value} is not a valid email!`,
+    required: true,
   },
   phone: {
     type: String,
+    required: true
+  },
+  nameOfKin: {
+    type: String,
     required: true,
-    unique: true,
-    default: null,
-    validate: {
-      validator: (phoneNumber) =>
-        /^(?:(?:(?:\+254|0)[17])(?:\d{9}))$|^(?:(?:\+254|0)[17])(?:\d{8})$/.test(
-          phoneNumber
-        ),
-    },
-    message: (props) => `${props.value} is not a valid number!`,
+  },
+  kinNumber: {
+    type: String,
+    required: true,
+  },
+  medicalCondition: {
+    type: String,
+    required: true,
   },
   pickUp: {
     type: String,
-    enum: ["none", "kenyatta-national-hospital", "chiromo-campus"]
+    enum: ["kenyatta-national-hospital", "chiromo-campus"]
   },
-  buying: {
+  confirm: {
     type: String,
-    enum: ["buying", "donating"],
     required: true,
   },
-  amount: {
-    type: Number,
-    required: function () {
-      return this.buying === "donating";
-    },
-  },
+  paid: {
+    type: Boolean,
+    default: false
+  }
 });
 
 OrderSchema.pre("save", function (next) {
+  // Check if student status is 'no'
   if (this.student === "no") {
-    delete this.regNumber;
-  }
-  if (this.buying === "buying") {
-    if (this.tshirtType === "polo") {
-      this.price = 1000;
-    } else {
-      this.price = 600;
-    }
-  } else {
-    this.price = this.amount;
+    // If student status is 'no', remove the required attribute from fields
+    this.university.required = false;
+    this.yearOfStudy.required = false;
+    this.regNumber.required = false;
   }
   next();
 });

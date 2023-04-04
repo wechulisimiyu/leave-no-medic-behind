@@ -2,112 +2,217 @@
 
   <section class="pricing section-padding" id="section_5">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-10 col-12 text-center mx-auto mb-5">
-          <h2>Get Your <u class="text-info">T-shirt</u>, or donate freely</h2>
-          <p>In order to register for the run, proceed to buy a tshirt. You can also buy a tshirt even if you choose not
-            to participate in the run. Alternatively, you can donate any sum to the fund with or without buying a
-            tshirt, which will go towards the leave no medic behind cause.</p>
-        </div>
-
-        <div>
-          <div class="pricing-thumb bg-white shadow-lg">
-            <form action="/buy-tshirt" method="post" id="buyShirtForm" class="needs-validation" novalidate>
-              <div class="form-group mb-3 px-3 pt-3" id="studentStatus">
-                <label>Are you a student?</label>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="student" id="yes" value="yes" />
-                  <label class="form-check-label" for="yes">Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="student" id="no" value="no" />
-                  <label class="form-check-label" for="no">No</label>
-                </div>
-              </div>
-              <div class="form-group mb-3 px-3" id="regNumber" style="display: none;">
-                <label for="regNumber">Enter your Registration Number:</label>
-                <input type="text" class="form-control" id="regNumber" name="regNumber" />
-              </div>
-              <div class="form-group mb-3 px-3 pt-3">
-                <label>Buying T-shirt or Donating?</label>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="buying" id="buying" value="buying" />
-                  <label class="form-check-label" for="yes">Buying T-shirt</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="buying" id="donating" value="donating" />
-                  <label class="form-check-label" for="yes">Donating</label>
-                </div>
-              </div>
-              <div class="shirts">
-                <div class="form-group mb-3 px-3">
-                  <label for="tshirt-type">T-Shirt Type:</label>
-                  <select class="form-control" id="tshirtType" name="tshirtType">
-                    <option value="polo">Polo Neck</option>
-                    <option value="round">Round Neck</option>
-                  </select>
-                </div>
-                <div class="form-group mb-3 px-3">
-                  <label for="tshirt-size">T-Shirt Size:</label>
-                  <select class="form-control" id="tshirtSize" name="tshirtSize">
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="large">Large</option>
-                    <option value="large">Extra Large</option>
-                  </select>
-                </div>
-                <div class="form-group mb-3 px-3">
-                  <label for="quantity">Number of Shirts:</label>
-                  <input type="number" id="quantity" name="quantity" min="1" max="1000000000" value="1" step="1">
-                </div>
-                <div class="form-group mb-3 px-3">
-                  <p>Your total amount so far is <span id="totalAmount" name="totalAmount">0</span></p>
-                </div>
-              </div>
-              <div class="form-group mb-3 px-3" style="display: none;" id="full-name">
-                <label for="full-name">Full Name:</label>
-                <input type="text" class="form-control" id="name" name="name" required />
-              </div>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-              <div class="form-group mb-3 px-3" style="display: none;" id="email-address">
-                <label for="email">Email Address:</label>
-                <input type="email" class="form-control" id="email" name="email" required />
-              </div>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-              <div class="form-group mb-3 px-3" style="display: none;" id="phone-number">
-                <label for="phone-number">Phone Number:</label>
-                <input type="tel" class="form-control" id="phone" name="phone" required />
-              </div>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-              <div class="form-group mb-3 px-3" style="display: none;" id="amount-div">
-                <label for="phone-number">Donate any amount:</label>
-                <input type="text" class="form-control" id="amount" name="amount" />
-              </div>
-              <div class="form-group mb-3 px-3 pick-up-point">
-                <label for="pickUp">Pick-up Point:</label>
-                <select class="form-control" id="pickUp" name="pickUp" required>
-                  <option value="none">Please select a pick-up point</option>
-                  <option value="kenyatta-national-hospital">Kenyatta National Hospital</option>
-                  <option value="chiromo-campus">Chiromo Campus, University of Nairobi</option>
-                </select>
-              </div>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-              <div class="form-group mb-3 px-3">
-                <button type="submit" class="custom-btn btn">
-                  Proceed to Buy (MPESA)
-                </button>
-              </div>
-            </form>
+      <div class="row d-flex justify-content-center">
+        <%= error %>
+          <div class="alert alert-info alert-dismissible fade show" role="alert">
+            Hey there! Thank you for your intent to support us. If you are buying a t-shirt, pickup will start on
+            <b>19th
+              April 2023</b>. Just make sure you fill in your details correctly.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-        </div>
+          <div class="col-lg-10 col-12 text-center mx-auto mb-5">
+            <h2>Get Your <u class="text-info">T-shirt</u></h2>
+            <p>In order to register for the run, proceed to buy a tshirt. You can also buy a tshirt even if you choose
+              not
+              to participate in the run. If you wish to donate directly without making a purchase, click on <a
+                href="/donate"><b><u class="class-info">this link</u></b></a></p>
+          </div>
+
+          <div class="col-md-6 col-lg-8 mb-5 mb-lg-0">
+            <div class="pricing-thumb bg-white shadow-lg">
+              <div class="pricing-title-wrap d-flex align-items-center">
+                <h4 class="pricing-title text-white mb-0">Before You Buy A Tshirt, View Our Catalogue</h4>
+              </div>
+
+              <div class="row g-0">
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <h5 class="card-title">Tshirts</h5>
+                    <a href="https://drive.google.com/file/d/182Sg33uH05s3u6oujP0agCV5cMI6p_3U/view?usp=share_link"
+                      target="_blank"><button type="submit" class="custom-btn custom-border-btn btn">
+                        View the Tshirts
+                      </button></a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <h5 class="card-title">Bags</h5>
+                    <a href="https://drive.google.com/file/d/16rL15iX9tz1oyXrki69caifW836J94WA/view?usp=share_link"
+                      target="_blank"><button type="submit" class="custom-btn custom-border-btn btn">
+                        View the Bags
+                      </button></a>
+                  </div>
+                </div>
+                <p class="px-3"><b>We hope to offer more items in future based on your feedback</b></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <div class="pricing-thumb bg-white shadow-lg">
+              <form action="/buy-tshirt" method="post" id="buyShirtForm" class="needs-validation" novalidate>
+                <div class="form-group px-3 pt-3" id="studentStatus">
+                  <label class="form-label"><b>Are you a student?</b></label>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="student" id="yes" value="yes" />
+                    <label class="form-check-label" for="yes">Yes</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="student" id="no" value="no" />
+                    <label class="form-check-label" for="no">No</label>
+                  </div>
+                </div>
+                <div class="form-group mb-3 px-3 pick-up-point" id="university" style="display: none;">
+                  <select class="form-control" name="university" required>
+                    <option value="" selected disabled>From which university?</option>
+                    <option value="uon">University of Nairobi</option>
+                    <option value="partner">KU, Egerton, JKUAT, MKU</option>
+                    <option value="other">Other Universities</option>
+                  </select>
+                </div>
+                <div class="form-group mb-3 px-3 pick-up-point" id="level" style="display: none;">
+                  <select class="form-control" id="yearOfStudy" name="yearOfStudy">
+                    <option value="" selected disabled>Please select your year of study</option>
+                    <option value="I">First year</option>
+                    <option value="II">Second year</option>
+                    <option value="III">Third year</option>
+                    <option value="IV">Fourth year not in session</option>
+                    <option value="IVs">Fourth year in session</option>
+                    <option value="V">Fifth year</option>
+                    <option value="VI">Sixth year</option>
+                  </select>
+                </div>
+                <div class="form-group mb-3 px-3" id="regNumber" style="display: none;">
+                  <label for="regNumber" class="form-label">Enter your Registration Number:</label>
+                  <input type="text" class="form-control" id="regNumber" name="regNumber"
+                    placeholder="Registration Number" />
+                </div>
+                <div class="form-group mb-3 px-3 pt-3" id="attend">
+                  <label class="form-label"><b>Will you attend the run on race day?</b></label>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="attending" id="attending" value="attending" />
+                    <label class="form-check-label" for="yes">Yes, I will</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="attending" id="notattending"
+                      value="notattending" />
+                    <label class="form-check-label" for="yes">Just buying a Tshirt</label>
+                  </div>
+                </div>
+                <div class="shirts">
+                  <div class="form-group mb-3 px-3">
+                    <select class="form-control" id="tshirtType" name="tshirtType">
+                      <option value="" selected disabled>T-Shirt Type:</option>
+                      <option value="polo">Polo Neck</option>
+                      <option value="round">Round Neck</option>
+                    </select>
+                  </div>
+                  <div class="form-group mb-3 px-3">
+                    <select class="form-control" id="tshirtSize" name="tshirtSize">
+                      <option value="" selected disabled>T-Shirt Size:</option>
+                      <option value="small">Small</option>
+                      <option value="medium">Medium</option>
+                      <option value="large">Large</option>
+                      <option value="extra-large">Extra Large</option>
+                    </select>
+                  </div>
+                  <div class="form-group mb-3 px-3">
+                    <input class="form-control" type="number" id="quantity" name="quantity" min="1" max="3" value="1"
+                      step="1" placeholder="Number of Shirts:">
+                  </div>
+                  <div class="form-group mb-3 px-3">
+                    <p>Your total amount so far is <span id="totalAmount" name="totalAmount">0</span></p>
+                    <input type="hidden" name="totalAmount" id="totalAmountInput" value="0">
+                  </div>
+                </div>
+                <div class="form-group mb-3 px-3" id="full-name">
+                  <label for="full-name" class="form-label">Full Name:</label>
+                  <input type="text" class="form-control" id="name" name="name" required />
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="form-group mb-3 px-3" id="email-address">
+                  <label for="email" class="form-label">Email Address:</label>
+                  <input type="email" class="form-control" id="email" name="email" required />
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="form-group mb-3 px-3" id="phone-number">
+                  <label for="phone-number" class="form-label">Phone Number:</label>
+                  <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">254</span>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="700000000" required />
+                  </div>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                  <div class="invalid-feedback">
+                    Please provide a valid phone number.
+                  </div>
+                </div>
+                <div class="form-group mb-3 px-3">
+                  <label for="kin" class="form-label">Name of Next of Kin (in case of emergency):</label>
+                  <input type="text" class="form-control" id="nameOfKin" name="nameOfKin" required />
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="form-group mb-3 px-3">
+                  <label for="kin-number" class="form-label">Kin's Phone Number</label>
+                  <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">254</span>
+                    <input type="tel" class="form-control" id="kin-number" name="kinNumber" placeholder="700000000"
+                      required />
+                  </div>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                  <div class="invalid-feedback">
+                    Please provide a valid phone number.
+                  </div>
+                </div>
+                <div class="form-group mb-3 px-3">
+                  <label for="condition" class="form-label">Any medical condition?</label>
+                  <input type="text" class="form-control" id="medicalCondition" name="medicalCondition" required />
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="form-group mb-3 px-3 pick-up-point" id="pickUpPoint">
+                  <label for="pickUp" class="form-label">Pick-up Point:</label>
+                  <select class="form-control" id="pickUp" name="pickUp">
+                    <option value="" selected disabled>Please select a pick-up point</option>
+                    <option value="kenyatta-national-hospital">Kenyatta National Hospital</option>
+                    <option value="chiromo-campus">Chiromo Campus, University of Nairobi</option>
+                  </select>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="form-group mb-3 px-3" id="confirmDiv">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="confirm" id="confirm" value="confirm" required/>
+                    <label class="form-check-label" for="yes">I confirm that I am in good physical health to participate
+                      in the Leave No Medic Behind Charity Run. I will follow the laid out trail and directions of the
+                      race organisers. I acknowledge that the Charity run may pose possible risk and danger due to the
+                      nature of the activity and I release the Charity Run organizers from any responsibility in the
+                      event
+                      of any accident, illness or injury. I understand my contact information may be used to reach out
+                      to
+                      me for feedback on the activities related to the Charity run. I confirm that all the details
+                      provided above are accurate and true.</label>
+                  </div>
+                </div>
+                <div class="form-group mb-3 px-3">
+                  <button type="submit" class="custom-btn btn">
+                    Proceed to Buy (MPESA)
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
       </div>
     </div>
   </section>
@@ -128,14 +233,6 @@
             form.classList.add('was-validated');
           }, false);
         });
-        // form.addEventListener('submit', (e) => {
-        //   e.preventDefault();
-        //   const phoneNumber = form.phone.value;
-        //   if (!phoneNumber || !/^(?:(?:(?:\+254|0)[17])(?:\d{9}))$|^(?:(?:\+254|0)[17])(?:\d{8})$/.test(phoneNumber)) {
-        //     return alert('Invalid phone number');
-        //   }
-        //   // send the data to the server
-        // });
 
       }, false);
     })();

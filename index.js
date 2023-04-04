@@ -1,85 +1,108 @@
-const express = require('express')
-const jwt = require('jsonwebtoken');
-const path = require('path')
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
-const cors = require('cors')
-const connectDB = require('./config/db')
+const express = require("express");
+const path = require("path");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const connectDB = require("./config/db");
 const flash = require("connect-flash");
-const session = require("express-session")
-const ejsMate = require('ejs-mate')
-const MongoStore = require('connect-mongo');
-const methodOverride = require('method-override')
-const homeRoute = require('./src/routes/homeRoutes')
-const lipaRoute = require('./src/routes/paymentRoutes')
-const adminRoute = require('./src/routes/userRoutes')
-const mailRoute = require('./src/routes/mailRoutes')
+const session = require("express-session");
+const ejsMate = require("ejs-mate");
+const MongoStore = require("connect-mongo");
+const morgan = require('morgan')
+const helmet = require("helmet");
+const methodOverride = require("method-override");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("./src/models/User");
+const homeRoute = require("./src/routes/homeRoutes");
+const adminRoute = require("./src/routes/userRoutes");
+const mailRoute = require("./src/routes/mailRoutes");
+const paymentRoute = require("./src/routes/paymentRoutes");
 
-mongoose.set('strictQuery', true)
+mongoose.set("strictQuery", true);
 
-// loading the config files
-dotenv.config({ path: './config/config.env' })
+// loading the envariables
+dotenv.config()
 
 // connect the db
-connectDB()
+connectDB();
 
-const app = express()
+const app = express();
+
+// HTTP request logger middleware 
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
+
+app.engine("ejs", ejsMate);
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "src/views"));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
+
+const store = MongoStore.create({
+  mongoUrl: process.env.DB_URL,
+  secret: "secret",
+  touchAfter: 24 * 60 * 60,
+});
+
+store.on("error", function (e) {
+  console.log("SESSION STORE ERROR", e);
+});
+
+//setting session expiry
+const sessionConfig = {
+  store: store,
+  name: "dummy",
+  secret: process.env.STORE_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    // secure: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+  },
+}
+
+app.use(session(sessionConfig));
 
 // middlewares
-app.use(express.json())
-app.use(cors())
-
-
-app.engine('ejs', ejsMate)
-app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, 'src/views'))
-
-// Body parser
-// app.use(express.urlencoded({ extended: false }))
-// app.use(express.json())
-
-app.use(express.urlencoded({ extended: true }))
-app.use(methodOverride('_method'))
-app.use(express.static(path.join(__dirname, 'public')))
-
-// const sessionStore = new MongoStore({
-//     url: process.env.DB_URL
-//   })
-
-app.use(session({
-    secret: 'my-secret',
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
-        mongoUrl: process.env.DB_URL,
-      }),
-    expires: new Date(Date.now() + (20 * 60 * 1000))
-  }));
-
+app.use(express.json());
+app.use(cors());
 app.use(flash());
+app.use(helmet());
 
+// Set up passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(User.createStrategy());
 
-app.use(async (req, res, next) => {
-    if (req.headers["x-access-token"]) {
-     const accessToken = req.headers["x-access-token"];
-     const { userId, exp } = await jwt.verify(accessToken, process.env.JWT_SECRET);
-     // Check if token has expired
-     if (exp < Date.now().valueOf() / 1000) { 
-      return res.status(401).json({ error: "JWT token has expired, please login to obtain a new one" });
-     } 
-     res.locals.loggedInUser = await User.findById(userId); next(); 
-    } else { 
-     next(); 
-    } 
-   });
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-app.use("/", homeRoute)
-app.use("/payment", lipaRoute)
-app.use("/mail", mailRoute)
-app.use("/admin", adminRoute)
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.register = req.flash("register")
+  res.locals.maintenance = req.flash("maintenance")
+  res.locals.captured = req.flash("captured")
+  res.locals.partnerRedirect = req.flash("partnerRedirect")
+  next();
+});
 
-const port = process.env.PORT || 4000
+app.use("/", homeRoute);
+app.use("/mail", mailRoute);
+app.use("/admin", adminRoute);
+app.use("/payment", paymentRoute);
+
+const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
-    console.log(`Serving at http://localhost:${port}, and the admin serving at http://localhost:${port}/admin`)
-}) 
+  console.log(
+    `Listening on 0.0.0.0:${port}`
+  );
+});

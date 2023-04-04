@@ -9,8 +9,8 @@ const vendorSchema = new mongoose.Schema({
     type: String
   },
   yearOfStudy: {
-    type: Number,
-    required: true
+    type: String,
+    enum: ["I", "II", "III", "IV", "IVs", "V", "VI"]
   },
   typeOfBusiness: {
     type: String,
@@ -24,7 +24,7 @@ const vendorSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  schoolIdPic: {
+  schoolIdPic: [{
     public_id: {
       type: String,
       required: true
@@ -33,7 +33,7 @@ const vendorSchema = new mongoose.Schema({
       type: String,
       required: true
     }
-  }
+  }]  
 });
 
 const Vendor = mongoose.model('Vendor', vendorSchema);

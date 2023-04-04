@@ -7,12 +7,14 @@
     <title>Leave No Medic Behind Admin Panel</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="../assets/css/app.min.css">
+    <link href="https://cdn.datatables.net/v/bs4/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
     <!-- Template CSS -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="../assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='../assets/img/favicon.ico' />
+    <link rel="stylesheet" href="../assets/apexchart/styles.css" />
 </head>
 
 <body>
@@ -21,6 +23,7 @@
         <%- include('../adminPartials/adminNavbar')%>
             <!-- Main Content -->
             <div class="main-content">
+                <%- include('../adminPartials/flash')%>
                 <%- body %>
             </div>
             <%- include('../adminPartials/adminSidebar')%>
@@ -36,6 +39,12 @@
     <script src="../assets/js/scripts.js"></script>
     <!-- Custom JS File -->
     <script src="../assets/js/custom.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.13.4/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
+    <script src="../assets/apexchart/apexcharts.js"></script>
+    <script src="../assets/apexchart/data.js"></script>
+    <script src="../assets/apexchart/scripts.js"></script>
+    
 </body>
 
 

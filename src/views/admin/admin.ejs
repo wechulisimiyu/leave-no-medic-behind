@@ -1,69 +1,45 @@
 <% layout('admin/adminLayout/adminBoilerplate')%>
-  <section class="section">
-    <div class="section-body">
-      <!-- add content here -->
-      <div class="row justify-content-center">
-        <div class="col-12 col-sm-12 col-lg-12">
-          <div class="card ">
-            <div class="card-header">
-              <h4>Where we are, at the moment</h4>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="row mt-5">
-                    <div class="col-7 col-xl-7 mb-3">Total tshirt orders</div>
-                    <div class="col-5 col-xl-5 mb-3">
-                      <span class="text-big">
-                      </span>
-                      <!-- <sup class="col-green">+09%</sup> -->
-                    </div>
-                    <div class="col-7 col-xl-7 mb-3">Total Income</div>
-                    <div class="col-5 col-xl-5 mb-3">
-                      <span class="text-big">$9,857</span>
-                      <sup class="text-danger">-18%</sup>
-                    </div>
-                    <!-- <div class="col-7 col-xl-7 mb-3">Project completed</div>
-                    <div class="col-5 col-xl-5 mb-3">
-                      <span class="text-big">28</span>
-                      <sup class="col-green">+16%</sup>
-                    </div>
-                    <div class="col-7 col-xl-7 mb-3">Total expense</div>
-                    <div class="col-5 col-xl-5 mb-3">
-                      <span class="text-big">$6,287</span>
-                      <sup class="col-green">+09%</sup>
-                    </div> -->
-                    <div class="col-7 col-xl-7 mb-3">New Customers</div>
-                    <div class="col-5 col-xl-5 mb-3">
-                      <span class="text-big">684</span>
-                      <!-- <sup class="col-green">+22%</sup> -->
-                    </div>
+<section class="section">
+  <div class="section-body">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-12 col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <h4>Where we are, at the moment</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row mt-5">
+                  <div class="col-7 col-xl-7 mb-3">Total tshirt orders</div>
+                  <div class="col-5 col-xl-5 mb-3">
+                    <span class="text-big"> <%= orderCount %> </span>
+                  </div>
+                  <div class="col-7 col-xl-7 mb-3">Total people attending</div>
+                  <div class="col-5 col-xl-5 mb-3">
+                    <span class="text-big">20</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-6 ">
-          <div class="card">
-            <div class="card-header">
-              <h4>Popular Shirts</h4>
-            </div>
-            <div class="card-body">
-              <canvas id="myChart4" width="736" height="368" style="display: block; width: 368px; height: 184px;" class="chartjs-render-monitor"></canvas>
-            </div>
-          </div>
+      </div>
+    </div>
+
+    <div class="row mt-5 mb-4">
+      <div class="col-md-6">
+        <div class="box">
+          <div id="donut"></div>
         </div>
-        <div class="col-12 col-md-6 col-lg-6 ">
-          <div class="card">
-            <div class="card-header">
-              <h4>Income this week</h4>
-            </div>
-            <div class="card-body">
-              <canvas id="myChart4" width="736" height="368" style="display: block; width: 368px; height: 184px;" class="chartjs-render-monitor"></canvas>
-            </div>
-          </div>
+      </div>
+      <div class="col-md-6">
+        <div class="box">
+          <div id="bar"></div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<script src="../assets/js/page/datatables.js"></script>
