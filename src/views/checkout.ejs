@@ -19,7 +19,7 @@
 
                             </p>
 
-                            <p>Please confirm your details before paying. Once you pay, please copy and paste your message down here.</p>
+                            <p>Please confirm your details before paying. Once you pay, please copy and paste your confirmation message from Equity Bank down here.</p>
 
                             <div class="border-bottom pb-3 mb-4"></div>
 
@@ -31,12 +31,16 @@
                                 <i class="bi-controller me-2"></i> Account Number: <b>0170280594893</b>
                             </p>
 
+                            <p>
+                                <i class="bi-controller me-2"></i> Account Name: <b>PROF HASSAN SAIDI</b>
+                            </p>
+
                             <form action="/checkout" method="POST">
                                 <input type="hidden" name="amount" value="<%= amount %>">
                                 <input type="hidden" name="phone" value="<%= phone %>">
                                 <div class="form-group mb-3 px-3">
                                     <textarea class="form-control" rows="5" id="confirmationMessage" name="confirmationMessage"
-                                        placeholder="The M-pesa confirmation message"></textarea>
+                                        placeholder="The Confirmation Message From Equity Bank"></textarea>
                                 </div>
                                 <div class="form-group mb-3 px-3">
                                     <button type="submit" class="custom-btn btn">
