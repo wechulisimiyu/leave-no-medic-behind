@@ -96,8 +96,10 @@ router.get("/checkout", (req, res) => {
 // });
 
 router.post("/checkout", async (req, res) => {
-  const { amount, phone, email, university } = req.body
+  const { amount, phone, email } = req.body
   const message = req.body.confirmationMessage;
+
+  console.log(`checkout route received ${amount}, ${phone}, ${email}`)
 
   // Validate request body against paymentSchema
   const { error, value } = paymentSchema.validate(req.body);
@@ -107,18 +109,18 @@ router.post("/checkout", async (req, res) => {
       "error",
       "Invalid request data. Please check your inputs and try again"
     );
-    return res.redirect(`/checkout?amount=${amount}&phone=${phone}`);
+    return res.redirect(`/checkout?amount=${amount}&phone=${phone}&email=${email}`);
   }
 
   try {
     const payment = new Payment({
       amount: amount,
       phone: phone,
-      email: email,
-      message: message
+      confirmationMessage: message
     });
     await payment.save();
     console.log('Payment saved successfully.')
+    console.log(payment)
     req.flash('success', 'Payment details saved successfully.')
     res.status(200).redirect('/about')
   } catch (err) {

@@ -9,10 +9,6 @@ const paymentSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  email: {
-    type: String,
-    required: true
-  },
   confirmationMessage: {
     type: String,
     required: true
