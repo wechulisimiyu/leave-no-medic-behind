@@ -71,6 +71,9 @@ const vendorSchema = Joi.object({
   name: Joi.string().required().messages({
     "any.required": "Name is required",
   }),
+  email: Joi.string().required().messages({
+    "any.required": "Email is required",
+  }),
   regNumber: Joi.string(),
   yearOfStudy: Joi.string().valid("I", "II", "III", "IV", "IVs", "V", "VI"),
   typeOfBusiness: Joi.string().required(),

@@ -163,6 +163,8 @@ const createVendor = async (req, res) => {
     return res.redirect("/vendors");
   }
 
+  const email = value.email;
+
   try {
     // Upload image to cloudinary
     const schoolIdPics = await Promise.all(
@@ -181,6 +183,16 @@ const createVendor = async (req, res) => {
       ...value,
       schoolIdPic: picData,
     });
+
+    mailOptions.to = email;
+    mailOptions.html = `<p>Dear Prospective Vendor,</p>
+    <p>Thank you for signing up to sell your wares at our upcoming run. We appreciate your interest in participating and supporting our cause to raise awareness and funds for medical students in need.</p>
+    <p>We are thrilled to have you as a vendor, and we look forward to working with you to make this event a success. Please note that we will be sending you more information via email on the logistics of the event, including set up and breakdown times.</p>
+    <p>Please take the time to visit our website to learn more about our cause and upcoming events. Your contribution will make a significant impact in the lives of student doctors who are in need of financial assistance.</p>
+    <p>Once again, thank you for your support, and we look forward to your continued partnership with us.</p>
+    <p>Best regards,</p>
+    <p>2023 LNMB RUN ORGANIZING COMMITTEE</p>
+    `;
 
     // Save vendor
     await newVendor.save();
