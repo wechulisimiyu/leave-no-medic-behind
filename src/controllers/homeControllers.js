@@ -9,7 +9,11 @@ const {
   transporter,
   mailOptions,
 } = require("../controllers/sendmailController");
-const { donationSchema, orderSchema } = require("../utils/schemaValidation");
+const {
+  donationSchema,
+  orderSchema,
+  vendorSchema,
+} = require("../utils/schemaValidation");
 // const { verifyTshirtPurchase } = require("../middleware/verifyTshirtPurchase");
 
 const buyTshirt = async (req, res) => {
@@ -136,9 +140,7 @@ const donation = async (req, res) => {
 
     const savedDonation = await newDonation.save();
     console.log(`SavedDonation: ${savedDonation}`);
-    res.redirect(
-      `/checkout?amount=${amount}&phone=${phone}&email=${email}`
-    );
+    res.redirect(`/checkout?amount=${amount}&phone=${phone}&email=${email}`);
   } catch (err) {
     console.log(err);
     req.flash(
@@ -150,29 +152,53 @@ const donation = async (req, res) => {
 };
 
 const createVendor = async (req, res) => {
+  // Validate request body against donationSchema
+  const { error, value } = vendorSchema.validate(req.body);
+  if (error) {
+    console.log(error);
+    req.flash(
+      "error",
+      "Invalid request data. Please check your inputs and try again"
+    );
+    return res.redirect("/vendors");
+  }
+
+  const email = value.email;
+
   try {
     // Upload image to cloudinary
     const schoolIdPics = await Promise.all(
       req.files.map((file) => cloudinary.uploader.upload(file.path))
     );
 
-    // Create new vendor
-    let vendor = new Vendor({
-      name: req.body.name,
-      regNumber: req.body.regNumber,
-      yearOfStudy: req.body.yearOfStudy,
-      typeOfBusiness: req.body.typeOfBusiness,
-      whatItSells: req.body.whatItSells,
-      helperName: req.body.helperName,
-      schoolIdPic: schoolIdPics.map((result) => ({
-        public_id: result.public_id,
-        url: result.secure_url,
-      })),
+    // Create an array of objects containing the public ID and URL for each uploaded image
+    const picData = schoolIdPics.map((pic) => {
+      return { public_id: pic.public_id, url: pic.url };
     });
 
+    console.log(picData);
+
+    // Create new vendor with schoolIdPic property
+    const newVendor = new Vendor({
+      ...value,
+      schoolIdPic: picData,
+    });
+
+    mailOptions.to = email;
+    mailOptions.html = `<p>Dear Prospective Vendor,</p>
+    <p>Thank you for signing up to sell your wares at our upcoming run. We appreciate your interest in participating and supporting our cause to raise awareness and funds for medical students in need.</p>
+    <p>We are thrilled to have you as a vendor, and we look forward to working with you to make this event a success. Please note that we will be sending you more information via email on the logistics of the event, including set up and breakdown times.</p>
+    <p>Please take the time to visit our website to learn more about our cause and upcoming events. Your contribution will make a significant impact in the lives of student doctors who are in need of financial assistance.</p>
+    <p>Once again, thank you for your support, and we look forward to your continued partnership with us.</p>
+    <p>Best regards,</p>
+    <p>2023 LNMB RUN ORGANIZING COMMITTEE</p>
+    `;
+
     // Save vendor
-    await vendor.save();
-    res.status(201).redirect("/");
+    await newVendor.save();
+
+    req.flash("success", "We have captured your details successfully");
+    res.status(201).redirect("/donate");
   } catch (err) {
     console.error(err);
     req.flash("error", "Error capturing your details. Try again");

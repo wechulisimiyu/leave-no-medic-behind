@@ -5,6 +5,8 @@
             <div class="row">
                 <div class="col-lg-10 col-12 text-center mx-auto mb-5 mt-5">
                     <h2>Sign up to be a <u class="text-info">Vendor</u></h2>
+                    <br>
+                    <p><b>Only open to UON FHS Medical Students</b></p>
                 </div>
 
                 <div>
@@ -16,8 +18,14 @@
                                 <input type="text" class="form-control" id="name" name="name" required />
                                 <div class="valid-feedback">Looks good!</div>
                             </div>
-
-                            <div class="form-group mb-3 px-3" id="regNumber" style="display: none">
+                            <div class="form-group mb-3 px-3" id="email-address">
+                                <label for="email" class="form-label">Email Address:</label>
+                                <input type="email" class="form-control" id="email" name="email" required />
+                                <div class="valid-feedback">
+                                  Looks good!
+                                </div>
+                              </div>
+                            <div class="form-group mb-3 px-3" id="regNumber">
                                 <label for="regNumber">Registration Number:</label>
                                 <input type="text" class="form-control" id="regNumber" name="regNumber" />
                             </div>
@@ -61,7 +69,7 @@
                                 <div class="valid-feedback">Looks good!</div>
                             </div>
                             <div class="form-group mb-3 px-3">
-                                <button type="button" class="custom-btn btn">
+                                <button type="submit" class="custom-btn btn">
                                     Submit Your Information
                                 </button>
                             </div>
