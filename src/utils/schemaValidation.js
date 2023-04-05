@@ -67,8 +67,27 @@ const paymentSchema = Joi.object({
   }),
 });
 
+const vendorSchema = Joi.object({
+  name: Joi.string().required().messages({
+    "any.required": "Name is required",
+  }),
+  regNumber: Joi.string(),
+  yearOfStudy: Joi.string().valid("I", "II", "III", "IV", "IVs", "V", "VI"),
+  typeOfBusiness: Joi.string().required(),
+  whatItSells: Joi.string().required(),
+  helperName: Joi.string().required(),
+  schoolIdPic: Joi.array().items(
+    Joi.object({
+      public_id: Joi.string().required(),
+      url: Joi.string().required(),
+    })
+  ),
+});
+
+
 module.exports = {
   donationSchema,
   orderSchema,
   paymentSchema,
+  vendorSchema,
 };
