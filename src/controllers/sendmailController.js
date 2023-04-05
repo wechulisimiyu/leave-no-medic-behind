@@ -20,7 +20,7 @@ const mailOptions = {
   html: `<p>Dear Runner,</p>
     <p>Thank you for registering for our annual "Leave no Medic Behind Run". We are thrilled to have you join us in supporting our cause to raise awareness and funds for medical students in need.</p>
     <p>As a registered participant, you are now part of a community dedicated to making a positive impact in the lives of your fellow colleagues and future doctors. Your participation will help us in our efforts to provide financial assistance and resources to our student doctors who are in need of financial assistance.</p>
-    <p>You will be able to get your t-shirt from your chosen pick-up stations  from 17th April to 28th April (Monday- Friday from 11am to 3pm).</p>
+    <p>You will be able to get your t-shirt from your chosen pick-up stations  from 19th April to 28th April (Monday- Friday from 11am to 3pm).</p>
     <p>Here are some important details regarding the event:</p>
     <ul>
       <li>Date: 29th April 2023</li>
