@@ -13,6 +13,10 @@ const {
   transporter,
   mailOptions,
 } = require("../controllers/sendmailController");
+const {
+  runnerSignupMessage,
+  donationMessage,
+} = require("../utils/mailMessageTemplates");
 const { paymentSchema } = require("../utils/schemaValidation");
 
 // const { verifyTshirtPurchase } = require("../middleware/verifyTshirtPurchase");
@@ -55,7 +59,9 @@ router.post("/vendors", parser.array("schoolIdPic"), createVendor);
 router.get("/checkout", (req, res) => {
   const amount = req.query.amount;
   const phone = req.query.phone;
-  res.render("checkout", { amount, phone });
+  const email = req.query.email;
+  const state = req.query.state;
+  res.render("checkout", { amount, phone, email, state });
 });
 
 // router.post("/checkout", async (req, res) => {
@@ -96,10 +102,13 @@ router.get("/checkout", (req, res) => {
 // });
 
 router.post("/checkout", async (req, res) => {
-  const { amount, phone, email } = req.body
+  console.log(req.body);
+  const { state, amount, phone, email } = req.body;
   const message = req.body.confirmationMessage;
 
-  console.log(`checkout route received ${amount}, ${phone}, ${email}`)
+  console.log(
+    `checkout route received ${amount}, ${phone}, ${email} and state is ${state}`
+  );
 
   // Validate request body against paymentSchema
   const { error, value } = paymentSchema.validate(req.body);
@@ -109,24 +118,74 @@ router.post("/checkout", async (req, res) => {
       "error",
       "Invalid request data. Please check your inputs and try again"
     );
-    return res.redirect(`/checkout?amount=${amount}&phone=${phone}&email=${email}`);
+    console.log(phone);
+    return res.redirect(
+      `/checkout?state=${state}&amount=${amount}&phone=${phone}&email=${email}`
+    );
+  }
+
+  // Validate confirmation message
+  const regex =
+    /^Dear [A-Z\s]+, Your transaction of Kshs\. \d+\.\d{2} has successfully been deposited to Equity Account in favor of [A-Z\s]+ Ref\. Number [A-Z0-9]+ on \d{2}-\d{2}-\d{4} at \d{2}:\d{2}:\d{2}\. Thank you\.$/;
+  if (!regex.test(message)) {
+    console.log("Invalid confirmation message:", message);
+    req.flash(
+      "error",
+      "Invalid confirmation message. Please check your inputs and try again"
+    );
+    return res.redirect(
+      `/checkout?state=${state}&amount=${amount}&phone=${phone}&email=${email}`
+    );
   }
 
   try {
     const payment = new Payment({
+      state: state,
       amount: amount,
       phone: phone,
-      confirmationMessage: message
+      email: email,
+      confirmationMessage: message,
     });
     await payment.save();
-    console.log('Payment saved successfully.')
-    console.log(payment)
-    req.flash('success', 'Payment details saved successfully.')
-    res.status(200).redirect('/about')
+
+    mailOptions.to = email;
+    if (state === "purchase") {
+      mailOptions.html = runnerSignupMessage;
+      mailOptions.subject =
+        "Registration Confirmation - Leave no Medic Behind Run";
+      // Update the Order model where phone number matches
+      const filter = { phone: phone };
+      const update = { paid: true };
+      const options = { new: true };
+      const updatedOrder = await Order.findOneAndUpdate(
+        filter,
+        update,
+        options
+      );
+    } else if (state === "donate") {
+      mailOptions.html = donationMessage;
+      mailOptions.subject = "Donation reception - Leave no Medic Behind";
+    }
+
+    // Send the email using Nodemailer
+    await transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log("Error occurred:", error.message);
+        return process.exit(1);
+      }
+      console.log("Message sent successfully!", info);
+    });
+
+    console.log("Payment saved successfully.");
+    console.log(payment);
+    req.flash("success", "Payment details saved successfully.");
+    res.status(200).redirect("/about");
   } catch (err) {
     console.error(err);
-    req.flash('error', 'Error saving payment details.')
-    res.status(500).redirect(`/checkout?amount=${amount}&phone=${phone}&email=${email}`)
+    req.flash("error", "Error saving payment details.");
+    res
+      .status(500)
+      .redirect(`/checkout?amount=${amount}&phone=${phone}&email=${email}`);
   }
 });
 

@@ -36,8 +36,10 @@
                             </p>
 
                             <form action="/checkout" method="POST">
+                                <input type="hidden" name="state" value="<%= state %>">
                                 <input type="hidden" name="amount" value="<%= amount %>">
                                 <input type="hidden" name="phone" value="<%= phone %>">
+                                <input type="hidden" name="email" value="<%= email %>">
                                 <div class="form-group mb-3 px-3">
                                     <textarea class="form-control" rows="5" id="confirmationMessage" name="confirmationMessage"
                                         placeholder="The Confirmation Message From Equity Bank"></textarea>
