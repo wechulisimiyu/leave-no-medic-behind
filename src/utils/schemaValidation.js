@@ -56,8 +56,15 @@ const orderSchema = Joi.object({
 });
 
 const paymentSchema = Joi.object({
+  state: Joi.string().valid("donate", "purchase").required().messages({
+    "any.required": "State is required",
+    "any.only": "State must be either 'donate' or 'purchase'",
+  }),
   phone: Joi.string().required().messages({
     "any.required": "Phone number is required",
+  }),
+  email: Joi.string().required().messages({
+    "any.required": "Email address is required",
   }),
   amount: Joi.number().required().messages({
     "any.required": "Amount is required",
