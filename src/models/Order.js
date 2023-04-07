@@ -34,7 +34,7 @@ const OrderSchema = new mongoose.Schema({
   },
   tshirtSize: {
     type: String,
-    enum: ["small", "medium", "large"],
+    enum: ["small", "medium", "large", "extra-large"],
     required: true,
   },
   quantity: {
