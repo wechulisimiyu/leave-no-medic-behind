@@ -48,12 +48,10 @@ const OrderSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "name is required"],
-    required: true,
   },
   email: {
     type: String,
     required: [true, "email is required"],
-    required: true,
   },
   phone: {
     type: String,
@@ -82,7 +80,8 @@ const OrderSchema = new mongoose.Schema({
   paid: {
     type: Boolean,
     default: false
-  }
+  },
+  date: { type: Date, default: Date.now },
 });
 
 OrderSchema.pre("save", function (next) {
