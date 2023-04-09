@@ -2,6 +2,7 @@ const router = require("express").Router();
 const multer = require("multer");
 const axios = require("axios");
 const Order = require("../models/Order");
+const Donation = require("../models/Donation");
 const Payment = require("../models/Payment");
 const { storage } = require("../../config/cloudinary");
 const {
@@ -149,6 +150,7 @@ router.post("/checkout", async (req, res) => {
     await payment.save();
 
     mailOptions.to = email;
+
     if (state === "purchase") {
       mailOptions.html = runnerSignupMessage;
       mailOptions.subject =
@@ -165,6 +167,15 @@ router.post("/checkout", async (req, res) => {
     } else if (state === "donate") {
       mailOptions.html = donationMessage;
       mailOptions.subject = "Donation reception - Leave no Medic Behind";
+      // Update the Donate model where phone number matches
+      const filter = { phone: phone };
+      const update = { paid: true };
+      const options = { new: true };
+      const updatedDonation = await Donation.findOneAndUpdate(
+        filter,
+        update,
+        options
+      );
     }
 
     // Send the email using Nodemailer

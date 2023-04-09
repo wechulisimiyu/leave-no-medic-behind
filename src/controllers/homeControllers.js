@@ -68,7 +68,6 @@ const buyTshirt = async (req, res) => {
       
       console.log(`SavedOrder: ${savedOrder}`);
       
-
       res.status(200).redirect(`/checkout?state=${state}&amount=${amount}&phone=${phone}&email=${email}`);
     }
   } catch (err) {
@@ -106,15 +105,9 @@ const donation = async (req, res) => {
   const state = 'donate'
   const newDonation = new Donation(value);
   try {
-    // mailOptions.to = email;
-    // mailOptions.html = donationMessage;
-
-    // // Send the email using Nodemailer
-    // await transporter.sendMail(mailOptions);
 
     const savedDonation = await newDonation.save();
     console.log(`SavedDonation: ${savedDonation}`);
-
     
     res.status(200).redirect(`/checkout?state=${state}&amount=${amount}&phone=${phone}&email=${email}`);
   } catch (err) {

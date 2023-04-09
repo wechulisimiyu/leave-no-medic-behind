@@ -19,12 +19,12 @@ const DonationSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  paid: {
+    type: Boolean,
+    default: false
+  },
   date: { type: Date, default: Date.now },
 });
-
-// DonationSchema.pre("save", function (next) {
-  
-// });
 
 const Donation = mongoose.model("Donation", DonationSchema);
 module.exports = Donation;
