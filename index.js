@@ -10,6 +10,7 @@ const ejsMate = require("ejs-mate");
 const morgan = require('morgan')
 const helmet = require("helmet");
 const methodOverride = require("method-override");
+const rateLimit = require('express-rate-limit')
 const homeRoute = require("./src/routes/homeRoutes");
 const mailRoute = require("./src/routes/mailRoutes");
 const paymentRoute = require("./src/routes/paymentRoutes");
@@ -36,6 +37,14 @@ app.set("views", path.join(__dirname, "src/views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
+
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  max: 14, // limit each IP to 14 requests per 10 minutes
+  message: "Too many requests from this IP, please try again later",
+});
+
+app.use(limiter);
 
 // middlewares
 app.use(express.json());
