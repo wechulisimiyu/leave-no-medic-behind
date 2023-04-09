@@ -18,7 +18,8 @@ const DonationSchema = new mongoose.Schema({
   amount: {
     type: Number,
     required: true
-  }
+  },
+  date: { type: Date, default: Date.now },
 });
 
 // DonationSchema.pre("save", function (next) {
