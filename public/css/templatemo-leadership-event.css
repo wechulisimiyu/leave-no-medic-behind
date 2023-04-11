@@ -690,7 +690,7 @@ strong {
   border-left: 3px solid var(--section-bg-color);
   padding: 20px 30px;
   transition: all 0.3s;
-  width: 25%;
+  width: 20%;
 }
 
 .nav-tabs .nav-link:first-child {
