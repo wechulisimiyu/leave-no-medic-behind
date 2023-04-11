@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const session = require("express-session");
 const ejsMate = require("ejs-mate");
@@ -37,6 +38,33 @@ app.set("views", path.join(__dirname, "src/views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
+
+const store = MongoStore.create({
+  mongoUrl: process.env.DB_URL,
+  secret: "secret",
+  touchAfter: 24 * 60 * 60,
+});
+
+store.on("error", function (e) {
+  console.log("SESSION STORE ERROR", e);
+});
+
+//setting session expiry
+const sessionConfig = {
+  store: store,
+  name: "dummy",
+  secret: process.env.STORE_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    // secure: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+  },
+}
+
+app.use(session(sessionConfig));
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 minutes
