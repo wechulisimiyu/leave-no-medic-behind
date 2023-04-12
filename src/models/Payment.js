@@ -19,7 +19,8 @@ const paymentSchema = new mongoose.Schema({
   },
   confirmationMessage: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   }
 });
 

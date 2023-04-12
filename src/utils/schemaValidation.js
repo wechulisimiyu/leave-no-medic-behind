@@ -69,7 +69,7 @@ const paymentSchema = Joi.object({
   amount: Joi.number().required().messages({
     "any.required": "Amount is required",
   }),
-  confirmationMessage: Joi.string().required().messages({
+  confirmationMessage: Joi.string().required().unique().messages({
     "any.required": "Confirmation message is required",
   }),
 });
