@@ -5,6 +5,10 @@ const vendorSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  email: {
+    type: String,
+    required: true
+  },
   beneficiary: {
     type: String,
     enum: ["yes", "no"],
