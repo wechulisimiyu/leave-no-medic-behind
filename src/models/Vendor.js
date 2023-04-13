@@ -47,7 +47,8 @@ const vendorSchema = new mongoose.Schema({
       type: String,
       required: true
     }
-  }]
+  }],
+  date: { type: Date, default: Date.now },
 });
 
 const Vendor = mongoose.model('Vendor', vendorSchema);
