@@ -5,16 +5,22 @@ const vendorSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  email: {
+  beneficiary: {
     type: String,
+    enum: ["yes", "no"],
     required: true
   },
   regNumber: {
-    type: String
+    type: String,
+    required: true
   },
   yearOfStudy: {
     type: String,
     enum: ["I", "II", "III", "IV", "IVs", "V", "VI"]
+  },
+  nameOfBusiness: {
+    type: String,
+    required: true
   },
   typeOfBusiness: {
     type: String,
@@ -37,7 +43,7 @@ const vendorSchema = new mongoose.Schema({
       type: String,
       required: true
     }
-  }]  
+  }]
 });
 
 const Vendor = mongoose.model('Vendor', vendorSchema);
