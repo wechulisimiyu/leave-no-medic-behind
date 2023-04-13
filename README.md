@@ -84,7 +84,9 @@ Included with the code is a sample.env file with fields you will need to configu
 ### Contributors
 
 - [Wechuli Simiyu (Github)](https://github.com/wechu07)
+- [Glory Mbone (Github)](https://github.com/glohvall)
 - [Keya Arthur (Github)](https://github.com/DR-Yakes)
 - [Preetesh Jakharia (Github)](https://github.com/Pr33t3sh)
 - [Wycliff Gichui (Github)](https://github.com/W-Gichui)
 - [Mike Monari (Github)](https://github.com/mikemonari)
+- [Denis Koome (Github)](https://github.com/koomedkm)                                     

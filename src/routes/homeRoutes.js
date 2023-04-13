@@ -2,6 +2,7 @@ const router = require("express").Router();
 const multer = require("multer");
 const axios = require("axios");
 const Order = require("../models/Order");
+const Donation = require("../models/Donation");
 const Payment = require("../models/Payment");
 const { storage } = require("../../config/cloudinary");
 const {
@@ -64,43 +65,6 @@ router.get("/checkout", (req, res) => {
   res.render("checkout", { amount, phone, email, state });
 });
 
-// router.post("/checkout", async (req, res) => {
-//   const amount = req.body.amount;
-//   const phone = req.body.phone;
-
-//   console.log(`Amount is ${amount}, and the phone is ${phone}`);
-
-//   const data = {
-//     amount: amount,
-//     phone: phone,
-//   };
-
-//   const config = {
-//     headers: {
-//       "Content-Type": "application/x-www-form-urlencoded",
-//     },
-//   };
-
-//   // Make a POST request to the /initiateSTKPush route with the amount and phone number
-//   try {
-//     const response = await axios.post(
-//       "https://lnmb-run-stk-push.onrender.com/initiateSTKPush",
-//       data,
-//       config
-//     );
-
-//     return response.json();
-//     console.log(response);
-//   } catch (error) {
-//     console.log(error);
-//     req.flash(
-//       "error",
-//       `${error.message}, please try again. If it persists, contact us`
-//     );
-//     res.redirect(`/checkout?amount=${amount}&phone=${phone}`);
-//   }
-// });
-
 router.post("/checkout", async (req, res) => {
   console.log(req.body);
   const { state, amount, phone, email } = req.body;
@@ -149,6 +113,7 @@ router.post("/checkout", async (req, res) => {
     await payment.save();
 
     mailOptions.to = email;
+
     if (state === "purchase") {
       mailOptions.html = runnerSignupMessage;
       mailOptions.subject =
@@ -165,16 +130,25 @@ router.post("/checkout", async (req, res) => {
     } else if (state === "donate") {
       mailOptions.html = donationMessage;
       mailOptions.subject = "Donation reception - Leave no Medic Behind";
+      // Update the Donate model where phone number matches
+      const filter = { phone: phone };
+      const update = { paid: true };
+      const options = { new: true };
+      const updatedDonation = await Donation.findOneAndUpdate(
+        filter,
+        update,
+        options
+      );
     }
 
     // Send the email using Nodemailer
-    await transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log("Error occurred:", error.message);
-        return process.exit(1);
-      }
-      console.log("Message sent successfully!", info);
-    });
+    // await transporter.sendMail(mailOptions, (error, info) => {
+    //   if (error) {
+    //     console.log("Error occurred:", error.message);
+    //     return process.exit(1);
+    //   }
+    //   console.log("Message sent successfully!", info);
+    // });
 
     console.log("Payment saved successfully.");
     console.log(payment);
@@ -194,8 +168,9 @@ router.get("/payment/callback", async (req, res) => {
 
   try {
     const order = await Order.findOneAndUpdate(
-      { phone: phone },
-      { paid: true }
+      { phone: { $eq: phone } },
+      { $set: { paid: true } },
+      { new: true }
     );
     console.log(`Order with phone number ${phone} has been updated.`, order);
     res.redirect("/about");

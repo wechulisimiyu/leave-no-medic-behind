@@ -4,20 +4,19 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const session = require("express-session");
 const ejsMate = require("ejs-mate");
-const MongoStore = require("connect-mongo");
 const morgan = require('morgan')
 const helmet = require("helmet");
 const methodOverride = require("method-override");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const User = require("./src/models/User");
+// const rateLimit = require('express-rate-limit')
 const homeRoute = require("./src/routes/homeRoutes");
-const adminRoute = require("./src/routes/userRoutes");
 const mailRoute = require("./src/routes/mailRoutes");
 const paymentRoute = require("./src/routes/paymentRoutes");
+
+// const nodemailer = require('nodemailer')
 
 mongoose.set("strictQuery", true);
 
@@ -69,19 +68,19 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 
+// const limiter = rateLimit({
+//   windowMs: 10 * 60 * 1000, // 10 minutes
+//   max: 20, // limit each IP to 14 requests per 10 minutes
+//   message: "Too many requests from this IP, please try again later",
+// });
+
+// app.use(limiter);
+
 // middlewares
 app.use(express.json());
 app.use(cors());
 app.use(flash());
 app.use(helmet());
-
-// Set up passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(User.createStrategy());
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
@@ -96,7 +95,6 @@ app.use((req, res, next) => {
 
 app.use("/", homeRoute);
 app.use("/mail", mailRoute);
-app.use("/admin", adminRoute);
 app.use("/payment", paymentRoute);
 
 const port = process.env.PORT || 4000;
