@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const MongoStore = require("connect-mongo");
+const mongoSanitize = require('express-mongo-sanitize');
 const flash = require("connect-flash");
 const session = require("express-session");
 const ejsMate = require("ejs-mate");
@@ -60,7 +61,7 @@ const sessionConfig = {
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    // secure: true,
+    secure: true,
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
   },
@@ -81,6 +82,7 @@ app.use(express.json());
 app.use(cors());
 app.use(flash());
 app.use(helmet());
+app.use(mongoSanitize());
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
