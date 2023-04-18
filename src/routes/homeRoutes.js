@@ -142,13 +142,13 @@ router.post("/checkout", async (req, res) => {
     }
 
     // Send the email using Nodemailer
-    // await transporter.sendMail(mailOptions, (error, info) => {
-    //   if (error) {
-    //     console.log("Error occurred:", error.message);
-    //     return process.exit(1);
-    //   }
-    //   console.log("Message sent successfully!", info);
-    // });
+    await transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log("Error occurred:", error.message);
+        return process.exit(1);
+      }
+      console.log("Message sent successfully!", info);
+    });
 
     console.log("Payment saved successfully.");
     console.log(payment);
