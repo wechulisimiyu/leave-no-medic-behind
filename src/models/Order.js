@@ -14,13 +14,13 @@ const OrderSchema = new mongoose.Schema({
   },
   yearOfStudy: {
     type: String,
-    enum: ["I", "II", "III", "IV", "IVs", "V", "VI"],
+    enum: ["I", "II", "III", "IV", "IVs", "V", "VI"], // IVs represents 4th years at home
     required: true,
     default: "I" // default value is "I"
   },
   regNumber: {
     type: String,
-    default: "H31/12345/2010" // default value is "0000-00000"
+    default: "H31/12345/2010" // default value is "H31/12345/2010"
   },  
   attending: {
     type: String,
