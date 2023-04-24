@@ -164,7 +164,6 @@ const createVendor = async (req, res) => {
       }
       console.log("Message sent successfully!", info);
     });
-
     // Save vendor
     await newVendor.save();
 
