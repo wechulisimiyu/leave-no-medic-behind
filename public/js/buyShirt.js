@@ -13,6 +13,8 @@ const tshirtType = document.getElementById("tshirtType");
 const tshirtNumber = document.getElementById("quantity");
 const totalAmountSpan = document.getElementById("totalAmount")
 const totalAmountInput = document.getElementById('totalAmountInput');
+const newOrderButton = document.getElementById("newOrderButton");
+const newOrder = document.getElementById("newOrder");
 
 //event listeners to trigger the calculation function
 tshirtType.addEventListener("change", calculateTotalAmount);
@@ -30,6 +32,10 @@ isNonStudent.addEventListener("change", () => {
   university.style.display = "none";
   levelDiv.style.display = "none";
 });
+
+newOrderButton.addEventListener("click", () => {
+  newOrder.style.display = "block";
+})
 
 function calculateTotalAmount() {
   const tshirtTypeValue = tshirtType.value;
