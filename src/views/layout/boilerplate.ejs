@@ -21,13 +21,23 @@
     <!-- Favicon -->
     <link rel="icon" href="images/handshake.gif">
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8SS14PFP07"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-8SS14PFP07');
+    </script>
+
 </head>
 
 <body>
     <%- include('../partials/navbar')%>
         <main>
             <%- include('../partials/flash')%>
-            <%- body %>
+                <%- body %>
         </main>
         <%- include('../partials/footer')%>
 
