@@ -46,6 +46,11 @@ router.get("/about", (req, res) => {
   res.render("about");
 });
 
+// GET route for /highlights
+router.get("/highlights", (req, res) => {
+  res.render("highlights");
+});
+
 // GET route for /faq
 router.get("/faq", (req, res) => {
   res.render("faq");
