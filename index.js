@@ -12,12 +12,9 @@ const ejsMate = require("ejs-mate");
 const morgan = require('morgan')
 const helmet = require("helmet");
 const methodOverride = require("method-override");
-// const rateLimit = require('express-rate-limit')
 const homeRoute = require("./src/routes/homeRoutes");
 const mailRoute = require("./src/routes/mailRoutes");
 const paymentRoute = require("./src/routes/paymentRoutes");
-
-// const nodemailer = require('nodemailer')
 
 mongoose.set("strictQuery", true);
 
@@ -69,19 +66,26 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 
-// const limiter = rateLimit({
-//   windowMs: 10 * 60 * 1000, // 10 minutes
-//   max: 20, // limit each IP to 14 requests per 10 minutes
-//   message: "Too many requests from this IP, please try again later",
-// });
-
-// app.use(limiter);
-
-// middlewares
+// middleware
 app.use(express.json());
 app.use(cors());
 app.use(flash());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https://embed.tally.so"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:", "https://tally.so"],
+        connectSrc: ["'self'", "https://tally.so"],
+        frameSrc: ["'self'", "https://tally.so"],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+  })
+);
 app.use(mongoSanitize());
 
 app.use((req, res, next) => {

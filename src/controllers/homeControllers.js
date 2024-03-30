@@ -4,7 +4,7 @@ const Order = require("../models/Order");
 const Vendor = require("../models/Vendor");
 const Donation = require("../models/Donation");
 const multer = require("multer");
-const { cloudinary } = require("../../config/cloudinary");
+// const { cloudinary } = require("../../config/cloudinary");
 const {
   transporter,
   mailOptions,
