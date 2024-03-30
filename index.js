@@ -70,7 +70,22 @@ app.use(session(sessionConfig));
 app.use(express.json());
 app.use(cors());
 app.use(flash());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https://embed.tally.so"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:", "https://tally.so"],
+        connectSrc: ["'self'", "https://tally.so"],
+        frameSrc: ["'self'", "https://tally.so"],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+  })
+);
 app.use(mongoSanitize());
 
 app.use((req, res, next) => {

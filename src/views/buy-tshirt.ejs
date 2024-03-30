@@ -4,9 +4,7 @@
     <div class="container">
       <div class="row d-flex justify-content-center">
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          Hey there! Thank you for your intent to support us. If you are buying a t-shirt, pickup has started on
-          <b>19th
-            April 2023</b>. <u><strong>Just make sure you fill in your details correctly</strong></u>.
+          Hey there! You can now pre order a tshirt in anticipation for the 2024 edition of the run <strong>Just make sure you fill in your details correctly</strong></u>.
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <div class="col-lg-10 col-12 text-center mx-auto mb-5">
@@ -48,7 +46,7 @@
           </div>
         </div>
 
-        <div class="mt-5">
+        <div class="mt-5 col-md-6 col-lg-8 mb-5 mb-lg-0">
           <div class="pricing-thumb bg-white shadow-lg">
             <form action="/buy-tshirt" method="post" id="buyShirtForm" class="needs-validation" novalidate>
               <div class="form-group px-3 pt-3" id="studentStatus">
@@ -241,4 +239,17 @@
           }, false)
         })
     })()
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+  $(document).ready(function () {
+    $('#buyShirtForm').on('submit', function(e) {
+      if (!this.checkValidity()) {
+        e.preventDefault();
+        e.stopPropagation();
+        alert('Please fill all required fields before submitting.');
+      }
+      this.classList.add('was-validated');
+    });
+  });
   </script>
