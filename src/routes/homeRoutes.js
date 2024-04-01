@@ -160,9 +160,12 @@ router.post("/checkout", limiter, async (req, res) => {
   } catch (err) {
     console.error(err);
     req.flash("error", "Error saving payment details.");
+    const sanitizedAmount = encodeURIComponent(amount);
+    const sanitizedPhone = encodeURIComponent(phone);
+    const sanitizedEmail = encodeURIComponent(email);
     res
       .status(500)
-      .redirect(`/checkout?amount=${amount}&phone=${phone}&email=${email}`);
+      .redirect(`/checkout?amount=${sanitizedAmount}&phone=${sanitizedPhone}&email=${sanitizedEmail}`);
   }
 });
 
