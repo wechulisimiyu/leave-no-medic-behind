@@ -54,7 +54,7 @@ Fork this repository.
 
 ```
 
-git clone git@github.com:wechu07/leave-no-medic-behind.git
+git clone git@github.com:wechulisimiyu/leave-no-medic-behind.git
 cd leave-no-medic-behind
 npm install
 ```
@@ -62,7 +62,7 @@ npm install
 - I am using SSH-based authentication. The alternative for token-based authentication is:
 
 ```
-https://github.com/wechu07/leave-no-medic-behind.git
+https://github.com/wechulisimiyu/leave-no-medic-behind.git
 ```
 
 ### Running the project
@@ -83,7 +83,7 @@ Included with the code is a sample.env file with fields you will need to configu
 
 ### Contributors
 
-- [Wechuli Simiyu (Github)](https://github.com/wechu07)
+- [Wechuli Simiyu (Github)](https://github.com/wechulisimiyu)
 - [Glory Mbone (Github)](https://github.com/glohvall)
 - [Keya Arthur (Github)](https://github.com/DR-Yakes)
 - [Preetesh Jakharia (Github)](https://github.com/Pr33t3sh)

@@ -1,6 +1,13 @@
 const router = require("express").Router();
 const multer = require("multer");
 const axios = require("axios");
+let escapeStringRegexp;
+
+import('escape-string-regexp').then((module) => {
+  escapeStringRegexp = module.default;
+});
+
+const rateLimit = require("express-rate-limit");
 const Order = require("../models/Order");
 const Donation = require("../models/Donation");
 const Payment = require("../models/Payment");
@@ -19,6 +26,11 @@ const {
   donationMessage,
 } = require("../utils/mailMessageTemplates");
 const { paymentSchema } = require("../utils/schemaValidation");
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
 
 // const { verifyTshirtPurchase } = require("../middleware/verifyTshirtPurchase");
 
@@ -70,7 +82,7 @@ router.get("/checkout", (req, res) => {
   res.render("checkout", { amount, phone, email, state });
 });
 
-router.post("/checkout", async (req, res) => {
+router.post("/checkout", limiter, async (req, res) => {
   console.log(req.body);
   const { state, amount, phone, email } = req.body;
   const message = req.body.confirmationMessage;
@@ -93,20 +105,6 @@ router.post("/checkout", async (req, res) => {
     );
   }
 
-  // Validate confirmation message
-  // const regex =
-  //   /^Dear [A-Z\s]+, Your transaction of Kshs\. \d+\.\d{2} has successfully been deposited to Equity Account in favor of [A-Z\s]+ Ref\. Number [A-Z0-9]+ on \d{2}-\d{2}-\d{4} at \d{2}:\d{2}:\d{2}\. Thank you\.$/;
-  // if (!regex.test(message)) {
-  //   console.log("Invalid confirmation message:", message);
-  //   req.flash(
-  //     "error",
-  //     "Invalid confirmation message. Please check your inputs and try again"
-  //   );
-  //   return res.redirect(
-  //     `/checkout?state=${state}&amount=${amount}&phone=${phone}&email=${email}`
-  //   );
-  // }
-
   try {
     const payment = new Payment({
       state: state,
@@ -124,7 +122,7 @@ router.post("/checkout", async (req, res) => {
       mailOptions.subject =
         "Registration Confirmation - Leave no Medic Behind Run";
       // Update the Order model where phone number matches
-      const filter = { phone: phone };
+      const filter = { phone: escapeStringRegexp(phone) };
       const update = { paid: true };
       const options = { new: true };
       const updatedOrder = await Order.findOneAndUpdate(
@@ -136,7 +134,7 @@ router.post("/checkout", async (req, res) => {
       mailOptions.html = donationMessage;
       mailOptions.subject = "Donation reception - Leave no Medic Behind";
       // Update the Donate model where phone number matches
-      const filter = { phone: phone };
+      const filter = { phone: escapeStringRegexp(phone) };
       const update = { paid: true };
       const options = { new: true };
       const updatedDonation = await Donation.findOneAndUpdate(
@@ -162,22 +160,26 @@ router.post("/checkout", async (req, res) => {
   } catch (err) {
     console.error(err);
     req.flash("error", "Error saving payment details.");
+    const sanitizedAmount = encodeURIComponent(amount);
+    const sanitizedPhone = encodeURIComponent(phone);
+    const sanitizedEmail = encodeURIComponent(email);
     res
       .status(500)
-      .redirect(`/checkout?amount=${amount}&phone=${phone}&email=${email}`);
+      .redirect(`/checkout?amount=${sanitizedAmount}&phone=${sanitizedPhone}&email=${sanitizedEmail}`);
   }
 });
 
-router.get("/payment/callback", async (req, res) => {
+router.get("/payment/callback", limiter, async (req, res) => {
   const phone = req.body.phone;
+  const sanitizedPhone = encodeURIComponent(phone);
 
   try {
     const order = await Order.findOneAndUpdate(
-      { phone: { $eq: phone } },
+      { phone: { $eq: sanitizedPhone } },
       { $set: { paid: true } },
       { new: true }
     );
-    console.log(`Order with phone number ${phone} has been updated.`, order);
+    console.log(`Order with phone number ${sanitizedPhone} has been updated.`, order);
     res.redirect("/about");
   } catch (err) {
     console.error(err);
