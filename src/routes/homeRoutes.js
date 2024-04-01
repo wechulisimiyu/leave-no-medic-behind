@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const multer = require("multer");
 const axios = require("axios");
+const escapeStringRegexp = require('escape-string-regexp');
 const Order = require("../models/Order");
 const Donation = require("../models/Donation");
 const Payment = require("../models/Payment");
@@ -93,20 +94,6 @@ router.post("/checkout", async (req, res) => {
     );
   }
 
-  // Validate confirmation message
-  // const regex =
-  //   /^Dear [A-Z\s]+, Your transaction of Kshs\. \d+\.\d{2} has successfully been deposited to Equity Account in favor of [A-Z\s]+ Ref\. Number [A-Z0-9]+ on \d{2}-\d{2}-\d{4} at \d{2}:\d{2}:\d{2}\. Thank you\.$/;
-  // if (!regex.test(message)) {
-  //   console.log("Invalid confirmation message:", message);
-  //   req.flash(
-  //     "error",
-  //     "Invalid confirmation message. Please check your inputs and try again"
-  //   );
-  //   return res.redirect(
-  //     `/checkout?state=${state}&amount=${amount}&phone=${phone}&email=${email}`
-  //   );
-  // }
-
   try {
     const payment = new Payment({
       state: state,
@@ -124,7 +111,7 @@ router.post("/checkout", async (req, res) => {
       mailOptions.subject =
         "Registration Confirmation - Leave no Medic Behind Run";
       // Update the Order model where phone number matches
-      const filter = { phone: phone };
+      const filter = { phone: escapeStringRegexp(phone) };
       const update = { paid: true };
       const options = { new: true };
       const updatedOrder = await Order.findOneAndUpdate(
@@ -136,7 +123,7 @@ router.post("/checkout", async (req, res) => {
       mailOptions.html = donationMessage;
       mailOptions.subject = "Donation reception - Leave no Medic Behind";
       // Update the Donate model where phone number matches
-      const filter = { phone: phone };
+      const filter = { phone: escapeStringRegexp(phone) };
       const update = { paid: true };
       const options = { new: true };
       const updatedDonation = await Donation.findOneAndUpdate(
