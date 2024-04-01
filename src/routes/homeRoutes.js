@@ -171,14 +171,15 @@ router.post("/checkout", limiter, async (req, res) => {
 
 router.get("/payment/callback", limiter, async (req, res) => {
   const phone = req.body.phone;
+  const sanitizedPhone = encodeURIComponent(phone);
 
   try {
     const order = await Order.findOneAndUpdate(
-      { phone: { $eq: phone } },
+      { phone: { $eq: sanitizedPhone } },
       { $set: { paid: true } },
       { new: true }
     );
-    console.log(`Order with phone number ${phone} has been updated.`, order);
+    console.log(`Order with phone number ${sanitizedPhone} has been updated.`, order);
     res.redirect("/about");
   } catch (err) {
     console.error(err);
