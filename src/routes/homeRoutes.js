@@ -169,7 +169,7 @@ router.post("/checkout", limiter, async (req, res) => {
   }
 });
 
-router.get("/payment/callback", async (req, res) => {
+router.get("/payment/callback", limiter, async (req, res) => {
   const phone = req.body.phone;
 
   try {
