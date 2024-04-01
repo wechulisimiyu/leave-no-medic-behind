@@ -1,7 +1,13 @@
 const router = require("express").Router();
 const multer = require("multer");
 const axios = require("axios");
-const escapeStringRegexp = require('escape-string-regexp');
+let escapeStringRegexp;
+
+import('escape-string-regexp').then((module) => {
+  escapeStringRegexp = module.default;
+});
+
+const rateLimit = require("express-rate-limit");
 const Order = require("../models/Order");
 const Donation = require("../models/Donation");
 const Payment = require("../models/Payment");
@@ -20,6 +26,11 @@ const {
   donationMessage,
 } = require("../utils/mailMessageTemplates");
 const { paymentSchema } = require("../utils/schemaValidation");
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
 
 // const { verifyTshirtPurchase } = require("../middleware/verifyTshirtPurchase");
 
@@ -71,7 +82,7 @@ router.get("/checkout", (req, res) => {
   res.render("checkout", { amount, phone, email, state });
 });
 
-router.post("/checkout", async (req, res) => {
+router.post("/checkout", limiter, async (req, res) => {
   console.log(req.body);
   const { state, amount, phone, email } = req.body;
   const message = req.body.confirmationMessage;
