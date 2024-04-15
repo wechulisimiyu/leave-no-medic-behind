@@ -23,7 +23,7 @@
     "connect-mongo": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "ejs": "^3.1.9",
+    "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
     "escape-string-regexp": "^5.0.0",
     "express": "^4.19.2",
