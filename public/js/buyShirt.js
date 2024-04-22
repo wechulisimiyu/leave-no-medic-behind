@@ -44,7 +44,7 @@ function calculateTotalAmount() {
 
   // determine the tshirt price based on the type and student status
   if (tshirtTypeValue === "round") {
-    tshirtPrice = studentStatusYes ? 700 : 1000;
+    tshirtPrice = studentStatusYes ? 800 : 1000;
   } else if (tshirtTypeValue === "polo") {
     tshirtPrice = studentStatusYes ? 1000 : 2000;
   }
